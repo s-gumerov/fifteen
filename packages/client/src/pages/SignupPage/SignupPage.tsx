@@ -16,7 +16,7 @@ export const SignupPage = (): JSX.Element => (
         <TextFieldAuth type="tel" label="Телефон"/>
         <TextFieldAuth type="password" label="Пароль"/>
         <TextFieldAuth type="password" label="Пароль (еще раз)"/>
-        <Button variant="contained" size="large" sx={{ mt: 4, mb: 2 }}>Зарегистрироваться</Button>
+        <Button variant="contained" size="large" sx={{ mt: 4 }}>Зарегистрироваться</Button>
         <Link to={ROUTES.AUTH}>Войти</Link>
       </div>
     </div>
