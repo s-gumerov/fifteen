@@ -1,7 +1,5 @@
 import React from 'react'
 
-export const MainPage = (): JSX.Element => {
-  return (
+export const MainPage = (): JSX.Element => (
     <>Главная страница</>
   )
-}

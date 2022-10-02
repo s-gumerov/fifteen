@@ -15,13 +15,13 @@ import {
   NotFoundPage,
 } from '../pages'
 import { ROUTES } from './types'
+import { MainLayout } from '../layouts'
 
-export const Router: React.FC = () => {
-  return (
+export const Router = () => (
     <Routes>
       <Route path={ROUTES.MAIN} element={<MainPage />} />
-      <Route path={ROUTES.SIGNUP} element={<SignupPage />} />
-      <Route path={ROUTES.AUTH} element={<AuthPage />} />
+      <Route path={ROUTES.SIGNUP} element={<MainLayout><SignupPage /></MainLayout>} />
+      <Route path={ROUTES.AUTH} element={<MainLayout><AuthPage /></MainLayout>} />
       <Route path={ROUTES.GAME_FIELD} element={<GameFieldPage />} />
       <Route path={ROUTES.LEADERS} element={<LeadersPage />} />
       <Route path={ROUTES.PROFILE} element={<ProfilePage />} />
@@ -33,4 +33,3 @@ export const Router: React.FC = () => {
       <Route path='*' element={<NotFoundPage />} />
     </Routes>
   )
-}

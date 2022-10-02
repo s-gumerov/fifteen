@@ -1,7 +1,5 @@
 import React from 'react'
 
-export const EditProfilePage = (): JSX.Element => {
-  return (
+export const EditProfilePage = (): JSX.Element => (
     <>Редактирование профиля</>
   )
-}
