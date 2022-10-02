@@ -1,7 +1,5 @@
 import React from 'react'
 
-export const ForumPage = (): JSX.Element => {
-  return (
+export const ForumPage = (): JSX.Element => (
     <>Форум</>
   )
-}

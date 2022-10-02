@@ -1,0 +1,17 @@
+.auth {
+  text-align: center;
+
+  &__title {
+    margin-bottom: 26px;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+
+    .MuiFormControl-root {
+      margin-bottom: 7px;
+    }
+  }
+}

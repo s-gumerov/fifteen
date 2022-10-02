@@ -1,7 +1,5 @@
 import React from 'react'
 
-export const EditPasswordPage = (): JSX.Element => {
-  return (
+export const EditPasswordPage = (): JSX.Element => (
     <>Редактирование пароля</>
   )
-}
