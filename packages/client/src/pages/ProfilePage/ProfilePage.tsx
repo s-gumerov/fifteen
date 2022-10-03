@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextFieldProfile } from '../../components/ui';
-import { Avatar, Button } from '@mui/material';
+import { Avatar } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../router/types';
 import "./styles.scss";
