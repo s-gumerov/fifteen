@@ -19,7 +19,7 @@ import { MainLayout } from '../layouts'
 
 export const Router = () => (
     <Routes>
-      <Route path={ROUTES.MAIN} element={<MainPage />} />
+      <Route path={ROUTES.MAIN} element={<MainLayout><MainPage /></MainLayout>} />
       <Route path={ROUTES.SIGNUP} element={<MainLayout><SignupPage /></MainLayout>} />
       <Route path={ROUTES.AUTH} element={<MainLayout><AuthPage /></MainLayout>} />
       <Route path={ROUTES.GAME_FIELD} element={<GameFieldPage />} />
