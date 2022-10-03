@@ -25,8 +25,8 @@ export const Router = () => (
       <Route path={ROUTES.GAME_FIELD} element={<GameFieldPage />} />
       <Route path={ROUTES.LEADERS} element={<LeadersPage />} />
       <Route path={ROUTES.PROFILE} element={<MainLayout><ProfilePage /></MainLayout>} />
-      <Route path={ROUTES.EDIT_PROFILE} element={<EditProfilePage />} />
-      <Route path={ROUTES.EDIT_PASSWORD} element={<EditPasswordPage />} />
+      <Route path={ROUTES.EDIT_PROFILE} element={<MainLayout><EditProfilePage /></MainLayout>} />
+      <Route path={ROUTES.EDIT_PASSWORD} element={<MainLayout><EditPasswordPage /></MainLayout>} />
       <Route path={ROUTES.FORUM} element={<ForumPage />} />
       <Route path={`${ROUTES.FORUM}/:id`} element={<ForumSubPage />} />
       <Route path={ROUTES.RULES} element={<RulesPage />} />
