@@ -1,43 +1,43 @@
 import styles from "./styles.module.scss";
-import commentSvg from '../../../assets/icons/comment.svg';
+import commentSvg from '../../../../assets/icons/comment.svg';
 import { Link } from 'react-router-dom';
-import { ROUTES } from "../../../router/types";
+import { ROUTES } from "../../../../router/types";
 
 
 interface ITopicProps {
-  id:string,
-  title:string,
+  id: string,
+  title: string,
   description: string,
-  comments_count:number,
+  comments_count: number,
   date: string,
-  owner:string,
+  owner: string,
   last_message:
   {
-    author:string,
-    date:string
+    author: string,
+    date: string
   },
 }
 
 export const Topic = (
   {
-   id,
-   title,
-   description,
-   comments_count,
-   date,
-   owner,
-   last_message
-  }:ITopicProps
-  ): JSX.Element => {
+    id,
+    title,
+    description,
+    comments_count,
+    date,
+    owner,
+    last_message
+  }: ITopicProps
+): JSX.Element => {
 
   return (
     <div className={styles.container} id={id}>
-    
+
       <div className={styles.topic}>
 
         <Link to={`${ROUTES.FORUM}/:${id}`} className={styles.topic__title}>
           {title}
-        </Link>      
+        </Link>
 
         <div className={styles.topic__description}>
           {description}
@@ -46,7 +46,7 @@ export const Topic = (
         <div className={styles.topic__info}>
 
           <span className={styles.info__commentsCount}>
-            <img src={commentSvg} alt="commentsCount"/>
+            <img src={commentSvg} alt="commentsCount" />
             {comments_count}
           </span>
 
@@ -64,7 +64,7 @@ export const Topic = (
 
       </div>
 
-      <div className={styles.topic__border}/>
+      <div className={styles.topic__border} />
 
       <div className={styles.topic__lastMessage}>
 

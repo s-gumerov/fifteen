@@ -1,7 +1,7 @@
 $topic_username: #4EFFF4;
-$topic_text:#FFFFFF;
-$topic_border:#FFFFFF;
-$topic_date:#808080;
+$topic_text: #FFFFFF;
+$topic_border: #FFFFFF;
+$topic_date: #808080;
 
 .container {
   width: 1200px;
@@ -59,7 +59,7 @@ $topic_date:#808080;
   color: $topic_text;
 }
 
-.topic__info{
+.topic__info {
   display: flex;
   flex-flow: row nowrap;
   gap: 10px;
@@ -75,7 +75,8 @@ $topic_date:#808080;
   color: $topic_text;
 }
 
-.date{
+/*date и  username нужно убрать и импортировать стили из форума*/
+.date {
   height: 27px;
   font-family: 'IRANSansX';
   font-style: normal;
@@ -85,7 +86,7 @@ $topic_date:#808080;
   color: $topic_date;
 }
 
-.username{
+.username {
   height: 27px;
   font-family: 'IRANSansX';
   font-style: normal;
@@ -95,7 +96,7 @@ $topic_date:#808080;
   color: $topic_username;
 }
 
-.topic__border{
+.topic__border {
   height: 140px;
   width: 2px;
   background-color: $topic_border;
