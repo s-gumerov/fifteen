@@ -1,0 +1,52 @@
+.leaders {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-align: center;
+  height: 80vh;
+  width: 60vw;
+
+  &__title {
+    margin-bottom: 26px;
+  }
+
+  &__table {
+    height: 40vh;
+
+    .MuiTableBody-root {
+      background: #4044ED;
+
+      .MuiTableCell-root {
+        border-bottom: 2px solid #27262C;
+        border-right: 2px solid #FFFFFF;
+        color: #FFFFFF;
+
+        &:last-child {
+          border-right: none;
+        }
+      }
+
+      .userCell {
+        background: #008000;
+      }
+    }
+
+    .MuiTableHead-root {
+      .MuiTableCell-root {
+        color: #999999;
+        background: transparent;
+        border: none;
+      }
+    }
+
+
+  }
+
+  &__footer {
+    .MuiPagination-ul {
+      button {
+        background: #FFFFFF;
+      }
+    }
+  }
+}
