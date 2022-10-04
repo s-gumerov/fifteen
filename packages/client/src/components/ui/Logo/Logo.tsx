@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../../../router/types';
 import { appTitle } from '../../../const';
+import { LogoProps } from './types';
 import './styles.scss';
 
-export const Logo = (props: {logoClass: string}): JSX.Element => (
+export const Logo = (props: LogoProps): JSX.Element => (
     <div className="logo">
       <span className="logo__title">{appTitle}</span>
-      <Link to={ROUTES.MAIN} className={props.logoClass}></Link>
+      {props.backUrl && <Link to={props.backUrl} className={props.logoClass}></Link>}
     </div>
   )

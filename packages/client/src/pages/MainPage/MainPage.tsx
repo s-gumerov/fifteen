@@ -22,7 +22,7 @@ export const MainPage = (): JSX.Element => (
       <div className="menu__circle-line"></div>
       <div className="menu__circle-line"></div>
       <div className="menu__circle-line">
-        <div className="menu__circle-link-user">ПОЛЬЗОВАТЕЛЬ</div>
+        <Link to={ROUTES.AUTH} className="menu__circle-link-user">ПОЛЬЗОВАТЕЛЬ</Link>
       </div>
       <div className="menu__circle-line"></div>
       <div className="menu__circle-line"></div>
