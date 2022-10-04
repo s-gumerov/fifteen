@@ -3,9 +3,15 @@ import { appTitle } from '../../../const';
 import { LogoProps } from './types';
 import './styles.scss';
 
-export const Logo = (props: LogoProps): JSX.Element => (
+export const Logo = (props: LogoProps): JSX.Element => {
+  const buttonBack = props.backUrl
+                    ? <Link to={props.backUrl} className="logo__button"></Link>
+                    : <Link to="#" className="logo__button logo__button_hidden"></Link>
+
+  return (
     <div className="logo">
       <span className="logo__title">{appTitle}</span>
-      {props.backUrl && <Link to={props.backUrl} className={props.logoClass}></Link>}
+      {buttonBack}
     </div>
   )
+}
