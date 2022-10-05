@@ -102,3 +102,4 @@ export const LeadersPage = (): JSX.Element => {
       </div>
   )
 }
+
