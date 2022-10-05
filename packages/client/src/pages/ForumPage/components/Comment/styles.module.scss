@@ -1,9 +1,6 @@
 @use '../../../../assets/colors.scss' as *;
-// $message: #ffffff;
-// $comment_line: #D9D9D9;
-// $topic_date: #808080;
-// $topic_username: #4EFFF4;
-
+/* для импорта date и username */
+@use '../../../../assets/styles.scss' as *;
 
 .comment {
   display: flex;
@@ -27,27 +24,6 @@
   display: flex;
   flex-flow: row nowrap;
   gap: 10px;
-}
-
-/*date и  username нужно убрать и импортировать стили из форума*/
-.date {
-  height: 27px;
-  font-family: 'IRANSansX';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 27px;
-  color: $topic_date;
-}
-
-.username {
-  height: 27px;
-  font-family: 'IRANSansX';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 27px;
-  color: $topic_username;
 }
 
 .box__message {

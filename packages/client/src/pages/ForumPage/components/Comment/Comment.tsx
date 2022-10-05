@@ -12,6 +12,7 @@ export const Comment = ({ id, username, avatar, date, message }: CommentProps): 
                     alt={username}
                     src={avatar}
                     variant="square"
+                    sx={{ width: 75, height: 75 }}
                 />
                 <div className={styles.comment__box}>
                     <div className={styles.box__title}>

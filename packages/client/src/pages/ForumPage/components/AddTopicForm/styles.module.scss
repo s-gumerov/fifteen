@@ -1,6 +1,4 @@
-$form_title: #FFFFFF;
-$form_line: #FFFFFF;
-$form_background: #3A393E;
+@use '../../../../assets/colors.scss' as *;
 
 .wrapper {
   position: absolute;

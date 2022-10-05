@@ -1,8 +1,8 @@
-import { useState, MouseEvent } from 'react';
+import { KeyboardEvent } from 'react';
 import Avatar from '@mui/material/Avatar';
-import { Button } from '@mui/material';
 import styles from "./styles.module.scss";
 import { Comment } from './components/Comment/Comment';
+import { Input } from '../../components/ui/Input/Input';
 
 export const ForumSubPage = (): JSX.Element => {
 
@@ -46,11 +46,19 @@ export const ForumSubPage = (): JSX.Element => {
 
   const comments = topicComments.map(comment => <Comment key={comment.id} {...comment} />)
 
+  const onKeyUpHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+      const message = e.currentTarget.value;
+      e.currentTarget.value = '';
+      console.log(message);
+    };
+  };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.forumSubPage}>
         <h1 className={styles.forum__title}>
-          Форум {'>'}
+          Форум {'> '}
           <span className={styles.title_underline}>
             {topicInfo.topic_name}
           </span>
@@ -65,6 +73,7 @@ export const ForumSubPage = (): JSX.Element => {
             alt={topicInfo.info.owner}
             src={topicInfo.info.avatar}
             variant="square"
+            sx={{ width: 55, height: 55 }}
           />
           <div className={styles.info__owner}>
             <span className={styles.username}>
@@ -90,7 +99,14 @@ export const ForumSubPage = (): JSX.Element => {
           {comments}
 
         </div>
-
+        <Input
+          id='forum_subPage_input'
+          name='forum_subPage_input'
+          className={styles.forumSubPage__inputMsg}
+          placeholder='Введите комментарий'
+          disabled={false}
+          onKeyUpHandler={onKeyUpHandler}
+        />
       </div>
     </div>
   );
