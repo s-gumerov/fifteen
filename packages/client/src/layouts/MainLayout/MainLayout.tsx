@@ -1,11 +1,11 @@
-import React, { PropsWithChildren } from 'react'
-import { Logo, Triangles } from '../../components/ui'
+import { Logo, Triangles } from '../../components/ui';
+import { MainLayoutProps } from './types';
 import './styles.scss';
 
-export const MainLayout = ({children}: PropsWithChildren): JSX.Element => (
+export const MainLayout = (props: MainLayoutProps): JSX.Element => (
     <div className="content-wrap">
-      <Logo />
-      <div className="content-center">{children}</div>
+      <Logo backUrl={props.backUrl}/>
+      <div className="content-center">{props.children}</div>
       <Triangles />
     </div>
   )

@@ -20,4 +20,29 @@
     transform: rotate(180deg);
     margin-bottom: 30px;
   }
+
+  &__button {
+    width: 76px;
+    height: 76px;
+    top: 61px;
+    background: #93DFFF;
+    border-radius: 50%;
+    position: absolute;
+    right: 414px;
+    transition: all .3s;
+    background-image: url('../../../assets/back_arrow.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: rotate(-90deg);
+
+    &_hidden {
+      top: 300px;
+    }
+
+    &:hover {
+      transform: scale(1.03) rotate(-90deg);
+    }
+  }
+
+
 }
