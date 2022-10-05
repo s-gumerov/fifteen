@@ -54,8 +54,6 @@ export const ForumPage = (): JSX.Element => {
 
   const closeForm = () => setShowAddTopicForm(false);
 
-
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.forum}>

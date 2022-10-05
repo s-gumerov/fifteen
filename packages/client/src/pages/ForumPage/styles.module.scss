@@ -1,17 +1,22 @@
 @use '../../assets/colors.scss' as *;
 @use '../../assets/mixin.scss' as *;
 
-$forum_maxWidth: 1200px;
+$forum_maxWidth: 90%;
+$forum_minWidth: 550px;
+$forumSubPage_maxWidth: 60%;
+$forumSubPage_minWidth: 550px;
 
 .wrapper {
   height: 100vh;
   width: 100%;
+  overflow: auto;
 }
 
 .forum {
+  margin: 0 auto;
   display: flex;
   flex-flow: column nowrap;
-  min-width: 550px;
+  min-width: $forum_minWidth;
   max-width: $forum_maxWidth;
 }
 
@@ -49,19 +54,19 @@ $forum_maxWidth: 1200px;
   font-family: 'IRANSansXFaNum';
   font-style: normal;
   font-weight: 400;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 36px;
   color: $header_text;
 }
 
 .topicText {
   text-align: center;
-  width: 942px;
+  width: 75%;
 }
 
 .lastMsgText {
   text-align: center;
-  width: 252px;
+  width: 25%;
 }
 
 .topics__content {
@@ -72,10 +77,11 @@ $forum_maxWidth: 1200px;
 }
 
 .forumSubPage {
+  margin: 0 auto;
   display: flex;
   flex-flow: column nowrap;
-  min-width: 550px;
-  max-width: $forum_maxWidth;
+  min-width: $forumSubPage_minWidth;
+  max-width: $forumSubPage_maxWidth;
   align-items: flex-start;
 }
 
@@ -85,7 +91,7 @@ $forum_maxWidth: 1200px;
 
 .forumSubPage__topicDescription {
   margin-top: 50px;
-  width: 679px;
+  max-width: 679px;
   max-height: 200px;
   font-family: 'IRANSansX';
   font-style: normal;
@@ -164,7 +170,7 @@ $forum_maxWidth: 1200px;
   position: absolute;
   bottom: 10px;
   height: 56px;
-  width: $forum_maxWidth;
+  width: $forumSubPage_maxWidth;
   background: $forumSubPage_inputMsg;
   border: 2px solid #4044ED;
   text-align: center;

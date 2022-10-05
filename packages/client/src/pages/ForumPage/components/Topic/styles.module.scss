@@ -3,7 +3,9 @@
 @use '../../../../assets/styles.scss' as *;
 
 .container {
-  width: 1200px;
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
   height: 140px;
   background: $topic_container;
   display: flex;
@@ -11,7 +13,7 @@
 }
 
 .topic {
-  width: 882px;
+  width: 75%;
   display: flex;
   flex-flow: column nowrap;
   padding: 10px 30px;
@@ -81,7 +83,7 @@
 }
 
 .topic__lastMessage {
-  width: 212px;
+  width: 25%;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
