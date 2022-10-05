@@ -55,10 +55,10 @@ export const LeadersPage = (): JSX.Element => {
             <Table sx={{minWidth: 650}}>
               <TableHead>
                 <TableRow>
-                  <TableCell align="center">Позиция</TableCell>
-                  <TableCell align="center">Игрок</TableCell>
-                  <TableCell align="center">Ходы</TableCell>
-                  <TableCell align="center">Время</TableCell>
+                  <TableCell align="center" component="th">Позиция</TableCell>
+                  <TableCell align="center" component="th">Игрок</TableCell>
+                  <TableCell align="center" component="th">Ходы</TableCell>
+                  <TableCell align="center" component="th">Время</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -67,18 +67,18 @@ export const LeadersPage = (): JSX.Element => {
                       .map((usr, index) => {
                         return (
                             <TableRow className={usr.userName === "Ты" ? "userCell" : ""} key={index}>
-                              <TableCell sx={{width: 70}} component="th" scope="row"
+                              <TableCell sx={{width: 70}} component="td" scope="row"
                                          align="center">
                                 {tempUsers.indexOf(usr) + 1}
                               </TableCell>
-                              <TableCell sx={{width: 300}} component="th" scope="row"
+                              <TableCell sx={{width: 300}} component="td" scope="row"
                                          align="center">
                                 {usr.userName}
                               </TableCell>
-                              <TableCell component="th" scope="row" align="center">
+                              <TableCell component="td" scope="row" align="center">
                                 {usr.moves}
                               </TableCell>
-                              <TableCell component="th" scope="row" align="center">
+                              <TableCell component="td" scope="row" align="center">
                                 {usr.time}
                               </TableCell>
                             </TableRow>
@@ -94,10 +94,9 @@ export const LeadersPage = (): JSX.Element => {
               variant="outlined"
               shape="rounded"
               color="primary"
-              count={Math.ceil(tempUsers.length / 5)}
+              count={Math.ceil(tempUsers.length / rowsPerPage)}
               page={page}
               onChange={handleChangePage}
-
           />
         </div>
       </div>
