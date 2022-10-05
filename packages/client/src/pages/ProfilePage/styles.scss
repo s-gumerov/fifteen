@@ -1,10 +1,5 @@
-.auth {
-  text-align: center;
+.profile {
   padding: 20px 0;
-
-  &__title {
-    margin-bottom: 26px;
-  }
 
   &__form {
     display: flex;
@@ -17,6 +12,11 @@
 
     a {
       line-height: 50px;
+      border-bottom: 1px solid white;
+
+      &:last-child {
+        border-bottom: none;
+      }
     }
   }
 }

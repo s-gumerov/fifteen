@@ -1,5 +1,6 @@
 * {
   margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
 }
 
 .content-center {
@@ -20,4 +21,8 @@ a {
   &:hover {
     text-decoration: underline;
   }
+}
+
+a.red {
+  color: red;
 }
