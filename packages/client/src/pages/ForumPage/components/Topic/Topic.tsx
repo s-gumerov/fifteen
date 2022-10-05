@@ -2,21 +2,7 @@ import styles from "./styles.module.scss";
 import commentSvg from '../../../../assets/icons/comment.svg';
 import { Link } from 'react-router-dom';
 import { ROUTES } from "../../../../router/types";
-
-
-interface ITopicProps {
-  id: string,
-  title: string,
-  description: string,
-  comments_count: number,
-  date: string,
-  owner: string,
-  last_message:
-  {
-    author: string,
-    date: string
-  },
-}
+import { ITopicProps } from "./types";
 
 export const Topic = (
   {
