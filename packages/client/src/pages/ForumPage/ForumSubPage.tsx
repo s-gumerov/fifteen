@@ -59,7 +59,7 @@ export const ForumSubPage = (): JSX.Element => {
       <div className={styles.forumSubPage}>
         <h1 className={styles.forum__title}>
           Форум {'> '}
-          <span className={styles.title_underline}>
+          <span className={styles.forumSubPage__title_underline}>
             {topicInfo.topic_name}
           </span>
         </h1>
@@ -68,7 +68,7 @@ export const ForumSubPage = (): JSX.Element => {
           {topicInfo.description}
         </div>
 
-        <div className={styles.forumSubPage__info}>
+        <div className={styles.info}>
           <Avatar
             alt={topicInfo.info.owner}
             src={topicInfo.info.avatar}
@@ -88,10 +88,10 @@ export const ForumSubPage = (): JSX.Element => {
 
         <div className={styles.forumSubPage__line} />
 
-        <div className={styles.forumSubPage__comments}>
+        <div className={styles.comments}>
 
           <div className={styles.comments__header}>
-            <span className={styles.header__msgCount}>
+            <span className={styles.msgCount}>
               {topicInfo.info.comments_count} КОММЕНТАРИЕВ
             </span>
           </div>

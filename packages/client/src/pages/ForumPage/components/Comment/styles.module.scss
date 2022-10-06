@@ -7,30 +7,30 @@
   flex-flow: row nowrap;
   padding: 20px 40px;
   gap: 20px;
+
+  &__line {
+    width: 100%;
+    height: 2px;
+    background: $comment_line;
+  }
 }
 
-.comment__line {
-  width: 100%;
-  height: 2px;
-  background: $comment_line;
-}
-
-.comment__box {
+.box {
   display: flex;
   flex-flow: column nowrap;
-}
 
-.box__title {
-  display: flex;
-  flex-flow: row nowrap;
-  gap: 10px;
-}
+  &__title {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 10px;
+  }
 
-.box__message {
-  font-family: 'IRANSansX';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: $message;
+  &__message {
+    font-family: 'IRANSansX';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: $message;
+  }
 }

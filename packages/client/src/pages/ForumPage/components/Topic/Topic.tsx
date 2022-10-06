@@ -29,7 +29,7 @@ export const Topic = (
           {description}
         </div>
 
-        <div className={styles.topic__info}>
+        <div className={styles.info}>
 
           <span className={styles.info__commentsCount}>
             <img src={commentSvg} alt="commentsCount" />

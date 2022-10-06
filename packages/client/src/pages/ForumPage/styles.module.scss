@@ -1,10 +1,8 @@
 @use '../../assets/colors.scss' as *;
 @use '../../assets/mixin.scss' as *;
 
-$forum_maxWidth: 90%;
-$forum_minWidth: 550px;
-$forumSubPage_maxWidth: 60%;
-$forumSubPage_minWidth: 550px;
+$maxWidth: 75%;
+$minWidth: 550px;
 
 .wrapper {
   height: 100vh;
@@ -16,47 +14,46 @@ $forumSubPage_minWidth: 550px;
   margin: 0 auto;
   display: flex;
   flex-flow: column nowrap;
-  min-width: $forum_minWidth;
-  max-width: $forum_maxWidth;
-}
+  min-width: $minWidth;
+  max-width: $maxWidth;
 
-.forum__title {
-  color: $forum_title;
-  font-weight: 400;
-  font-size: 3em;
-  text-align: center;
-  margin-top: 75px;
-  text-transform: uppercase;
-}
+  &__title {
+    color: $forum_title;
+    font-weight: 400;
+    font-size: 3em;
+    text-align: center;
+    margin-top: 75px;
+    text-transform: uppercase;
+  }
 
-.forum__form {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 255px;
-}
+  &__content {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    gap: 4px;
+  }
 
-.form__topics {
-  width: 100%;
-  display: flex;
-  flex-flow: column nowrap;
-}
+  &__topics {
+    display: flex;
+    flex-flow: column nowrap;
+  }
 
-.topics__header {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-}
+  &__header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+  }
 
-.header__text {
-  height: 36px;
-  font-family: 'IRANSansXFaNum';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 36px;
-  color: $header_text;
+  &__text {
+    height: 36px;
+    font-family: 'IRANSansXFaNum';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 36px;
+    color: $header_text;
+  }
+
 }
 
 .topicText {
@@ -69,49 +66,68 @@ $forumSubPage_minWidth: 550px;
   width: 25%;
 }
 
-.topics__content {
-  width: 100%;
-  display: flex;
-  flex-flow: column nowrap;
-  gap: 4px;
-}
-
 .forumSubPage {
   margin: 0 auto;
   display: flex;
   flex-flow: column nowrap;
-  min-width: $forumSubPage_minWidth;
-  max-width: $forumSubPage_maxWidth;
+  min-width: $minWidth;
+  max-width: $maxWidth;
   align-items: flex-start;
+
+  &__title_underline {
+    text-decoration: underline;
+  }
+
+  &__topicDescription {
+    margin-top: 50px;
+    max-width: 679px;
+    max-height: 200px;
+    font-family: 'IRANSansX';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: $forum_text;
+  }
+
+  &__line {
+    height: 2px;
+    width: 100%;
+    background-color: $forumSubPage_line;
+  }
+
+  &__inputMsg {
+    position: absolute;
+    bottom: 10px;
+    height: 56px;
+    width: $maxWidth;
+    background: $forumSubPage_inputMsg;
+    border: 2px solid $inputMsg_border;
+    text-align: center;
+    color: $forum_text;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+
+    &:focus {
+      outline: none;
+      @include hover-shadow($color: $inputMsg_border);
+    }
+  }
 }
 
-.title_underline {
-  text-decoration: underline;
-}
-
-.forumSubPage__topicDescription {
-  margin-top: 50px;
-  max-width: 679px;
-  max-height: 200px;
-  font-family: 'IRANSansX';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: $forum_text;
-}
-
-.forumSubPage__info {
+.info {
   margin: 20px 0;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   gap: 20px;
-}
 
-.info__owner {
-  display: flex;
-  flex-flow: column nowrap;
+  &__owner {
+    display: flex;
+    flex-flow: column nowrap;
+  }
 }
 
 .date {
@@ -134,29 +150,23 @@ $forumSubPage_minWidth: 550px;
   color: $topic_username;
 }
 
-.forumSubPage__line {
-  height: 2px;
-  width: 100%;
-  background-color: $forumSubPage_line;
-}
-
-.forumSubPage__comments {
+.comments {
   margin-top: 50px;
   display: flex;
   flex-flow: column nowrap;
   width: 100%;
   background: $forumSubPage_comments;
+
+  &__header {
+    padding: 0 10px;
+    height: 72px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+  }
 }
 
-.comments__header {
-  padding: 0 10px;
-  height: 72px;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-}
-
-.header__msgCount {
+.msgCount {
   height: 36px;
   font-family: 'IRANSansX';
   font-style: normal;
@@ -164,24 +174,4 @@ $forumSubPage_minWidth: 550px;
   font-size: 24px;
   line-height: 36px;
   color: $forum_title;
-}
-
-.forumSubPage__inputMsg {
-  position: absolute;
-  bottom: 10px;
-  height: 56px;
-  width: $forumSubPage_maxWidth;
-  background: $forumSubPage_inputMsg;
-  border: 2px solid #4044ED;
-  text-align: center;
-  color: $forum_text;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-
-  &:focus {
-    outline: none;
-    @include hover-shadow($color: #4044ED);
-  }
 }

@@ -20,23 +20,23 @@
   height: 518px;
   background: $form_background;
   border-radius: 25px;
-}
 
-.form__title {
-  margin-top: 20px;
-  color: $form_title;
-  height: 32px;
-  font-family: 'JK Abode';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 32px;
-  line-height: 32px;
-  text-transform: uppercase;
-}
+  &__title {
+    margin-top: 20px;
+    color: $form_title;
+    height: 32px;
+    font-family: 'JK Abode';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 32px;
+    text-transform: uppercase;
+  }
 
-.form__line {
-  margin-top: 20px;
-  height: 2px;
-  width: 531px;
-  background-color: $form_line;
+  &__line {
+    margin-top: 20px;
+    height: 2px;
+    width: 531px;
+    background-color: $form_line;
+  }
 }

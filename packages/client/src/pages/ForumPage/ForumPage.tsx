@@ -47,7 +47,7 @@ export const ForumPage = (): JSX.Element => {
           author: 'Spider_man',
           date: '01 октября 2022 в 14:35',
         },
-      }
+      },
     ];
 
   const topics = testData.map(topic => <Topic key={topic.id} {...topic} />)
@@ -67,22 +67,22 @@ export const ForumPage = (): JSX.Element => {
           СОЗДАТЬ ТЕМУ
         </Button>
 
-        <div className={styles.forum__form}>
-          <div className={styles.form__topics}>
+        <div className={styles.forum__content}>
+          <div className={styles.forum__topics}>
 
-            <div className={styles.topics__header}>
+            <div className={styles.forum__header}>
 
-              <span className={`${styles.header__text} ${styles.topicText}`}>
+              <span className={`${styles.forum__text} ${styles.topicText}`}>
                 Тема
               </span>
 
-              <span className={`${styles.header__text} ${styles.lastMsgText}`}>
+              <span className={`${styles.forum__text} ${styles.lastMsgText}`}>
                 Последнее сообщение
               </span>
 
             </div>
 
-            <div className={styles.topics__content}>
+            <div className={styles.forum__content}>
               {topics}
             </div>
 

@@ -14,7 +14,7 @@ export const Comment = ({ id, username, avatar, date, message }: CommentProps): 
                     variant="square"
                     sx={{ width: 75, height: 75 }}
                 />
-                <div className={styles.comment__box}>
+                <div className={styles.box}>
                     <div className={styles.box__title}>
                         <span className={styles.username}>
                             {username}
