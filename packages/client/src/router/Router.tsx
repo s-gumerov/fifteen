@@ -27,8 +27,8 @@ export const Router = () => (
       <Route path={ROUTES.PROFILE} element={<MainLayout><ProfilePage /></MainLayout>} />
       <Route path={ROUTES.EDIT_PROFILE} element={<MainLayout><EditProfilePage /></MainLayout>} />
       <Route path={ROUTES.EDIT_PASSWORD} element={<MainLayout><EditPasswordPage /></MainLayout>} />
-      <Route path={ROUTES.FORUM} element={<ForumPage />} />
-      <Route path={`${ROUTES.FORUM}/:id`} element={<ForumSubPage />} />
+      <Route path={ROUTES.FORUM} element={<MainLayout><ForumPage /></MainLayout>} />
+      <Route path={`${ROUTES.FORUM}/:id`} element={<MainLayout><ForumSubPage /></MainLayout>} />
       <Route path={ROUTES.RULES} element={<MainLayout backUrl={ROUTES.MAIN}><RulesPage /></MainLayout>} />
       <Route path='*' element={<NotFoundPage />} />
     </Routes>
