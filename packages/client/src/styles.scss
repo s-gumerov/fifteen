@@ -1,5 +1,6 @@
 * {
   margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
 }
 
 .content-center {
@@ -8,6 +9,7 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
+  z-index: 1;
 }
 
 .title {
@@ -24,4 +26,8 @@ a {
   &:hover {
     text-decoration: underline;
   }
+}
+
+a.red {
+  color: red;
 }
