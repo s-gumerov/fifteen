@@ -1,12 +1,13 @@
 @use '../../assets/colors.scss' as *;
 @use '../../assets/mixin.scss' as *;
+/* для импорта date и username */
+@use '../../assets/styles.scss' as *;
 
 $maxWidth: 75%;
 $minWidth: 550px;
 
 .wrapper {
   height: 100vh;
-  width: 100%;
   overflow: auto;
 }
 
@@ -67,6 +68,7 @@ $minWidth: 550px;
 }
 
 .forumSubPage {
+  position: relative;
   margin: 0 auto;
   display: flex;
   flex-flow: column nowrap;
@@ -97,9 +99,12 @@ $minWidth: 550px;
   }
 
   &__inputMsg {
-    position: absolute;
-    bottom: 10px;
+    position: fixed;
+    box-sizing: border-box;
+    align-self: center;
+    bottom: 50px;
     height: 56px;
+    min-width: $minWidth;
     width: $maxWidth;
     background: $forumSubPage_inputMsg;
     border: 2px solid $inputMsg_border;
@@ -128,26 +133,6 @@ $minWidth: 550px;
     display: flex;
     flex-flow: column nowrap;
   }
-}
-
-.date {
-  height: 27px;
-  font-family: 'IRANSansX';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 27px;
-  color: $topic_date;
-}
-
-.username {
-  height: 27px;
-  font-family: 'IRANSansX';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 27px;
-  color: $topic_username;
 }
 
 .comments {

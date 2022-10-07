@@ -2,7 +2,6 @@ import { KeyboardEvent } from 'react';
 import Avatar from '@mui/material/Avatar';
 import styles from "./styles.module.scss";
 import { Comment } from './components/Comment/Comment';
-import { Input } from '../../components/ui/Input/Input';
 
 export const ForumSubPage = (): JSX.Element => {
 
@@ -99,13 +98,13 @@ export const ForumSubPage = (): JSX.Element => {
           {comments}
 
         </div>
-        <Input
+        <input
+          type='text'
           id='forum_subPage_input'
           name='forum_subPage_input'
           className={styles.forumSubPage__inputMsg}
           placeholder='Введите комментарий'
-          disabled={false}
-          onKeyUpHandler={onKeyUpHandler}
+          onKeyUp={onKeyUpHandler}
         />
       </div>
     </div>
