@@ -1,14 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
 import { Formik, Form } from 'formik';
 import { TextFieldAuth } from '../../components/ui';
 import { ROUTES } from '../../router/types';
 import { INITIAL_FORM_STATE, SIGNUP_VALIDATION_SCHEMA } from './validation-schema';
+import { signUp, TSignupData } from '../../api'
 import "./styles.scss";
 
 export const SignupPage = (): JSX.Element => {
-  const handleSubmit = () => console.log('Форма отправлена..')
+  const navigate = useNavigate();
+
+  const handleSubmit = async (values: TSignupData) => {
+    const res = await signUp(values);
+    if(res?.id) navigate(ROUTES.AUTH);
+  }
 
   return (
     <div className="auth">
