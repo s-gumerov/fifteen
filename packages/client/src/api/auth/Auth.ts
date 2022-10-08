@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { BASE_URL_API, TSignupData, TSignupResponse } from '..';
+import axios, { AxiosError } from 'axios'
+import { BASE_URL_API, TAuthData, TSignupData, TSignupResponse } from '..'
 
 export const signUp = async (data: TSignupData) => {
   try {
@@ -7,5 +7,14 @@ export const signUp = async (data: TSignupData) => {
     return result.data;
   } catch (error) {
     console.log(error);
+  }
+}
+
+export const authorize = async (data: TAuthData) => {
+  try {
+    const result = await axios.post<string>(`${BASE_URL_API}/api/v2/auth/signin`, data);
+    return result.data;
+  } catch (error) {
+    console.log(error)
   }
 }

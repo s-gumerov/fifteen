@@ -1,13 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material';
 import { Formik, Form } from 'formik';
 import { TextFieldAuth } from '../../components/ui';
 import { ROUTES } from '../../router/types';
 import { INITIAL_FORM_STATE, AUTH_VALIDATION_SCHEMA } from './validation-schema';
+import { authorize, TAuthData } from '../../api'
 
 export const AuthPage = (): JSX.Element => {
-  const handleSubmit = () => console.log('Форма отправлена..')
+  const navigate = useNavigate();
+
+  const handleSubmit = async (values: TAuthData) => {
+    const res = await authorize(values);
+    if(res === "OK") navigate(ROUTES.MAIN);
+  }
 
   return (
     <div className="auth">
