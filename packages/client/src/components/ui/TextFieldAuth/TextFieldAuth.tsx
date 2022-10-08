@@ -1,13 +1,27 @@
 import React from 'react';
 import { TextField } from '@mui/material';
-import { TextFieldAuthProps } from './types'
+import { useField } from 'formik';
+import { TextFieldProps } from '@mui/material';
 import { TextFieldAuthStyles } from './const'
 
-export const TextFieldAuth = ({ label, type }: TextFieldAuthProps): JSX.Element => (
+export const TextFieldAuth = ({ name, ...propsWithoutName }: TextFieldProps): JSX.Element => {
+  const [field, meta] = useField(name as string);
+
+  const configTextField = {
+    ...field,
+    ...propsWithoutName,
+  };
+
+  if (meta && meta.touched && meta.error) {
+    configTextField.error = true;
+    configTextField.helperText = meta.error;
+  }
+
+  return (
     <TextField
-      label={label}
-      type={type}
+      { ...configTextField }
       variant="standard"
       sx={TextFieldAuthStyles}
     />
   )
+}
