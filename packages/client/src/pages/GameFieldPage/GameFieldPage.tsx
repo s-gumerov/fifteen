@@ -22,7 +22,7 @@ export const GameFieldPage = (): JSX.Element => {
     const gameTime = document.querySelector('.game__time');
 
     const timeStart = Number(new Date);
-    setInterval(() => {
+    const timer = setInterval(() => {
       const timeCurrent = Number(new Date);
       const time = timeCurrent - timeStart;
       let timeString = `Время: ${Math.round(time / 1000)} сек`;
@@ -40,7 +40,10 @@ export const GameFieldPage = (): JSX.Element => {
         steps++;
         gameSteps.textContent = `Ходы: ${steps}`
       }
-    }), []
+    });
+    return () => {
+      clearInterval(timer);
+    }
   });
   
 
