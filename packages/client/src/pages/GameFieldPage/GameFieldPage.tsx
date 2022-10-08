@@ -47,10 +47,10 @@ export const GameFieldPage = (): JSX.Element => {
 
   return (
     <div className="game">
-      <canvas ref={ref} width={825} height={825} />
+      <canvas ref={ref} width={505} height={505} />
       <div className="game__data-wrapper">
         <div className="game__steps">Ходы: 0</div>
-        <div className="game__time">Время: 0</div>
+        <div className="game__time">Время: 0 сек</div>
       </div>
     </div>
   );

@@ -4,19 +4,19 @@ const drawField = (ctx: CanvasRenderingContext2D, board: number[][], bg: HTMLIma
     for (let j = 0; j < 4; j++) {
       let dx = 0;
       if (board && board[i][j] > 9) {
-        dx= 40;
+        dx= 20;
       } else {
         dx = 0;
       };
       if (ctx) {
-        ctx.font = "128px serif";
+        ctx.font = "64px serif";
         ctx.fillStyle = '#F5F5F5';
-        ctx.fillRect(j * 200, i * 200, 210, 210);
+        ctx.fillRect(j * 120, i * 120, 130, 130);
         if (board && board[i][j] === 0) {
-          ctx.clearRect((5 + j * 200), (5 + i * 200), 200, 200);
+          ctx.clearRect((5 + j * 120), (5 + i * 120), 120, 120);
         } else {
-          ctx.drawImage(bg, (5 + j * 200), (5 + i * 200));
-          ctx.fillText(`${board[i][j]}`, 65 - dx + 200 * j, 150 + 200 * i);
+          ctx.drawImage(bg, (5 + j * 120), (5 + i * 120));
+          ctx.fillText(`${board[i][j]}`, 45 - dx + 120 * j, 80 + 120 * i);
         }
       }
     }
@@ -95,8 +95,8 @@ const movePuzzleItem = (board: number[][], yMouse: number, xMouse: number): {boa
 
 // Действия по клику
 const turnGameStep = (e: MouseEvent, ctx: CanvasRenderingContext2D, board: number[][], bg: HTMLImageElement) => {
-  const x = (e.pageX - (e.target as HTMLCanvasElement).offsetLeft) / 200 | 0;
-  const y = (e.pageY - (e.target as HTMLCanvasElement).offsetTop)  / 200 | 0;
+  const x = (e.pageX - (e.target as HTMLCanvasElement).offsetLeft) / 120 | 0;
+  const y = (e.pageY - (e.target as HTMLCanvasElement).offsetTop)  / 120 | 0;
   const newBoard = board && movePuzzleItem(board, x, y);
   board = newBoard.board;
   ctx && board && drawField(ctx, board, bg);
