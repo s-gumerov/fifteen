@@ -11,7 +11,7 @@ export const ProfilePage = (): JSX.Element => (
     <div className="profile">
         <Formik
             initialValues={{...INITIAL_FORM_STATE}}
-            onSubmit={() => {console.log('form')}}
+            onSubmit={() => {console.log(`this console.log of the name of Formik's onSubmit is required option`)}}
         >
             <Form>
                 <Avatar
