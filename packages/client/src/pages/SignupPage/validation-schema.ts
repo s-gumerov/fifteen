@@ -1,5 +1,11 @@
 import * as Yup from 'yup';
-import { loginRegexp, nameRegexp, passwordRegexp, phoneRegexp } from '../../services/validation_regexps';
+import {
+  displayNameRegexp,
+  loginRegexp,
+  nameRegexp,
+  passwordRegexp,
+  phoneRegexp
+} from '../../services/validation_regexps';
 
 export const INITIAL_FORM_STATE = {
   email: '',
@@ -24,6 +30,9 @@ export const SIGNUP_VALIDATION_SCHEMA = Yup.object().shape({
   second_name: Yup.string()
     .required('Введите, пожалуйста, фамилию!')
     .matches(nameRegexp, 'Латиница или кириллица, первая буква заглавная'),
+  display_name: Yup.string()
+    .required('Введите, пожалуйста, имя для форума!')
+    .matches(displayNameRegexp, 'Латиница, первая буква заглавная'),
   phone: Yup.string()
     .required('Введите, пожалуйста, телефон!')
     .min(10, 'Короткий номер телефона!')
