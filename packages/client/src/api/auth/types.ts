@@ -11,6 +11,14 @@ export type TSignupData = {
   password_again?: string,
 } & TAuthData;
 
+export type TUserInfo = {
+  id: number,
+  display_name: string,
+  avatar: string,
+} & Omit<TSignupData, 'password'>;
+
 export type TSignupResponse = {
   id: number,
-}
+} | undefined;
+
+export type TAuthResponse = "OK" | undefined;
