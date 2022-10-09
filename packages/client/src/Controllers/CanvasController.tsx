@@ -99,7 +99,9 @@ const turnGameStep = (e: MouseEvent, ctx: CanvasRenderingContext2D, board: numbe
   const y = (e.pageY - (e.target as HTMLCanvasElement).offsetTop)  / 120 | 0;
   const newBoard = board && movePuzzleItem(board, x, y);
   board = newBoard.board;
-  ctx && board && drawField(ctx, board, bg);
+  if (newBoard.stepsIsDone) {
+    ctx && board && drawField(ctx, board, bg);
+  }
   if (board && isWin(board)) {
     console.log('You win')
   }
