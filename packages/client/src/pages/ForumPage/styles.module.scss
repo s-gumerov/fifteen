@@ -1,0 +1,163 @@
+@use '../../assets/colors.scss' as *;
+@use '../../assets/mixin.scss' as *;
+/* для импорта date и username */
+@use '../../assets/styles.scss' as *;
+
+$maxWidth: 75%;
+$minWidth: 550px;
+
+.wrapper {
+  height: 100vh;
+  overflow: auto;
+  width: 100%;
+}
+
+.forum {
+  margin: 0 auto;
+  display: flex;
+  flex-flow: column nowrap;
+  min-width: $minWidth;
+  max-width: $maxWidth;
+
+  &__title {
+    color: $forum_title;
+    font-weight: 400;
+    font-size: 3em;
+    text-align: center;
+    margin-top: 75px;
+    text-transform: uppercase;
+  }
+
+  &__content {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &__topics {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+
+  &__header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+  }
+
+  &__text {
+    height: 36px;
+    font-family: 'IRANSansXFaNum';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 36px;
+    color: $header_text;
+  }
+
+}
+
+.topicText {
+  text-align: center;
+  width: 75%;
+}
+
+.lastMsgText {
+  text-align: center;
+  width: 25%;
+}
+
+.forumSubPage {
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  flex-flow: column nowrap;
+  min-width: $minWidth;
+  max-width: $maxWidth;
+  align-items: flex-start;
+
+  &__title_underline {
+    text-decoration: underline;
+  }
+
+  &__topicDescription {
+    margin-top: 50px;
+    max-width: 679px;
+    max-height: 200px;
+    font-family: 'IRANSansX';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: $forum_text;
+  }
+
+  &__line {
+    height: 2px;
+    width: 100%;
+    background-color: $forumSubPage_line;
+  }
+
+  &__inputMsg {
+    position: fixed;
+    box-sizing: border-box;
+    align-self: center;
+    bottom: 50px;
+    height: 56px;
+    min-width: $minWidth;
+    width: $maxWidth;
+    background: $forumSubPage_inputMsg;
+    border: 2px solid $inputMsg_border;
+    text-align: center;
+    color: $forum_text;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+
+    &:focus {
+      outline: none;
+      @include hover-shadow($color: $inputMsg_border);
+    }
+  }
+}
+
+.info {
+  margin: 20px 0;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 20px;
+
+  &__owner {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+}
+
+.comments {
+  margin-top: 50px;
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100%;
+  background: $forumSubPage_comments;
+
+  &__header {
+    padding: 0 10px;
+    height: 72px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+  }
+}
+
+.msgCount {
+  height: 36px;
+  font-family: 'IRANSansX';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 36px;
+  color: $forum_title;
+}

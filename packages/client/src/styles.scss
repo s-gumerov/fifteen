@@ -5,7 +5,10 @@
 
 .content-center {
   margin: auto;
-  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
 }
 
 .title {
