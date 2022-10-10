@@ -43,3 +43,14 @@ export const getUserInfo = async () => {
     console.log(error);
   }
 };
+
+export const logout = async () => {
+  try {
+    await axiosInstance<string>('/api/v2/auth/logout', {
+      method: "post",
+    });
+    localStorage.removeItem(STORE_NAME);
+  } catch (error) {
+    return error;
+  }
+};
