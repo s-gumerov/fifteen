@@ -7,12 +7,18 @@ import {
   TUserInfo
 } from '..'
 
+export const setUserToLocalStorage = async () => {
+  const userInfo = await getUserInfo();
+  localStorage.setItem(STORE_NAME, JSON.stringify(userInfo));
+}
+
 export const signUp = async (data: TSignupData): Promise<TSignupResponse> => {
   try {
     const result = await axiosInstance<TSignupResponse>('/api/v2/auth/signup',{
       method: "post",
       data,
     });
+    await setUserToLocalStorage();
     return result.data;
   } catch (error) {
     console.log(error);
@@ -25,8 +31,7 @@ export const authorize = async (data: TAuthData): Promise<TAuthResponse> => {
       method: "post",
       data,
     });
-    const userInfo = await getUserInfo();
-    localStorage.setItem(STORE_NAME, JSON.stringify(userInfo));
+    await setUserToLocalStorage();
     return result.data;
   } catch (error) {
     console.log(error)

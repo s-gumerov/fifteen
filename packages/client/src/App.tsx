@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { BrowserRouter } from 'react-router-dom';
+import { AuthProvider } from './context';
 import { Router } from './router/Router';
 import './styles.scss';
 
@@ -17,7 +18,9 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Router />
+      <AuthProvider>
+        <Router />
+      </AuthProvider>
     </BrowserRouter>
   )
 }

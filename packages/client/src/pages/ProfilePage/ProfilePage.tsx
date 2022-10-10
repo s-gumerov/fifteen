@@ -1,18 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../context';
 import { TextFieldProfile } from '../../components/ui';
 import { Avatar } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom'
 import { ROUTES } from '../../router/types';
 import { logout } from '../../api';
 import "./styles.scss";
 
 export const ProfilePage = (): JSX.Element => {
-  const navigation = useNavigate();
+  const authContext = useAuth();
 
   const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     await logout();
-    navigation(ROUTES.AUTH);
+    authContext?.setAuthorization(false);
   }
 
   return (

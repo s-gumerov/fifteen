@@ -5,15 +5,20 @@ import { Formik, Form } from 'formik';
 import { TextFieldAuth } from '../../components/ui';
 import { ROUTES } from '../../router/types';
 import { INITIAL_FORM_STATE, SIGNUP_VALIDATION_SCHEMA } from './validation-schema';
-import { signUp, TSignupData } from '../../api'
+import { signUp, TSignupData } from '../../api';
+import { useAuth } from '../../context';
 import "./styles.scss";
 
 export const SignupPage = (): JSX.Element => {
-  const navigate = useNavigate();
+  const authContext = useAuth();
+  const navigation = useNavigate();
 
   const handleSubmit = async (values: TSignupData) => {
     const res = await signUp(values);
-    if(res?.id) navigate(ROUTES.AUTH);
+    if(res?.id) {
+      authContext?.setAuthorization(true);
+      navigation(ROUTES.MAIN);
+    }
   }
 
   return (
