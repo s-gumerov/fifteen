@@ -22,7 +22,7 @@ export const Router = () => (
       <Route path={ROUTES.MAIN} element={<MainLayout><MainPage /></MainLayout>} />
       <Route path={ROUTES.SIGNUP} element={<MainLayout backUrl={ROUTES.AUTH}><SignupPage /></MainLayout>} />
       <Route path={ROUTES.AUTH} element={<MainLayout backUrl={ROUTES.MAIN}><AuthPage /></MainLayout>} />
-      <Route path={ROUTES.GAME_FIELD} element={<GameFieldPage />} />
+      <Route path={ROUTES.GAME_FIELD} element={<MainLayout backUrl={ROUTES.MAIN}><GameFieldPage /></MainLayout>} />
       <Route path={ROUTES.LEADERS} element={<MainLayout backUrl={ROUTES.MAIN}><LeadersPage/></MainLayout>}/>
       <Route path={ROUTES.PROFILE} element={<MainLayout  backUrl={ROUTES.MAIN}><ProfilePage /></MainLayout>} />
       <Route path={ROUTES.EDIT_PROFILE} element={<MainLayout backUrl={ROUTES.PROFILE}><EditProfilePage /></MainLayout>} />
