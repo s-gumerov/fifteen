@@ -1,11 +1,17 @@
-const getSeconds = (secondsCount: number): number => Math.floor(secondsCount % 60);
-const getMinutes = (secondsCount: number): number => Math.floor(secondsCount / 60);
-const getHours = (secondsCount: number): number => Math.floor(secondsCount / 3600);
+const secondsCountInMinute = 60;
+const secondsCountInHour = 3600;
+
+const getSeconds = (secondsCount: number): number => Math.floor(secondsCount % secondsCountInMinute);
+const getMinutes = (secondsCount: number): number => Math.floor(secondsCount / secondsCountInMinute);
+const getHours = (secondsCount: number): number => Math.floor(secondsCount / secondsCountInHour);
 
 export const transformSecondsCountToWordExpression = (secondsCount: number): string => {
-  if(secondsCount < 60) {
+  if(secondsCount < secondsCountInMinute) {
     return `${secondsCount} сек`;
-  } else if(secondsCount < 3600) {
+  } else if(secondsCount < secondsCountInHour) {
     return `${getMinutes(secondsCount)} мин ${getSeconds(secondsCount)} сек`;
-  } else return `${getHours(secondsCount)} час ${getMinutes(secondsCount)} мин ${getSeconds(secondsCount)} сек`;
+  } else {
+    const remainingSeconds = secondsCount % secondsCountInHour;
+    return `${getHours(secondsCount)} час ${getMinutes(remainingSeconds)} мин ${getSeconds(remainingSeconds)} сек`;
+  }
 }
