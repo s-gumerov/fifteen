@@ -1,9 +1,8 @@
 import React from 'react';
 import {TextFieldProfile} from '../../components/ui';
 import {Avatar, Button} from '@mui/material';
-import {INITIAL_FORM_STATE} from "../../services/initial-profile-states";
 import {Form, Formik} from 'formik';
-import {SIGNUP_VALIDATION_SCHEMA} from "../SignupPage/validation-schema";
+import {EDIT_PASSWORD_VALIDATION_SCHEMA, INITIAL_FORM_STATE} from "./validation-schema";
 
 export const EditPasswordPage = (): JSX.Element => {
     const handleSubmit = () => console.log('Форма отправлена..')
@@ -12,7 +11,7 @@ export const EditPasswordPage = (): JSX.Element => {
         <div className="profile">
             <Formik
                 initialValues={{...INITIAL_FORM_STATE}}
-                validationSchema={SIGNUP_VALIDATION_SCHEMA}
+                validationSchema={EDIT_PASSWORD_VALIDATION_SCHEMA}
                 onSubmit={handleSubmit}
             >
                 <Form>

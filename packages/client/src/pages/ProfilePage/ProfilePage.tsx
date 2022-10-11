@@ -4,7 +4,7 @@ import {Avatar} from '@mui/material';
 import {Link} from 'react-router-dom';
 import {ROUTES} from '../../router/types';
 import "./styles.scss";
-import {INITIAL_FORM_STATE} from "../../services/initial-profile-states";
+import {INITIAL_FORM_STATE} from "../EditProfilePage/validation-schema";
 import { Form, Formik } from 'formik';
 
 export const ProfilePage = (): JSX.Element => (
