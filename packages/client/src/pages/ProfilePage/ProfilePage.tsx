@@ -1,28 +1,37 @@
 import React from 'react';
-import { TextFieldProfile } from '../../components/ui';
-import { Avatar } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { ROUTES } from '../../router/types';
+import {TextFieldProfile} from '../../components/ui';
+import {Avatar} from '@mui/material';
+import {Link} from 'react-router-dom';
+import {ROUTES} from '../../router/types';
 import "./styles.scss";
+import {INITIAL_FORM_STATE} from "../EditProfilePage/validation-schema";
+import { Form, Formik } from 'formik';
 
 export const ProfilePage = (): JSX.Element => (
-  <div className="profile">
-    <Avatar
-      alt="Аватар"
-      src="https://mui.com/static/images/avatar/1.jpg"
-      sx={{ width: 120, height: 120, mx: "auto", mb: 2 }}
-    />
-    <div className="profile__form">
-      <TextFieldProfile type="text" label="Почта" value="test@yandex.ru" readOnly={true}/>
-      <TextFieldProfile type="text" label="Логин" value="test_login" readOnly={true}/>
-      <TextFieldProfile type="text" label="Имя" value="first_name" readOnly={true}/>
-      <TextFieldProfile type="text" label="Фамилия" value="second_name" readOnly={true}/>
-      <TextFieldProfile type="text" label="Отображаемое имя" value="display_name" readOnly={true}/>
-      <TextFieldProfile type="tel" label="Телефон" value="89991234567" readOnly={true}/>
-      <br/>
-      <Link to={ROUTES.EDIT_PROFILE}>Изменить данные</Link>
-      <Link to={ROUTES.EDIT_PASSWORD}>Изменить пароль</Link>
-      <a href="#" className="red">Выйти</a>
+    <div className="profile">
+        <Formik
+            initialValues={{...INITIAL_FORM_STATE}}
+            onSubmit={() => {console.log(`this console.log of the name of Formik's onSubmit is required option`)}}
+        >
+            <Form>
+                <Avatar
+                    alt="Аватар"
+                    src="https://mui.com/static/images/avatar/1.jpg"
+                    sx={{width: 120, height: 120, mx: "auto", mb: 2}}
+                />
+                <div className="profile__form">
+                    <TextFieldProfile fullWidth name="email" type="text" label="Почта" readOnly={true} />
+                    <TextFieldProfile fullWidth name="login" type="text" label="Логин" readOnly={true}/>
+                    <TextFieldProfile fullWidth name="first_name" type="text" label="Имя" readOnly={true}/>
+                    <TextFieldProfile fullWidth name="second_name" type="text" label="Фамилия" readOnly={true}/>
+                    <TextFieldProfile fullWidth name="display_name" type="text" label="Отображаемое имя" readOnly={true}/>
+                    <TextFieldProfile fullWidth name="phone" type="tel" label="Телефон" readOnly={true}/>
+                    <br/>
+                    <Link to={ROUTES.EDIT_PROFILE}>Изменить данные</Link>
+                    <Link to={ROUTES.EDIT_PASSWORD}>Изменить пароль</Link>
+                    <a href="#" className="red">Выйти</a>
+                </div>
+            </Form>
+        </Formik>
     </div>
-  </div>
-  )
+)

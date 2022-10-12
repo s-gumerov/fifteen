@@ -1,27 +1,30 @@
 import React from 'react';
-import { TextField } from '@mui/material';
+import {TextField, TextFieldProps} from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
-import { TextFieldProfileProps } from './types';
-import { TextFieldProfileStyles } from './const';
+import {TextFieldProfileStyles} from './const';
+import {useField} from "formik";
 
-export const TextFieldProfile = ({ label, type, value, readOnly = false }: TextFieldProfileProps): JSX.Element => {
-  const [valueInput, setValueInput] = React.useState(value);
+export const TextFieldProfile = ({ name, label, readOnly, ...propsWithoutNameAndLabel }: TextFieldProps & { readOnly?: boolean }): JSX.Element => {
+    const [field, meta] = useField(name as string);
+    const configTextField = {
+        ...field,
+        ...propsWithoutNameAndLabel,
+    };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValueInput(event.target.value);
-  };
+    if (meta && meta.touched && meta.error) {
+        configTextField.error = true;
+        configTextField.helperText = meta.error;
+    }
 
-  return (
-    <TextField
-      value={valueInput}
-      type={type}
-      variant="standard"
-      sx={TextFieldProfileStyles}
-      InputProps={{
-        startAdornment: <InputAdornment position="start">{label}</InputAdornment>,
-        readOnly
-      }}
-      onChange={handleChange}
-    />
-  )
+    return (
+        <TextField
+            {...configTextField}
+            variant="standard"
+            sx={TextFieldProfileStyles}
+            InputProps={{
+                startAdornment: <InputAdornment position="start">{label}</InputAdornment>,
+                readOnly
+            }}
+        />
+    )
 }

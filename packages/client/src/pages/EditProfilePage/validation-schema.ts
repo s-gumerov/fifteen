@@ -1,22 +1,23 @@
-import * as Yup from 'yup';
+import * as Yup from "yup";
 import {
+  displayNameRegexp,
   loginRegexp,
   nameRegexp,
-  passwordRegexp,
   phoneRegexp
-} from '../../services/validation_regexps';
+} from "../../services/validation_regexps";
 
 export const INITIAL_FORM_STATE = {
-  email: '',
-  login: '',
-  first_name: '',
-  second_name: '',
-  phone: '',
+  email: 'test@yandex.ru',
+  login: 'test_login',
+  first_name: 'First_name',
+  second_name: 'Second_name',
+  display_name: 'Display_name',
+  phone: '89991234567',
+  old_password: '',
   password: '',
   password_again: '',
 };
-
-export const SIGNUP_VALIDATION_SCHEMA = Yup.object().shape({
+export const EDIT_PROFILE_VALIDATION_SCHEMA = Yup.object().shape({
   email: Yup.string().email('Некорректный email!').required('Введите, пожалуйста, email!'),
   login: Yup.string()
     .required('Введите, пожалуйста, логин!')
@@ -29,16 +30,12 @@ export const SIGNUP_VALIDATION_SCHEMA = Yup.object().shape({
   second_name: Yup.string()
     .required('Введите, пожалуйста, фамилию!')
     .matches(nameRegexp, 'Латиница или кириллица, первая буква заглавная'),
+  display_name: Yup.string()
+    .required('Введите, пожалуйста, имя для форума!')
+    .matches(displayNameRegexp, 'Латиница, первая буква заглавная'),
   phone: Yup.string()
     .required('Введите, пожалуйста, телефон!')
     .min(10, 'Короткий номер телефона!')
     .max(15, 'Слишком длинный номер телефона!')
     .matches(phoneRegexp, 'от 10 до 15 цифр, может начинаться с плюса'),
-  password: Yup.string()
-    .required('Введите, пожалуйста, пароль!')
-    .min(8, 'Пароль от 8 символов!')
-    .max(20, 'Пароль не более 20 символов!')
-    .matches(passwordRegexp, ' Должен содержать хотя бы одну заглавную букву и цифру'),
-  password_again: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать!')
 });
