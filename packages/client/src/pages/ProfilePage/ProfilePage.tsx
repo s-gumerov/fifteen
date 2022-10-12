@@ -1,13 +1,24 @@
 import React from 'react';
-import {TextFieldProfile} from '../../components/ui';
-import {Avatar} from '@mui/material';
-import {Link} from 'react-router-dom';
-import {ROUTES} from '../../router/types';
-import "./styles.scss";
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../context';
+import { TextFieldProfile } from '../../components/ui';
+import { Avatar } from '@mui/material';
+import { ROUTES } from '../../router/types';
+import { logout } from '../../api';
 import {INITIAL_FORM_STATE} from "../EditProfilePage/validation-schema";
 import { Form, Formik } from 'formik';
+import "./styles.scss";
 
-export const ProfilePage = (): JSX.Element => (
+export const ProfilePage = (): JSX.Element => {
+  const authContext = useAuth();
+
+  const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    await logout();
+    authContext?.setAuthorization(false);
+  }
+
+  return (
     <div className="profile">
         <Formik
             initialValues={{...INITIAL_FORM_STATE}}
@@ -34,4 +45,5 @@ export const ProfilePage = (): JSX.Element => (
             </Form>
         </Formik>
     </div>
-)
+  )
+}
