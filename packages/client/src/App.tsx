@@ -1,7 +1,10 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Router } from './router/Router';
+import { withErrorBoundary } from 'react-error-boundary';
+import { ErrorFallback } from './services/errorBoundary/ErrorFallback';
 import './styles.scss';
+
 
 function App() {
   // useEffect(() => {
@@ -19,7 +22,9 @@ function App() {
     <BrowserRouter>
       <Router />
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default withErrorBoundary(App, {
+  FallbackComponent: ErrorFallback
+});
