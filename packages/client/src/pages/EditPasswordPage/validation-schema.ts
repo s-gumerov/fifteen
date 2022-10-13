@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import { passwordRegexp } from "../../services/validation_regexps";
+import { passwordRegexp } from "../../utils/validation_regexps";
 
 export const INITIAL_FORM_STATE = {
   old_password: '',

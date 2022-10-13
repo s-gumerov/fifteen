@@ -44,7 +44,7 @@ export const Router = () => {
         <Route path={ROUTES.MAIN} element={<MainLayout><MainPage /></MainLayout>} />
       </Route>
       <Route element={<PrivateRoute />}>
-        <Route path={ROUTES.GAME_FIELD} element={<GameFieldPage />} />
+        <Route path={ROUTES.GAME_FIELD} element={<MainLayout backUrl={ROUTES.MAIN}><GameFieldPage /></MainLayout>} />
       </Route>
       <Route element={<PrivateRoute />}>
         <Route path={ROUTES.LEADERS} element={<MainLayout backUrl={ROUTES.MAIN}><LeadersPage/></MainLayout>}/>
