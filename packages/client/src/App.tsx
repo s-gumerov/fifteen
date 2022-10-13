@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { AuthProvider } from './context';
 import { Router } from './router/Router';
 import { withErrorBoundary } from 'react-error-boundary';
 import { ErrorFallback } from './services/errorBoundary/ErrorFallback';
@@ -20,7 +21,9 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Router />
+      <AuthProvider>
+        <Router />
+      </AuthProvider>
     </BrowserRouter>
   );
 }

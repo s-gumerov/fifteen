@@ -21,7 +21,7 @@ export const Topic = (
 
       <div className={styles.topic}>
 
-        <Link to={`${ROUTES.FORUM}/:${id}`} className={styles.topic__title}>
+        <Link to={`${ROUTES.FORUM}/${id}`} className={styles.topic__title}>
           {title}
         </Link>
 
