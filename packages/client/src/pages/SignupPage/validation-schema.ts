@@ -1,10 +1,5 @@
 import * as Yup from 'yup';
-import {
-  loginRegexp,
-  nameRegexp,
-  passwordRegexp,
-  phoneRegexp
-} from '../../services/validation_regexps';
+import { loginRegexp, nameRegexp, passwordRegexp, phoneRegexp } from '../../utils/validation_regexps';
 
 export const INITIAL_FORM_STATE = {
   email: '',

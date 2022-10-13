@@ -4,7 +4,7 @@ import {
   loginRegexp,
   nameRegexp,
   phoneRegexp
-} from "../../services/validation_regexps";
+} from "../../utils/validation_regexps";
 
 export const INITIAL_FORM_STATE = {
   email: 'test@yandex.ru',

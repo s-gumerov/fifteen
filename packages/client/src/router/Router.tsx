@@ -44,7 +44,7 @@ export const Router = () => {
         <Route path={ROUTES.MAIN} element={<MainLayout><MainPage /></MainLayout>} />
       </Route>
       <Route element={<PrivateRoute />}>
-        <Route path={ROUTES.GAME_FIELD} element={<GameFieldPage />} />
+        <Route path={ROUTES.GAME_FIELD} element={<MainLayout backUrl={ROUTES.MAIN}><GameFieldPage /></MainLayout>} />
       </Route>
       <Route element={<PrivateRoute />}>
         <Route path={ROUTES.LEADERS} element={<MainLayout backUrl={ROUTES.MAIN}><LeadersPage/></MainLayout>}/>
@@ -67,7 +67,7 @@ export const Router = () => {
       <Route element={<PrivateRoute />}>
         <Route path={ROUTES.RULES} element={<MainLayout backUrl={ROUTES.MAIN}><RulesPage /></MainLayout>} />
       </Route>
-      <Route path='*' element={<NotFoundPage />} />
+      <Route path='*' element={<MainLayout backUrl={ROUTES.MAIN}><NotFoundPage /></MainLayout>} />
     </Routes>
   )
 }
