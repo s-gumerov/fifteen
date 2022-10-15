@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 
 export const useTimer = () => {
-  const [counter, setCounter] = useState(0);
+  const [secondsCount, setSecondsCounter] = useState(0);
+  const [toggleSecondsCounter, setToggleSecondsCounter] = useState(true);
 
   useEffect(() => {
-    const timer = setInterval(() => setCounter(counter + 1), 1000);
-    return () => clearInterval(timer);
-  }, [counter]);
+    const timer = toggleSecondsCounter ? setInterval(() => setSecondsCounter(secondsCount + 1), 1000) : null
+    return () => {
+      if(timer) return clearInterval(timer);
+    }
+  }, [secondsCount, toggleSecondsCounter]);
 
-  return { counter }
+  return { secondsCount, toggleSecondsCounter, setToggleSecondsCounter }
 }
