@@ -28,6 +28,7 @@ export const Router = () => {
     const checkAuthorization = async () => {
       const userInfo = await getUserInfo();
       if(userInfo) authContext?.setAuthorization(true);
+      else authContext?.setAuthorization(false);
     }
     checkAuthorization();
   },[]);
