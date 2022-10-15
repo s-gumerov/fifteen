@@ -5,7 +5,7 @@ export const AuthContext = createContext<AuthContextProps>(null);
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
-  const [isAuthorized, setAuthorization] = useState<boolean | null>(null);
+  const [isAuthorized, setAuthorization] = useState<boolean>(true);
 
   return (
     <AuthContext.Provider value={{ isAuthorized, setAuthorization }}>
