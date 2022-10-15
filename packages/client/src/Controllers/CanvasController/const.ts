@@ -1,5 +1,5 @@
-import { BoardValues } from './types';
-
+import { BoardValues, CanvasButton } from './types';
+export const canvasInBorderSize = 480;
 export const tileSize = 120;
 export const tileBorder = 5;
 export const tileWithBorder = tileSize + tileBorder * 2;
@@ -11,3 +11,20 @@ export const fontStyle = "64px serif";
 export const fillStyle = "#F5F5F5";
 export const emptyCellValue = 0;
 export const isTwoDigitNumber = (number: BoardValues): boolean => number > 9;
+
+export const buttonRepeatGame: CanvasButton = {
+  x: 50,
+  y: 350,
+  width: 170,
+  height: 50,
+  text: 'Начать сначала'
+}
+
+export const buttonLeaders: CanvasButton = {
+  x: 260,
+  y: 350,
+  width: 170,
+  height: 50,
+  text: 'К таблице лидеров'
+}
+

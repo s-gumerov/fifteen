@@ -9,8 +9,9 @@ import {
   TableRow
 } from '@mui/material'
 import './styles.scss'
+import {TLeaders} from "./types";
 
-const tempUsers = [
+export const tempUsers: TLeaders = [
   {userName: "user3", moves: 7, time: "01:05"},
   {userName: "user2", moves: 13, time: "01:30"},
   {userName: "user6", moves: 14, time: "00:48"},
