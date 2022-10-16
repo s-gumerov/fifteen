@@ -4,17 +4,19 @@ import { useAuth } from '../../context';
 import { TextFieldProfile } from '../../components/ui';
 import { Avatar } from '@mui/material';
 import { ROUTES } from '../../router/types';
-import { logout } from '../../api';
-import {INITIAL_FORM_STATE} from "../EditProfilePage/validation-schema";
+import { INITIAL_FORM_STATE } from "../EditProfilePage/validation-schema";
 import { Form, Formik } from 'formik';
+import { logoutByThunk } from '../../store/user/userSlice';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
 import "./styles.scss";
 
 export const ProfilePage = (): JSX.Element => {
   const authContext = useAuth();
+  const dispatch = useAppDispatch();
 
   const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    await logout();
+    await dispatch(logoutByThunk());
     authContext?.setAuthorization(false);
   }
 
@@ -40,7 +42,7 @@ export const ProfilePage = (): JSX.Element => {
                     <br/>
                     <Link to={ROUTES.EDIT_PROFILE}>Изменить данные</Link>
                     <Link to={ROUTES.EDIT_PASSWORD}>Изменить пароль</Link>
-                    <a href="#" className="red">Выйти</a>
+                    <a href="#" className="red" onClick={handleLogout}>Выйти</a>
                 </div>
             </Form>
         </Formik>

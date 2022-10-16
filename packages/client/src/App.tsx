@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from "react-redux";
 import { AuthProvider } from './context';
 import { Router } from './router/Router';
 import { withErrorBoundary } from 'react-error-boundary';
 import { ErrorFallback } from './services/errorBoundary/ErrorFallback';
+import store from './store';
 import './styles.scss';
 
 
@@ -20,11 +22,13 @@ function App() {
   // }, [])
 
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <Router />
-      </AuthProvider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <AuthProvider>
+          <Router />
+        </AuthProvider>
+      </BrowserRouter>
+    </Provider>
   );
 }
 

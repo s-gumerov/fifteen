@@ -2,15 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../router/types';
 import { useAuth } from '../../context';
-import { logout } from '../../api';
+import { logoutByThunk } from '../../store/user/userSlice'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 import './styles.scss';
 
 export const MainPage = (): JSX.Element => {
   const authContext = useAuth();
+  const dispatch = useAppDispatch();
 
   const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    await logout();
+    await dispatch(logoutByThunk());
     authContext?.setAuthorization(false);
   }
 

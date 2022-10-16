@@ -5,16 +5,19 @@ import { Formik, Form } from 'formik';
 import { TextFieldAuth } from '../../components/ui';
 import { ROUTES } from '../../router/types';
 import { INITIAL_FORM_STATE, AUTH_VALIDATION_SCHEMA } from './validation-schema';
-import { authorize, TAuthData } from '../../api';
-import { useAuth } from '../../context'
+import { TAuthData } from '../../api';
+import { useAuth } from '../../context';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { authorizeByThunk } from '../../store/user/userSlice'
 
 export const AuthPage = (): JSX.Element => {
   const authContext = useAuth();
   const navigation = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleSubmit = async (values: TAuthData) => {
-    const res = await authorize(values);
-    if(res === "OK") {
+    const res = await dispatch(authorizeByThunk(values));
+    if(res.payload === "OK") {
       authContext?.setAuthorization(true);
       navigation(ROUTES.MAIN);
     }

@@ -17,6 +17,10 @@ export type TUserInfo = {
   avatar: string,
 } & Omit<TSignupData, 'password'>;
 
+export type TBadRequest = {
+  reason: string
+}
+
 export type TSignupResponse = {
   id: number,
 } | undefined;
