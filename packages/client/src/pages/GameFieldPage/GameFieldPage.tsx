@@ -1,15 +1,16 @@
 import {useEffect, useRef, useState} from 'react'
 import {isEqual} from 'lodash'
-import {getRatingResult, transformSecondsCountToWordExpression, updateGameResult} from '../../utils';
-import {CanvasController} from '../../Controllers';
+import {useNavigate} from "react-router-dom";
+import {transformSecondsCountToWordExpression, updateGameResult} from '../../utils';
 import {useTimer} from '../../hooks/useTimer';
+import {useLeaders} from "../../context/Leaders";
+import {CanvasController} from '../../Controllers';
 import {TBoard} from '../../Controllers/CanvasController/types';
-import "./style.scss";
 import {
     buttonLeaders,
     buttonRepeatGame,
 } from '../../Controllers/CanvasController/const';
-import {tempUsers} from "../LeadersPage";
+import "./style.scss";
 
 const Canvas = new CanvasController;
 
@@ -18,11 +19,15 @@ export const GameFieldPage = (): JSX.Element => {
     const [stepsCount, setStepsCount] = useState(0);
     const [checkWin, setCheckWin] = useState(false)
     const fieldRef = useRef<HTMLCanvasElement>(null);
-    const {secondsCount, setSecondsCounter, toggleSecondsCounter, setToggleSecondsCounter} = useTimer();
+    const leaders = useLeaders()
+    const navigate = useNavigate()
+    const {secondsCount, setSecondsCounter, setToggleSecondsCounter} = useTimer();
 
     const backgroundPuzzle = Canvas.getBackgroundPuzzle();
     const canvasEngGameHandleClick = (event: React.MouseEvent) => {
+        event.preventDefault()
         const mousePos = Canvas.getMousePos(fieldRef.current!, event)
+        console.log(typeof mousePos)
         if (Canvas.isInsideButton(mousePos, buttonRepeatGame)) {
             setCheckWin(false)
             setStepsCount(0)
@@ -32,7 +37,7 @@ export const GameFieldPage = (): JSX.Element => {
             Canvas.buttonRepeatClick(fieldRef, board, backgroundPuzzle)
         }
         if (Canvas.isInsideButton(mousePos, buttonLeaders)) {
-            document.location.pathname = '/leaders'
+            navigate('/leaders')
         }
     }
 
@@ -44,13 +49,12 @@ export const GameFieldPage = (): JSX.Element => {
             setStepsCount(stepsCount + 1);
             setBoard(currentBoard);
             Canvas.drawField(fieldRef, currentBoard, backgroundPuzzle);
-            getRatingResult(tempUsers)
 
             if (Canvas.isWin(currentBoard)) {
                 setCheckWin(true)
                 setToggleSecondsCounter(false)
-                updateGameResult(stepsCount + 1, secondsCount)
-                Canvas.canvasIsWinDraw(fieldRef)
+                leaders?.setLeaders(updateGameResult(leaders!.leaders, stepsCount + 1, secondsCount))
+                Canvas.canvasIsWinDraw(fieldRef, leaders!.leaders)
             }
         }
     }

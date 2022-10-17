@@ -1,5 +1,4 @@
-import {tempUsers} from "../pages";
-import {TLeaders} from "../pages/LeadersPage/types";
+import {TLeader, TLeaders} from "../pages/LeadersPage/types";
 
 const secondsCountInMinute = 60;
 const secondsCountInHour = 3600;
@@ -19,21 +18,22 @@ export const transformSecondsCountToWordExpression = (secondsCount: number): str
   }
 }
 
-export const updateGameResult = (steps: number, time: number) => {
-  tempUsers.map((el) => {
-      if (el.userName === "Ты") {
-        if (steps < el.moves) {
-          el.moves = steps
-          el.time = time.toString()
-        }
+export const updateGameResult = (leaders: TLeaders, steps: number, time: number): TLeaders => {
+  return leaders.map((el: TLeader): TLeader => {
+    if (el.userName === "Ты") {
+      if (steps < el.moves) {
+        el.moves = steps
+        el.time = time.toString()
       }
-    })
+    }
+    return el
+  })
 }
 
 export const getRatingResult = (ratingList: TLeaders): number => {
   let result = 0;
   ratingList.sort((a, b) => a.moves - b.moves).forEach(el => {
-    if (el.userName === "Ты") result = tempUsers.indexOf(el) + 1
+    if (el.userName === "Ты") result = ratingList.indexOf(el) + 1
   })
   return result
 }
