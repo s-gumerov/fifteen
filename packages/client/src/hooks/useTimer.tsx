@@ -11,5 +11,5 @@ export const useTimer = () => {
     }
   }, [secondsCount, toggleSecondsCounter]);
 
-  return { secondsCount, toggleSecondsCounter, setToggleSecondsCounter }
+  return { secondsCount, setSecondsCounter, toggleSecondsCounter, setToggleSecondsCounter }
 }
