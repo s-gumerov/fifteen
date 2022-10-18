@@ -8,8 +8,7 @@ export const useLeaders = () => useContext(LeadersContext);
 
 export const LeadersProvider = ({ children }: PropsWithChildren) => {
     const [leaders, setLeaders] = useState<TLeaders>(tempUsers)
-// @ts-ignore
-    window._leaders = leaders
+
     return (
         <LeadersContext.Provider value={{leaders, setLeaders}}>
             {children}
