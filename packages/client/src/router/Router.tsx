@@ -19,7 +19,7 @@ import { ROUTES } from './types';
 import { MainLayout } from '../layouts';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
-import { getUserInfo, STORE_NAME } from '../api';
+import { getUserInfo } from '../api';
 
 export const Router = () => {
   const authContext = useAuth();

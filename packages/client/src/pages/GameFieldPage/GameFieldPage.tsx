@@ -10,6 +10,7 @@ import {
     buttonLeaders,
     buttonRepeatGame,
 } from '../../Controllers/CanvasController/const';
+
 import "./style.scss";
 
 const Canvas = new CanvasController;

@@ -32,3 +32,5 @@ export const buttonLeaders: CanvasButton = {
   text: 'К таблице лидеров'
 }
 
+export const isTwoDigitNumber = (number: BoardValues): boolean => number > 9;
+
