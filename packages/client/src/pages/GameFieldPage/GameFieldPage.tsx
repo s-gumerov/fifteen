@@ -28,7 +28,6 @@ export const GameFieldPage = (): JSX.Element => {
     const canvasEngGameHandleClick = (event: React.MouseEvent) => {
         event.preventDefault()
         const mousePos = Canvas.getMousePos(fieldRef.current!, event)
-        console.log(typeof mousePos)
         if (Canvas.isInsideButton(mousePos, buttonRepeatGame)) {
             setCheckWin(false)
             setStepsCount(0)
