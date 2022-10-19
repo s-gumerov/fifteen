@@ -9,43 +9,19 @@ import {
   TableRow
 } from '@mui/material'
 import './styles.scss'
-
-const tempUsers = [
-  {userName: "user3", moves: 7, time: "01:05"},
-  {userName: "user2", moves: 13, time: "01:30"},
-  {userName: "user6", moves: 14, time: "00:48"},
-  {userName: "user5", moves: 15, time: "00:37"},
-  {userName: "user1", moves: 23, time: "00:30"},
-  {userName: "user7", moves: 63, time: "00:55"},
-  {userName: "user4", moves: 64, time: "01:23"},
-  {userName: "user3", moves: 7, time: "01:05"},
-  {userName: "user2", moves: 13, time: "01:30"},
-  {userName: "user6", moves: 14, time: "00:48"},
-  {userName: "user5", moves: 15, time: "00:37"},
-  {userName: "user1", moves: 23, time: "00:30"},
-  {userName: "user7", moves: 63, time: "00:55"},
-  {userName: "user4", moves: 64, time: "01:23"},
-  {userName: "user3", moves: 7, time: "01:05"},
-  {userName: "Ты", moves: 13, time: "01:30"},
-  {userName: "user6", moves: 14, time: "00:48"},
-  {userName: "user5", moves: 15, time: "00:37"},
-  {userName: "user1", moves: 23, time: "00:30"},
-  {userName: "user7", moves: 63, time: "00:55"},
-  {userName: "user4", moves: 64, time: "01:23"},
-]
-
+import {TLeader} from "./types";
+import {useLeaders} from "../../context/Leaders";
 
 export const LeadersPage = (): JSX.Element => {
   const [page, setPage] = useState(1);
   const [rowsPerPage] = useState(5);
-
+  const leadersContext = useLeaders()
   const handleChangePage = (
       event: ChangeEvent<unknown>,
       newPage: number,
   ) => {
     setPage(newPage);
   };
-
 
   return (
       <div className="leaders">
@@ -63,13 +39,13 @@ export const LeadersPage = (): JSX.Element => {
               </TableHead>
               <TableBody>
                 {
-                  tempUsers.sort((a, b) => a.moves - b.moves).slice((page - 1) * rowsPerPage, (page - 1) * rowsPerPage + rowsPerPage)
-                      .map((usr, index) => {
+                  leadersContext!.leaders.sort((a: TLeader, b: TLeader) => a.moves - b.moves).slice((page - 1) * rowsPerPage, (page - 1) * rowsPerPage + rowsPerPage)
+                      .map((usr: TLeader, index: number) => {
                         return (
                             <TableRow className={usr.userName === "Ты" ? "userCell" : ""} key={index}>
                               <TableCell sx={{width: 70}} component="td" scope="row"
                                          align="center">
-                                {tempUsers.indexOf(usr) + 1}
+                                {leadersContext!.leaders.indexOf(usr) + 1}
                               </TableCell>
                               <TableCell sx={{width: 300}} component="td" scope="row"
                                          align="center">
@@ -94,7 +70,7 @@ export const LeadersPage = (): JSX.Element => {
               variant="outlined"
               shape="rounded"
               color="primary"
-              count={Math.ceil(tempUsers.length / rowsPerPage)}
+              count={Math.ceil(leadersContext!.leaders.length / rowsPerPage)}
               page={page}
               onChange={handleChangePage}
           />
