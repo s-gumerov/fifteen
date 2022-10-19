@@ -19,15 +19,18 @@ import { ROUTES } from './types';
 import { MainLayout } from '../layouts';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
-import { getUserInfo } from '../api';
+import { useAppDispatch } from '../hooks/useAppDispatch';
+import { getUserInfoByThunk } from '../store/user/userSlice';
+import { userReducerTypes } from '../store/user/types';
 
 export const Router = () => {
   const authContext = useAuth();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const checkAuthorization = async () => {
-      const userInfo = await getUserInfo();
-      if(userInfo) authContext?.setAuthorization(true);
+      const userInfo = await dispatch(getUserInfoByThunk());
+      if(userInfo.type !== `${userReducerTypes.getUserInfo}/rejected`) authContext?.setAuthorization(true);
       else authContext?.setAuthorization(false);
     }
     checkAuthorization();

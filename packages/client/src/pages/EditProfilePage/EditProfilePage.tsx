@@ -1,8 +1,8 @@
 import React from 'react';
-import {TextFieldProfile} from '../../components/ui';
-import {Avatar, Button} from '@mui/material';
-import {Form, Formik} from 'formik';
-import {EDIT_PROFILE_VALIDATION_SCHEMA, INITIAL_FORM_STATE} from "./validation-schema"
+import { TextFieldProfile } from '../../components/ui';
+import { Avatar, Button } from '@mui/material';
+import { Form, Formik } from 'formik';
+import { EDIT_PROFILE_VALIDATION_SCHEMA, INITIAL_FORM_STATE } from "./validation-schema"
 
 export const EditProfilePage = (): JSX.Element => {
     const handleSubmit = () => console.log('Форма отправлена..')
