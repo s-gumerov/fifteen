@@ -20,6 +20,7 @@
   height: 518px;
   background: $form_background;
   border-radius: 25px;
+  z-index: 1;
 
   &__title {
     margin-top: 20px;
