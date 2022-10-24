@@ -1,9 +1,11 @@
-import { TUserInfo } from '../../api';
+import {TUserInfo} from '../../api';
 
 export enum userReducerTypes {
   getUserInfo = 'user/getUserInfo',
   authorize = 'user/authorize',
-  logout = 'user/logout'
+  logout = 'user/logout',
+  changeProfile = 'user/changeProfile',
+  changeAvatar = 'user/changeAvatar',
 }
 
 export type TUserState = {
