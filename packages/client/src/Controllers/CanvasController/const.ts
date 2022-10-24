@@ -30,6 +30,3 @@ export const buttonLeaders: CanvasButton = {
   height: 50,
   text: 'К таблице лидеров'
 }
-
-export const isTwoDigitNumber = (number: BoardValues): boolean => number > 9;
-

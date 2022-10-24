@@ -23,7 +23,6 @@ import {TLeaders} from "../../pages/LeadersPage/types";
 
 
 export class CanvasController {
-
     getEmptyCell(board: TBoard): { xEmptyCell: number, yEmptyCell: number } | undefined {
         for (let i = 0; i < board.length; i++) {
             for (let j = 0; j < board[i].length; j++) {
@@ -175,5 +174,4 @@ export class CanvasController {
             this.drawField(fieldRef, board, backgroundPuzzle);
         })
     }
-
 }
