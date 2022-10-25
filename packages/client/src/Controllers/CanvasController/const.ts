@@ -14,6 +14,7 @@ export const middleFontStyle = "32px serif"
 export const smallFontStyle = "16px serif"
 export const fillStyle = "#F5F5F5";
 export const emptyCellValue = 0;
+export const isTwoDigitNumber = (number: BoardValues): boolean => number > 9;
 
 export const buttonRepeatGame: CanvasButton = {
   x: 50,
