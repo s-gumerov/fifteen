@@ -22,12 +22,17 @@ import { PublicRoute } from './PublicRoute';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { getUserInfoByThunk } from '../store/user/userSlice';
 import { userReducerTypes } from '../store/user/types';
+import gameAudio from '../assets/audio/pirates_of_the_caribbean.mp3';
+import { withPlayingAudio } from '../hocs/playAudioToPage/PlayAudioToPage';
+
 
 export const Router = () => {
   const authContext = useAuth();
   const dispatch = useAppDispatch();
+/* оборачиваем страницу с игрой в HOC, чтобы при каждом её открытии циклически воспроизводилось аудио */
+  const GameFieldPageWithAudio = withPlayingAudio(GameFieldPage,gameAudio);
 
-  useEffect(() => {
+    useEffect(() => {
     const checkAuthorization = async () => {
       const userInfo = await dispatch(getUserInfoByThunk());
       if(userInfo.type !== `${userReducerTypes.getUserInfo}/rejected`) authContext?.setAuthorization(true);
@@ -48,7 +53,7 @@ export const Router = () => {
         <Route path={ROUTES.MAIN} element={<MainLayout><MainPage /></MainLayout>} />
       </Route>
       <Route element={<PrivateRoute />}>
-        <Route path={ROUTES.GAME_FIELD} element={<MainLayout backUrl={ROUTES.MAIN}><GameFieldPage /></MainLayout>} />
+        <Route path={ROUTES.GAME_FIELD} element={<MainLayout backUrl={ROUTES.MAIN}><GameFieldPageWithAudio /></MainLayout>} />
       </Route>
       <Route element={<PrivateRoute />}>
         <Route path={ROUTES.LEADERS} element={<MainLayout backUrl={ROUTES.MAIN}><LeadersPage/></MainLayout>}/>
