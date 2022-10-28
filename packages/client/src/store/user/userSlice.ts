@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction, createAsyncThunk, AnyAction} from '@reduxjs/toolkit';
 import {
-  STORE_NAME,
+  USER_STORE_NAME,
   TAuthData,
   TAuthResponse,
   TChangeProfileResponse,
@@ -33,7 +33,7 @@ export const authorizeByThunk = createAsyncThunk<TAuthResponse | TBadRequest, TA
       data,
     });
     const userInfo = await dispatch(getUserInfoByThunk());
-    localStorage.setItem(STORE_NAME, JSON.stringify(userInfo.payload));
+    localStorage.setItem(USER_STORE_NAME, JSON.stringify(userInfo.payload));
 
     return response.data;
   }
@@ -45,7 +45,7 @@ export const logoutByThunk = createAsyncThunk<TAuthResponse, undefined, { reject
     const response = await axiosInstance('/api/v2/auth/logout', {
       method: "post",
     });
-    localStorage.removeItem(STORE_NAME);
+    localStorage.removeItem(USER_STORE_NAME);
 
     return response.data;
   }
@@ -60,7 +60,7 @@ export const changeProfileByThunk = createAsyncThunk<TChangeProfileResponse | TB
     });
     response.data.avatar = `${BASE_URL_API}/api/v2/resources${response.data.avatar}`
     const userInfo = await dispatch(getUserInfoByThunk());
-    localStorage.setItem(STORE_NAME, JSON.stringify(userInfo.payload));
+    localStorage.setItem(USER_STORE_NAME, JSON.stringify(userInfo.payload));
 
     return response.data;
   }
@@ -78,7 +78,7 @@ export const changeAvatarByThunk = createAsyncThunk<TChangeAvatarResponse | TBad
     })
     response.data.avatar = `${BASE_URL_API}/api/v2/resources${response.data.avatar}`
     const userInfo = await dispatch(getUserInfoByThunk());
-    localStorage.setItem(STORE_NAME, JSON.stringify(userInfo.payload));
+    localStorage.setItem(USER_STORE_NAME, JSON.stringify(userInfo.payload));
     return response.data;
   }
 )

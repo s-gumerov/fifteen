@@ -1,5 +1,5 @@
 import React from 'react';
-import {TLeaders} from "../pages/LeadersPage/types";
+import {TPlayers} from "../pages/LeadersPage/types";
 
 export type AuthContextProps = {
   isAuthorized: boolean,
@@ -7,6 +7,6 @@ export type AuthContextProps = {
 } | null;
 
 export type LeadersContextProps = {
-  leaders: TLeaders,
-  setLeaders: React.Dispatch<React.SetStateAction<TLeaders>>
+  leaders: TPlayers,
+  setLeaders: React.Dispatch<React.SetStateAction<TPlayers>>
 } | null

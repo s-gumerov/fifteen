@@ -1,6 +1,6 @@
 import { axiosInstance } from '../axios';
 import {
-  STORE_NAME,
+  USER_STORE_NAME,
   TAuthData, TAuthResponse,
   TSignupData,
   TSignupResponse,
@@ -9,7 +9,7 @@ import {
 
 export const setUserToLocalStorage = async () => {
   const userInfo = await getUserInfo();
-  localStorage.setItem(STORE_NAME, JSON.stringify(userInfo));
+  localStorage.setItem(USER_STORE_NAME, JSON.stringify(userInfo));
 }
 
 export const signUp = async (data: TSignupData): Promise<TSignupResponse> => {
@@ -54,7 +54,7 @@ export const logout = async () => {
     await axiosInstance<string>('/api/v2/auth/logout', {
       method: "post",
     });
-    localStorage.removeItem(STORE_NAME);
+    localStorage.removeItem(USER_STORE_NAME);
   } catch (error) {
     return error;
   }
