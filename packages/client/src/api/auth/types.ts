@@ -12,7 +12,7 @@ export type TSignupData = {
 } & TAuthData;
 
 export type TUserInfo = {
-  id?: number,
+  id: number,
   display_name: string,
   avatar?: string,
 } & Omit<TSignupData, 'password'>;
@@ -24,10 +24,6 @@ export type TChangeAvatar = {
 export type TUserPassword = {
   oldPassword: string,
   newPassword: string
-}
-
-export type TBadRequest = {
-  reason: string
 }
 
 export type TSignupResponse = {

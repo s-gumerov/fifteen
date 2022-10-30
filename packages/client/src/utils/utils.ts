@@ -1,4 +1,6 @@
-import {TLeader, TLeaders} from "../pages/LeadersPage/types";
+import {TPlayer, TPlayers} from "../pages/LeadersPage/types";
+import {useLeaders} from '../context/Leaders';
+import {TLeaderboard} from '../api/leaderbord';
 
 const secondsCountInMinute = 60;
 const secondsCountInHour = 3600;
@@ -18,23 +20,14 @@ export const transformSecondsCountToWordExpression = (secondsCount: number): str
   }
 }
 
-export const updateGameResult = (leaders: TLeaders, steps: number, time: number): TLeaders => {
-  return leaders.map((el: TLeader): TLeader => {
-    if (el.userName === "Ты") {
-      if (steps < el.moves) {
-        el.moves = steps
-        el.time = time.toString()
-      }
-    }
-    return el
-  })
-}
-
-export const getRatingResult = (ratingList: TLeaders): number => {
+export const getRatingResult = (userId: number, leaderboard: TLeaderboard): number => {
   let result = 0;
-  ratingList.sort((a, b) => a.moves - b.moves).forEach(el => {
-    if (el.userName === "Ты") result = ratingList.indexOf(el) + 1
-  })
-  return result
-}
 
+  for (let i = 0; i < leaderboard.length; i++) {
+    if (leaderboard[i].data.id == userId) {
+      return result = i + 1;
+    }
+  }
+  console.log(result)
+  return result;
+}
