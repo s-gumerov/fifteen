@@ -1,19 +1,19 @@
 import {axiosInstance} from '../axios';
-import {LEADERBORD_STORE_NAME} from '..';
+import {StoreName, Endpoints} from '..';
 import {
-  TAddEntryToLeaderboard,
-  TAddEntryToLeaderboardResponse,
-  TGetAllLeaderboard,
-  TGetAllLeaderboardResponse, TLeaderboard
+  TAddPlayerToLeaderboard,
+  TAddPlayerToLeaderboardResponse,
+  TGetLeaderboard,
+  TGetLeaderboardResponse, TLeaderboard
 } from './types';
 
 export const setLeaderboardToLocalStorage = async (leaderboard: TLeaderboard) => {
-  localStorage.setItem(LEADERBORD_STORE_NAME, JSON.stringify(leaderboard));
+  localStorage.setItem(StoreName.leaderboard, JSON.stringify(leaderboard));
 }
 
-export const addEntryToLeaderboard = async (data: TAddEntryToLeaderboard): Promise<TAddEntryToLeaderboardResponse> => {
+export const addPlayerToLeaderboard = async (data: TAddPlayerToLeaderboard): Promise<TAddPlayerToLeaderboardResponse> => {
   try {
-    const result = await axiosInstance<TAddEntryToLeaderboardResponse>('/api/v2/leaderboard', {
+    const result = await axiosInstance<TAddPlayerToLeaderboardResponse>(Endpoints.leaderboard, {
       method: "post",
       data,
     });
@@ -23,19 +23,16 @@ export const addEntryToLeaderboard = async (data: TAddEntryToLeaderboard): Promi
   }
 };
 
-export const getAllLeaderboard = async (data: TGetAllLeaderboard): Promise<TGetAllLeaderboardResponse> => {
+export const getAllLeaderboard = async (data: TGetLeaderboard): Promise<TGetLeaderboardResponse> => {
   try {
-    const result = await axiosInstance<TGetAllLeaderboardResponse>('/api/v2/leaderboard/all', {
+    const result = await axiosInstance<TGetLeaderboardResponse>(Endpoints.allLeaderboard, {
       method: "post",
       data,
     });
 
-    if (result.data === undefined) {
-      return;
-    };
-
     const leaderboard = result.data as TLeaderboard;
     await setLeaderboardToLocalStorage(leaderboard);
+    return leaderboard;
   } catch (error) {
     console.log(error)
   }

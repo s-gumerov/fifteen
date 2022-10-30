@@ -2,7 +2,8 @@ export type TPlayer = {
   id:number,
   nickname:string,
   moves: number,
-  time: string
+  time: string,
+  position?:number;
 }
 
 export type TPlayers = TPlayer[]

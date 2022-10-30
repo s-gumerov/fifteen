@@ -1,18 +1,16 @@
 import {createSlice, PayloadAction, createAsyncThunk, AnyAction} from '@reduxjs/toolkit';
+import {TBadRequest} from '../../api/types';
 import {
-  USER_STORE_NAME,
+  StoreName,
   TAuthData,
   TAuthResponse,
   TChangeProfileResponse,
-  TBadRequest,
   TUserInfo, TChangeAvatarResponse, TChangeAvatar, BASE_URL_API, TUserPassword
 } from '../../api';
 import {axiosInstance} from '../../api/axios';
 import {TUserState, userReducerTypes} from './types';
+import {isError} from '../../utils/isError';
 
-function isError(action: AnyAction) {
-  return action.type.endsWith('rejected');
-}
 
 export const getUserInfoByThunk = createAsyncThunk<TUserInfo | TBadRequest, undefined, { rejectValue: string }>(
   userReducerTypes.getUserInfo,
@@ -33,7 +31,7 @@ export const authorizeByThunk = createAsyncThunk<TAuthResponse | TBadRequest, TA
       data,
     });
     const userInfo = await dispatch(getUserInfoByThunk());
-    localStorage.setItem(USER_STORE_NAME, JSON.stringify(userInfo.payload));
+    localStorage.setItem(StoreName.user, JSON.stringify(userInfo.payload));
 
     return response.data;
   }
@@ -45,13 +43,13 @@ export const logoutByThunk = createAsyncThunk<TAuthResponse, undefined, { reject
     const response = await axiosInstance('/api/v2/auth/logout', {
       method: "post",
     });
-    localStorage.removeItem(USER_STORE_NAME);
+    localStorage.removeItem(StoreName.user);
 
     return response.data;
   }
 );
 
-export const changeProfileByThunk = createAsyncThunk<TChangeProfileResponse | TBadRequest, TUserInfo, { rejectValue: string }>(
+export const changeProfileByThunk = createAsyncThunk<TUserInfo | TBadRequest, TUserInfo, { rejectValue: string }>(
   userReducerTypes.changeProfile,
   async function (data, {dispatch}) {
     const response = await axiosInstance('/api/v2/user/profile', {
@@ -60,13 +58,13 @@ export const changeProfileByThunk = createAsyncThunk<TChangeProfileResponse | TB
     });
     response.data.avatar = `${BASE_URL_API}/api/v2/resources${response.data.avatar}`
     const userInfo = await dispatch(getUserInfoByThunk());
-    localStorage.setItem(USER_STORE_NAME, JSON.stringify(userInfo.payload));
+    localStorage.setItem(StoreName.user, JSON.stringify(userInfo.payload));
 
     return response.data;
   }
 );
 
-export const changeAvatarByThunk = createAsyncThunk<TChangeAvatarResponse | TBadRequest | TChangeAvatar, FormData>(
+export const changeAvatarByThunk = createAsyncThunk<TChangeAvatarResponse | TBadRequest | TUserInfo, FormData>(
   userReducerTypes.changeAvatar,
   async function (data, {dispatch}) {
     const response = await axiosInstance('/api/v2/user/profile/avatar', {
@@ -78,7 +76,7 @@ export const changeAvatarByThunk = createAsyncThunk<TChangeAvatarResponse | TBad
     })
     response.data.avatar = `${BASE_URL_API}/api/v2/resources${response.data.avatar}`
     const userInfo = await dispatch(getUserInfoByThunk());
-    localStorage.setItem(USER_STORE_NAME, JSON.stringify(userInfo.payload));
+    localStorage.setItem(StoreName.user, JSON.stringify(userInfo.payload));
     return response.data;
   }
 )

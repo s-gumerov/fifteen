@@ -19,7 +19,8 @@ import {
 import {BoardValues, CanvasButton, TBoard} from './types';
 import img from '../../assets/bgPuzzle.svg';
 import {getRatingResult} from "../../utils";
-import {TLeaders} from "../../pages/LeadersPage/types";
+import {TPlayer} from "../../pages/LeadersPage/types";
+import {TLeaderboard} from '../../api/leaderbord';
 
 
 export class CanvasController {
@@ -153,17 +154,18 @@ export class CanvasController {
         this.drawField(fieldRef, this.mixBoard(), backgroundPuzzle);
     }
 
-    canvasIsWinDraw = (fieldRef: React.RefObject<HTMLCanvasElement>, leaders: TLeaders) => {
+    canvasIsWinDraw = (fieldRef: React.RefObject<HTMLCanvasElement>, userId:number | null, leaderboard:TLeaderboard) => {
         const canvas = fieldRef.current;
         const ctx = canvas?.getContext("2d") as CanvasRenderingContext2D;
-        console.log(ctx)
         ctx.clearRect(tileBorder, tileBorder, (tileSize * gameFieldSize), (tileSize * gameFieldSize));
         ctx!.font = fontStyle;
         ctx!.fillStyle = fillStyle;
         ctx!.textAlign = 'center'
         ctx!.fillText(`Вы победили!`, canvasInBorderSize / 2, canvasInBorderSize / 4);
         ctx!.font = middleFontStyle;
-        ctx!.fillText(`Ваша позиция в рейтинге - ${getRatingResult(leaders)}`, canvasInBorderSize / 2, canvasInBorderSize / 2);
+
+        userId ? ctx!.fillText(`Ваша позиция в рейтинге -  ${ getRatingResult(userId, leaderboard)}`, canvasInBorderSize / 2, canvasInBorderSize / 2)
+            : null;
         this.drawButton(ctx!, buttonRepeatGame, '#1976d2')
         this.drawButton(ctx!, buttonLeaders, 'green')
     }

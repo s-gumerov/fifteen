@@ -11,11 +11,14 @@ import {
 import './styles.scss'
 import {TPlayer} from "./types";
 import {useLeaders} from "../../context/Leaders";
+import {useAppSelector} from '../../hooks/useAppDispatch';
 
 export const LeadersPage = (): JSX.Element => {
     const [page, setPage] = useState(1);
     const [rowsPerPage] = useState(5);
-    const leadersContext = useLeaders()
+    const leadersContext = useLeaders();
+    const {user} = useAppSelector(state => state.user);
+
     const handleChangePage = (
         event: ChangeEvent<unknown>,
         newPage: number,
@@ -38,24 +41,27 @@ export const LeadersPage = (): JSX.Element => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {
-                                leadersContext!.leaders.sort((a: TPlayer, b: TPlayer) => a.moves - b.moves).slice((page - 1) * rowsPerPage, (page - 1) * rowsPerPage + rowsPerPage)
-                                    .map((usr: TPlayer, index: number) => {
+                            {leadersContext!.leaders &&
+                                leadersContext!.leaders
+                                    .slice((page - 1) * rowsPerPage, (page - 1) * rowsPerPage + rowsPerPage)
+                                    .map((usr: { data: TPlayer }, index: number) => {
                                         return (
-                                            <TableRow className={usr.nickname === "Ты" ? "userCell" : ""} key={index}>
+                                            <TableRow className={usr.data.id === user!.id ? "userCell" : ""}
+                                                      key={index}>
                                                 <TableCell sx={{width: 70}} component="td" scope="row"
                                                            align="center">
-                                                    {leadersContext!.leaders.indexOf(usr) + 1}
+                                                    {leadersContext!.leaders &&
+                                                        leadersContext!.leaders.indexOf(usr) + 1}
                                                 </TableCell>
                                                 <TableCell sx={{width: 300}} component="td" scope="row"
                                                            align="center">
-                                                    {usr.nickname}
+                                                    {usr.data.nickname}
                                                 </TableCell>
                                                 <TableCell component="td" scope="row" align="center">
-                                                    {usr.moves}
+                                                    {usr.data.moves}
                                                 </TableCell>
                                                 <TableCell component="td" scope="row" align="center">
-                                                    {usr.time}
+                                                    {usr.data.time}
                                                 </TableCell>
                                             </TableRow>
                                         )
@@ -70,7 +76,7 @@ export const LeadersPage = (): JSX.Element => {
                     variant="outlined"
                     shape="rounded"
                     color="primary"
-                    count={Math.ceil(leadersContext!.leaders.length / rowsPerPage)}
+                    count={leadersContext!.leaders ? Math.ceil(leadersContext!.leaders.length / rowsPerPage) : undefined}
                     page={page}
                     onChange={handleChangePage}
                 />

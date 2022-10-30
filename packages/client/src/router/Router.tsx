@@ -24,7 +24,8 @@ import { getUserInfoByThunk } from '../store/user/userSlice';
 import { userReducerTypes } from '../store/user/types';
 import gameAudio from '../assets/audio/pirates_of_the_caribbean.mp3';
 import { withPlayingAudio } from '../hocs/playAudioToPage/PlayAudioToPage';
-
+import {getLeaderboardByThunk} from '../store/leaderboard/leaderboardSlice';
+import {leaderboardDefaultQuery} from '../const';
 
 export const Router = () => {
   const authContext = useAuth();
@@ -35,6 +36,7 @@ export const Router = () => {
     useEffect(() => {
     const checkAuthorization = async () => {
       const userInfo = await dispatch(getUserInfoByThunk());
+      dispatch(getLeaderboardByThunk(leaderboardDefaultQuery));
       if(userInfo.type !== `${userReducerTypes.getUserInfo}/rejected`) authContext?.setAuthorization(true);
       else authContext?.setAuthorization(false);
     }

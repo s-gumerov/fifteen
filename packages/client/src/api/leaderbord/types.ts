@@ -4,20 +4,26 @@ export type TLeaderboard = {
   data: TPlayer
 }[];
 
-export type TAddEntryToLeaderboard = {
-  ratingFieldName: "moves",
-  teamName: "fifteen"
-} & TLeaderboard;
+export type TRatingFieldName = "id" | "nickname" | "moves" | "time";
 
-export type TAddEntryToLeaderboardResponse = "OK" | { reason: string } | undefined;
+export type TTeamName = "fifteen";
 
-export type TGetAllLeaderboard = {
-  ratingFieldName: "moves",
-  cursor: number,
-  limit: number
+export type TAddPlayerToLeaderboard = {
+  data: TPlayer,
+  ratingFieldName: TRatingFieldName,
+  teamName: TTeamName
 };
 
-export type TGetAllLeaderboardResponse = TLeaderboard | { reason: string } | undefined;
+export type TAddPlayerToLeaderboardResponse = "OK" | undefined;
+
+export type TGetLeaderboard = {
+  ratingFieldName: TRatingFieldName,
+  cursor: number,
+  limit: number,
+  teamName: TTeamName
+};
+
+export type TGetLeaderboardResponse = TLeaderboard | undefined;
 
 
 
