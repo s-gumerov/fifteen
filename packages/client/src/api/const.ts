@@ -7,12 +7,12 @@ export enum HTTP_STATUS_CODE {
   INTERNAL_SERVER_ERROR = 500,
 };
 
-export enum StoreName {
-  user = 'fifteenUserStore',
-  leaderboard = "fifteenLeaderboardStore",
+export enum STORE_NAME {
+  USER = 'fifteenUserStore',
+  LEADERBOARD  = "fifteenLeaderboardStore",
 };
 
-export enum Endpoints{
-  leaderboard = '/api/v2/leaderboard',
-  allLeaderboard  = '/api/v2/leaderboard/all',
+export enum ENDPOINT{
+  LEADERBOARD = '/api/v2/leaderboard',
+  ALLLEADERBOARD  = '/api/v2/leaderboard/all',
 };

@@ -1,5 +1,5 @@
 import {axiosInstance} from '../axios';
-import {StoreName, Endpoints} from '..';
+import {STORE_NAME, ENDPOINT} from '..';
 import {
   TAddPlayerToLeaderboard,
   TAddPlayerToLeaderboardResponse,
@@ -8,12 +8,12 @@ import {
 } from './types';
 
 export const setLeaderboardToLocalStorage = async (leaderboard: TLeaderboard) => {
-  localStorage.setItem(StoreName.leaderboard, JSON.stringify(leaderboard));
+  localStorage.setItem(STORE_NAME.LEADERBOARD, JSON.stringify(leaderboard));
 }
 
 export const addPlayerToLeaderboard = async (data: TAddPlayerToLeaderboard): Promise<TAddPlayerToLeaderboardResponse> => {
   try {
-    const result = await axiosInstance<TAddPlayerToLeaderboardResponse>(Endpoints.leaderboard, {
+    const result = await axiosInstance<TAddPlayerToLeaderboardResponse>(ENDPOINT.LEADERBOARD, {
       method: "post",
       data,
     });
@@ -25,7 +25,7 @@ export const addPlayerToLeaderboard = async (data: TAddPlayerToLeaderboard): Pro
 
 export const getAllLeaderboard = async (data: TGetLeaderboard): Promise<TGetLeaderboardResponse> => {
   try {
-    const result = await axiosInstance<TGetLeaderboardResponse>(Endpoints.allLeaderboard, {
+    const result = await axiosInstance<TGetLeaderboardResponse>(ENDPOINT.ALLLEADERBOARD, {
       method: "post",
       data,
     });

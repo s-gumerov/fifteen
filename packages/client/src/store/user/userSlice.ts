@@ -1,11 +1,10 @@
 import {createSlice, PayloadAction, createAsyncThunk, AnyAction} from '@reduxjs/toolkit';
 import {TBadRequest} from '../../api/types';
 import {
-  StoreName,
+  STORE_NAME,
   TAuthData,
   TAuthResponse,
-  TChangeProfileResponse,
-  TUserInfo, TChangeAvatarResponse, TChangeAvatar, BASE_URL_API, TUserPassword
+  TUserInfo, TChangeAvatarResponse,  BASE_URL_API, TUserPassword
 } from '../../api';
 import {axiosInstance} from '../../api/axios';
 import {TUserState, userReducerTypes} from './types';
@@ -31,7 +30,7 @@ export const authorizeByThunk = createAsyncThunk<TAuthResponse | TBadRequest, TA
       data,
     });
     const userInfo = await dispatch(getUserInfoByThunk());
-    localStorage.setItem(StoreName.user, JSON.stringify(userInfo.payload));
+    localStorage.setItem(STORE_NAME.USER, JSON.stringify(userInfo.payload));
 
     return response.data;
   }
@@ -43,7 +42,7 @@ export const logoutByThunk = createAsyncThunk<TAuthResponse, undefined, { reject
     const response = await axiosInstance('/api/v2/auth/logout', {
       method: "post",
     });
-    localStorage.removeItem(StoreName.user);
+    localStorage.removeItem(STORE_NAME.USER);
 
     return response.data;
   }
@@ -58,7 +57,7 @@ export const changeProfileByThunk = createAsyncThunk<TUserInfo | TBadRequest, TU
     });
     response.data.avatar = `${BASE_URL_API}/api/v2/resources${response.data.avatar}`
     const userInfo = await dispatch(getUserInfoByThunk());
-    localStorage.setItem(StoreName.user, JSON.stringify(userInfo.payload));
+    localStorage.setItem(STORE_NAME.USER, JSON.stringify(userInfo.payload));
 
     return response.data;
   }
@@ -76,7 +75,7 @@ export const changeAvatarByThunk = createAsyncThunk<TChangeAvatarResponse | TBad
     })
     response.data.avatar = `${BASE_URL_API}/api/v2/resources${response.data.avatar}`
     const userInfo = await dispatch(getUserInfoByThunk());
-    localStorage.setItem(StoreName.user, JSON.stringify(userInfo.payload));
+    localStorage.setItem(STORE_NAME.USER, JSON.stringify(userInfo.payload));
     return response.data;
   }
 )

@@ -4,8 +4,8 @@ import {
   createAsyncThunk
 } from '@reduxjs/toolkit';
 import {TBadRequest} from '../../api/types';
-import {Endpoints} from '../../api';
-import {StoreName} from '../../api';
+import {ENDPOINT} from '../../api';
+import {STORE_NAME} from '../../api';
 import {axiosInstance} from '../../api/axios';
 import {TLeaderboardState, LeaderboardReducerTypes} from './types';
 import {
@@ -22,12 +22,12 @@ import {isError} from '../../utils/isError';
 export const getLeaderboardByThunk = createAsyncThunk<TGetLeaderboardResponse | TBadRequest, TGetLeaderboard, { rejectValue: string }>(
   LeaderboardReducerTypes.allLeaderboard,
   async function (data, {dispatch}) {
-    const response = await axiosInstance(Endpoints.allLeaderboard, {
+    const response = await axiosInstance(ENDPOINT.ALLLEADERBOARD, {
       method: "post",
       data,
     });
 
-    localStorage.setItem(StoreName.leaderboard, JSON.stringify(response.data.payload));
+    localStorage.setItem(STORE_NAME.LEADERBOARD, JSON.stringify(response.data.payload));
 
     return response.data;
   }
@@ -36,7 +36,7 @@ export const getLeaderboardByThunk = createAsyncThunk<TGetLeaderboardResponse | 
 export const addPlayerToLeaderboardByThunk = createAsyncThunk<TAddPlayerToLeaderboardResponse | TBadRequest, TAddPlayerToLeaderboard, { rejectValue: string }>(
   LeaderboardReducerTypes.leaderboard,
   async function (data, {dispatch}) {
-    const response = await axiosInstance(Endpoints.leaderboard, {
+    const response = await axiosInstance(ENDPOINT.LEADERBOARD, {
       method: "post",
       data,
     })
