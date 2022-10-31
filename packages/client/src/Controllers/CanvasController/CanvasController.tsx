@@ -95,7 +95,7 @@ export class CanvasController {
     }
   }
 
-  getBoardAfterClick(fieldRef: React.RefObject<HTMLCanvasElement>, event: React.MouseEvent, board: TBoard): TBoard {
+  getBoardAfterClick(event: React.MouseEvent, board: TBoard): TBoard {
     const yMouse = (event.pageX - (event.target as HTMLCanvasElement).offsetLeft) / tileSize | 0;
     const xMouse = (event.pageY - (event.target as HTMLCanvasElement).offsetTop) / tileSize | 0;
     const emptyCell = this.getEmptyCell(board);

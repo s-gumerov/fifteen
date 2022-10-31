@@ -44,7 +44,7 @@ export const GameFieldPage = (): JSX.Element => {
 
     const handleClickOnField = (event: React.MouseEvent) => {
         const previousBoard = [[...board[0]], [...board[1]], [...board[2]], [...board[3]]];
-        const currentBoard = Canvas.getBoardAfterClick(fieldRef, event, previousBoard);
+        const currentBoard = Canvas.getBoardAfterClick(event, previousBoard);
 
         if (!isEqual(board, currentBoard)) {
             setStepsCount(stepsCount + 1);
