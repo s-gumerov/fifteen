@@ -33,7 +33,7 @@ export const GameFieldPage = (): JSX.Element => {
             setStepsCount(0)
             setSecondsCounter(0)
             setToggleSecondsCounter(true);
-            console.log(Canvas.isSolvable(board.flat()))
+
 
             Canvas.buttonRepeatClick(fieldRef, board, backgroundPuzzle)
         }
