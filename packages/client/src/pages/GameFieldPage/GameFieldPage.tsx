@@ -33,7 +33,8 @@ export const GameFieldPage = (): JSX.Element => {
             setStepsCount(0)
             setSecondsCounter(0)
             setToggleSecondsCounter(true);
-            setBoard(Canvas.mixBoard())
+            console.log(Canvas.isSolvable(board.flat()))
+
             Canvas.buttonRepeatClick(fieldRef, board, backgroundPuzzle)
         }
         if (Canvas.isInsideButton(mousePos, buttonLeaders)) {
@@ -43,7 +44,7 @@ export const GameFieldPage = (): JSX.Element => {
 
     const handleClickOnField = (event: React.MouseEvent) => {
         const previousBoard = [[...board[0]], [...board[1]], [...board[2]], [...board[3]]];
-        const currentBoard = Canvas.getBoardAfterClick(event, previousBoard);
+        const currentBoard = Canvas.getBoardAfterClick(fieldRef, event, previousBoard);
 
         if (!isEqual(board, currentBoard)) {
             setStepsCount(stepsCount + 1);
@@ -55,6 +56,7 @@ export const GameFieldPage = (): JSX.Element => {
                 setToggleSecondsCounter(false)
                 leaders?.setLeaders(updateGameResult(leaders!.leaders, stepsCount + 1, secondsCount))
                 Canvas.canvasIsWinDraw(fieldRef, leaders!.leaders)
+                setBoard(Canvas.mixBoard())
             }
         }
     }
