@@ -25,7 +25,7 @@ export const ProfilePage = (): JSX.Element => {
     <div className="profile">
       <Formik
         enableReinitialize={true}
-        initialValues={user !== null ? {...user} : {...INITIAL_FORM_STATE}}
+        initialValues={user ?? INITIAL_FORM_STATE}
         onSubmit={() => {
           console.log(`this console.log of the name of Formik's onSubmit is required option`)
         }}

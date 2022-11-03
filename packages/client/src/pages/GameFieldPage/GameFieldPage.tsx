@@ -41,7 +41,8 @@ export const GameFieldPage = (): JSX.Element => {
             setStepsCount(0)
             setSecondsCounter(0)
             setToggleSecondsCounter(true);
-            setBoard(Canvas.mixBoard())
+
+
             Canvas.buttonRepeatClick(fieldRef, board, backgroundPuzzle)
         }
         if (Canvas.isInsideButton(mousePos, buttonLeaders)) {
@@ -61,6 +62,9 @@ export const GameFieldPage = (): JSX.Element => {
             if (Canvas.isWin(currentBoard)) {
                 setCheckWin(true)
                 setToggleSecondsCounter(false)
+
+
+                setBoard(Canvas.mixBoard())
 
                 if (user) {
                     const leaderboard = leaders!.leaders!;

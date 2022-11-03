@@ -1,5 +1,5 @@
 export type TPlayer = {
-  id:number,
+  id:number | undefined,
   nickname:string,
   moves: number,
   time: string,

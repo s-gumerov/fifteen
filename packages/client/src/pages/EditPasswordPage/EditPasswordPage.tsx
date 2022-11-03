@@ -7,7 +7,9 @@ import {useAppSelector} from "../../hooks/useAppDispatch";
 import {changePassword} from "../../store/user/userSlice";
 import {TUserPassword} from "../../api";
 
+
 export const EditPasswordPage = (): JSX.Element => {
+
   const {user} = useAppSelector(state => state.user)
   const handleSubmit = (values: TUserPassword) => {
     changePassword(values)

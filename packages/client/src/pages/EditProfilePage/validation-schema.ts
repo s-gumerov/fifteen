@@ -7,6 +7,7 @@ import {
 } from "../../utils/validation_regexps";
 
 export const INITIAL_FORM_STATE = {
+  id: 0,
   email: '',
   login: '',
   first_name: '',
@@ -32,7 +33,7 @@ export const EDIT_PROFILE_VALIDATION_SCHEMA = Yup.object().shape({
     .matches(nameRegexp, 'Латиница или кириллица, первая буква заглавная'),
   display_name: Yup.string()
     .required('Введите, пожалуйста, имя для форума!')
-    // .nullable(true)
+    .nullable(true)
     .matches(displayNameRegexp, 'Латиница, первая буква заглавная'),
   phone: Yup.string()
     .required('Введите, пожалуйста, телефон!')
