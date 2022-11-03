@@ -7,12 +7,16 @@ import {useAppDispatch, useAppSelector} from "../../hooks/useAppDispatch";
 import {TUserInfo} from "../../api";
 import {changeAvatarByThunk, changeProfileByThunk} from "../../store/user/userSlice";
 import "./styles.scss"
+import {useNavigate} from "react-router-dom";
+import {ROUTES} from "../../router/types";
 
 export const EditProfilePage = (): JSX.Element => {
   const dispatch = useAppDispatch();
+  const navigation = useNavigate();
   const {user} = useAppSelector(state => state.user)
   const handleSubmit = async (values: TUserInfo) => {
     await dispatch(changeProfileByThunk(values))
+    navigation(ROUTES.PROFILE);
   }
 
   const fileSelectedHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,7 +30,7 @@ export const EditProfilePage = (): JSX.Element => {
     <div className="profile">
       <Formik
         enableReinitialize={true}
-        initialValues={user !== null ? {...user} : {...INITIAL_FORM_STATE}}
+        initialValues={user ?? INITIAL_FORM_STATE}
         validationSchema={EDIT_PROFILE_VALIDATION_SCHEMA}
         onSubmit={handleSubmit}
       >
@@ -40,7 +44,7 @@ export const EditProfilePage = (): JSX.Element => {
             />
             <Avatar
               alt="Аватар"
-              src={user?.avatar || "https://mui.com/static/images/avatar/1.jpg"}
+              src={user?.avatar ?? "https://mui.com/static/images/avatar/1.jpg"}
               sx={{width: 120, height: 120, mx: "auto", mb: 2}}
             />
           </label>

@@ -63,8 +63,7 @@ export const GameFieldPage = (): JSX.Element => {
                 setCheckWin(true)
                 setToggleSecondsCounter(false)
 
-                leaders?.setLeaders(updateGameResult(leaders!.leaders, stepsCount + 1, secondsCount))
-                Canvas.canvasIsWinDraw(fieldRef, leaders!.leaders)
+
                 setBoard(Canvas.mixBoard())
 
                 if (user) {

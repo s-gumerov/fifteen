@@ -4,6 +4,7 @@ export type TAuthData = {
 }
 
 export type TSignupData = {
+  id?: number,
   first_name: string,
   second_name: string,
   email: string,
@@ -12,8 +13,8 @@ export type TSignupData = {
 } & TAuthData;
 
 export type TUserInfo = {
-  id: number,
-  display_name: string,
+  id?: number,
+  display_name?: string,
   avatar?: string,
 } & Omit<TSignupData, 'password'>;
 

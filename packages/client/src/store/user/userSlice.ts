@@ -1,10 +1,10 @@
-import {createSlice, PayloadAction, createAsyncThunk, AnyAction} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction, createAsyncThunk} from '@reduxjs/toolkit';
 import {TBadRequest} from '../../api/types';
 import {
   STORE_NAME,
   TAuthData,
   TAuthResponse,
-  TUserInfo, TChangeAvatarResponse,  BASE_URL_API, TUserPassword
+  TUserInfo, TChangeAvatarResponse, BASE_URL_API, TUserPassword
 } from '../../api';
 import {axiosInstance} from '../../api/axios';
 import {TUserState, userReducerTypes} from './types';
@@ -26,6 +26,20 @@ export const authorizeByThunk = createAsyncThunk<TAuthResponse | TBadRequest, TA
   userReducerTypes.authorize,
   async function (data, {dispatch}) {
     const response = await axiosInstance('/api/v2/auth/signin', {
+      method: "post",
+      data,
+    });
+    const userInfo = await dispatch(getUserInfoByThunk());
+    localStorage.setItem(STORE_NAME.USER, JSON.stringify(userInfo.payload));
+
+    return response.data;
+  }
+);
+
+export const signUpByThunk = createAsyncThunk<TUserInfo | TBadRequest, TUserInfo, { rejectValue: string }>(
+  userReducerTypes.authorize,
+  async function (data, {dispatch}) {
+    const response = await axiosInstance('/api/v2/auth/signup', {
       method: "post",
       data,
     });
