@@ -4,7 +4,7 @@ const URLS = [
   '/src/Controllers/CanvasController.tsx',
   '/src/App.tsx',
   '/src/Controllers/types.ts',
-  '/src/api/auth/Auth.ts',
+  '/src/api/auth/Leaderbord.ts',
   '/src/api/auth/index.ts',
   '/src/api/auth/types.ts',
   '/src/api/axios.ts',

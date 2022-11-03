@@ -1,5 +1,6 @@
 import React from 'react';
-import {TLeaders} from "../pages/LeadersPage/types";
+import {TPlayers} from "../pages/LeadersPage/types";
+import {TLeaderboard} from '../api/leaderbord';
 
 export type AuthContextProps = {
   isAuthorized: boolean,
@@ -7,6 +8,6 @@ export type AuthContextProps = {
 } | null;
 
 export type LeadersContextProps = {
-  leaders: TLeaders,
-  setLeaders: React.Dispatch<React.SetStateAction<TLeaders>>
+  leaders: TLeaderboard | null,
+  setLeaders: React.Dispatch<React.SetStateAction<TLeaderboard | null>>
 } | null

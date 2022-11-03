@@ -19,7 +19,8 @@ import {
 import {BoardValues, CanvasButton, TBoard} from './types';
 import img from '../../assets/bgPuzzle.svg';
 import {getRatingResult} from "../../utils";
-import {TLeaders} from "../../pages/LeadersPage/types";
+import {TPlayer} from "../../pages/LeadersPage/types";
+import {TLeaderboard} from '../../api/leaderbord';
 
 
 export class CanvasController {
@@ -141,6 +142,55 @@ export class CanvasController {
     return {
       x: event.clientX - rect.left,
       y: event.clientY - rect.top
+
+    drawButton = (ctx: CanvasRenderingContext2D, btnName: CanvasButton, color: string) => {
+        ctx.fillStyle = color
+        ctx.strokeStyle = fillStyle
+        ctx.beginPath();
+        ctx.moveTo(btnName.x + btnName.width - btnPathIndent, btnName.y + btnName.height)
+        ctx.arcTo(btnName.x, btnName.y + btnName.height, btnName.x, btnName.y, canvasBtnAngleRadius);
+        ctx.arcTo(btnName.x, btnName.y, btnName.width + btnName.x, btnName.y, canvasBtnAngleRadius);
+        ctx.arcTo(btnName.width + btnName.x, btnName.y, btnName.x + btnName.width, btnName.y + btnName.height, canvasBtnAngleRadius);
+        ctx.arcTo(btnName.width + btnName.x, btnName.y + btnName.height, btnName.x, btnName.y + btnName.height, canvasBtnAngleRadius);
+        ctx.lineWidth = gameFieldSize
+        ctx.stroke()
+        ctx.fill()
+        ctx.font = smallFontStyle;
+        ctx.fillStyle = fillStyle;
+        ctx.textAlign = 'center'
+        ctx.textBaseline = 'middle'
+        ctx.fillText(btnName.text, (btnName.x + btnName.width + btnName.x) / 2, (btnName.y + btnName.y + btnName.height) / 2)
+    }
+
+    buttonRepeatClick = (fieldRef: React.RefObject<HTMLCanvasElement>, board: TBoard, backgroundPuzzle: HTMLImageElement) => {
+        const canvas = fieldRef.current;
+        const ctx = canvas?.getContext("2d") as CanvasRenderingContext2D;
+        ctx.clearRect(tileBorder, tileBorder, (tileSize * gameFieldSize), (tileSize * gameFieldSize));
+        this.drawField(fieldRef, this.mixBoard(), backgroundPuzzle);
+    }
+
+    canvasIsWinDraw = (fieldRef: React.RefObject<HTMLCanvasElement>, userId:number | null, leaderboard:TLeaderboard) => {
+        const canvas = fieldRef.current;
+        const ctx = canvas?.getContext("2d") as CanvasRenderingContext2D;
+        ctx.clearRect(tileBorder, tileBorder, (tileSize * gameFieldSize), (tileSize * gameFieldSize));
+        ctx!.font = fontStyle;
+        ctx!.fillStyle = fillStyle;
+        ctx!.textAlign = 'center'
+        ctx!.fillText(`Вы победили!`, canvasInBorderSize / 2, canvasInBorderSize / 4);
+        ctx!.font = middleFontStyle;
+
+        userId ? ctx!.fillText(`Ваша позиция в рейтинге -  ${ getRatingResult(userId, leaderboard)}`, canvasInBorderSize / 2, canvasInBorderSize / 2)
+            : null;
+        this.drawButton(ctx!, buttonRepeatGame, '#1976d2')
+        this.drawButton(ctx!, buttonLeaders, 'green')
+    }
+
+
+    init(fieldRef: React.RefObject<HTMLCanvasElement>, board: TBoard, backgroundPuzzle: HTMLImageElement): void {
+        backgroundPuzzle.addEventListener('load', () => {
+            this.drawField(fieldRef, board, backgroundPuzzle);
+        })
+
     }
   }
 
