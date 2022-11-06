@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { hot } from "react-hot-loader";
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from "react-redux";
 import { AuthProvider } from './context';
@@ -21,7 +22,7 @@ function startServiceWorker() {
   }
 }
 
-function App() {
+const App = () => {
   // useEffect(() => {
   //   const fetchServerData = async () => {
   //     const url = `http://localhost:${__SERVER_PORT__}`
@@ -44,8 +45,10 @@ function App() {
       </BrowserRouter>
     </Provider>
   );
-}
+};
 
-export default withErrorBoundary(App, {
-    FallbackComponent: ErrorFallback
-});
+export default App;
+
+// export default withErrorBoundary(App, {
+//     FallbackComponent: ErrorFallback
+// });

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "jsx": "react-jsx",
     "composite": true,
     "target": "es2019",
     "module": "commonjs",
@@ -17,7 +18,8 @@
     "noUnusedParameters": true,
     "noUnusedLocals": true,
     "forceConsistentCasingInFileNames": true,
-    "importsNotUsedAsValues": "error",
+    "importsNotUsedAsValues": "remove",
+    "isolatedModules": false,
     "lib": ["es2019", "esnext.asynciterable"],
     "types": ["node", "jest"],
     "baseUrl": ".",
@@ -25,5 +27,6 @@
       "*": ["types/*"]
     },
     "outDir": "dist"
-  }
+  },
+  "exclude": ["node_modules"]
 }
