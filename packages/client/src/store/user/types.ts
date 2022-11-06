@@ -3,6 +3,7 @@ import {TUserInfo} from '../../api';
 export enum userReducerTypes {
   getUserInfo = 'user/getUserInfo',
   authorize = 'user/authorize',
+  OAuthorize = 'user/OAuthorize',
   logout = 'user/logout',
   changeProfile = 'user/changeProfile',
   changeAvatar = 'user/changeAvatar',

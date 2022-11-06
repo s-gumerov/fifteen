@@ -18,6 +18,11 @@ export type TUserInfo = {
   avatar?: string,
 } & Omit<TSignupData, 'password'>;
 
+export type TOAuth = {
+  code: string,
+  redirect_uri: string
+}
+
 export type TChangeAvatar = {
   avatar: FormData;
 }
