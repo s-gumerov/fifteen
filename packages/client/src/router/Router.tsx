@@ -50,14 +50,12 @@ export const Router = () => {
       else authContext?.setAuthorization(false);
     }
     if (code) {
-      console.log('if')
       yandexOAuth()
         .then(() => {
           checkAuthorization();
         })
         .catch(err => console.log(err))
     } else {
-      console.log('else')
       checkAuthorization();
     }
 

@@ -21,8 +21,6 @@ export const authorizeWithYaOAuth = async (data: TOAuth): Promise<TAuthResponse>
       method: "post",
       data
     });
-    //await setUserToLocalStorage();
-    console.log(result)
     return result.data;
   } catch (error) {
     console.log(error)
