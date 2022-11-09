@@ -1,11 +1,11 @@
 import {axiosInstance} from "../axios";
-import {REDIRECT_URI} from "../const";
+import {ENDPOINT, REDIRECT_URI} from "../const";
 import { TAuthResponse, TOAuth} from "../auth";
 
 
 export const getServiceId = async () => {
   try {
-    const result = await axiosInstance('/api/v2/oauth/yandex/service-id', {
+    const result = await axiosInstance(ENDPOINT.SERVICE_ID, {
       method: "get",
       params: {REDIRECT_URI}
     })

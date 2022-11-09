@@ -29,9 +29,12 @@ export const AuthPage = (): JSX.Element => {
   }
 
   const handleSubmitOAuth = async () => {
-    await getServiceId()
-      .then((res) => window.location.replace(`https://oauth.yandex.ru/authorize?response_type=code&client_id=${res.service_id}&redirect_uri=${REDIRECT_URI}`))
-  }
+    const res = await getServiceId();
+    const {service_id} = res;
+    if(service_id) {
+      window.location.replace(`https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=${REDIRECT_URI}`)
+    }
+  };
 
   return (
     <div className="auth">
