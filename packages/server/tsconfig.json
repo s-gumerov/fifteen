@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
+    "jsx": "react",
     "composite": true,
     "target": "es2019",
-    "module": "commonjs",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "sourceMap": true,
@@ -18,12 +19,13 @@
     "noUnusedLocals": true,
     "forceConsistentCasingInFileNames": true,
     "importsNotUsedAsValues": "error",
-    "lib": ["es2019", "esnext.asynciterable"],
+    "lib": ["es2019", "esnext.asynciterable", "DOM"],
     "types": ["node", "jest"],
     "baseUrl": ".",
     "paths": {
       "*": ["types/*"]
     },
-    "outDir": "dist"
-  }
+    "outDir": "../client/dist"
+  },
+  "exclude": ["./dist"]
 }

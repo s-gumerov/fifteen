@@ -1,3 +1,4 @@
+export const generateTemplate = (content: string) => `
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,7 +8,8 @@
     <title>Пятнашки</title>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="./src/main.tsx"></script>
+    <div id="root">${content}</div>
+    <script type="module" src="main.tsx"></script>
   </body>
 </html>
+`;

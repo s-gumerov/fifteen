@@ -1,4 +1,4 @@
-import {TGetLeaderboard, TRatingFieldName} from './api/leaderbord';
+import type {TGetLeaderboard, TRatingFieldName} from './api/leaderbord';
 
 export const appTitle = 'Пятнашки';
 

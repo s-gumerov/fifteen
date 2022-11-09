@@ -5,9 +5,9 @@ import React, {
     useEffect,
     useState
 } from "react";
-import {LeadersContextProps} from "./types";
+import type {LeadersContextProps} from "./types";
 import {useAppSelector} from '../hooks/useAppDispatch';
-import {TLeaderboard} from '../api/leaderbord';
+import type {TLeaderboard} from '../api/leaderbord';
 
 export const LeadersContext = createContext<LeadersContextProps>(null)
 export const useLeaders = () => useContext(LeadersContext);
