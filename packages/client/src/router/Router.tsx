@@ -38,28 +38,23 @@ export const Router = () => {
   useEffect(() => {
     const OAuthParams = new URLSearchParams(window.location.search);
     const code = OAuthParams.get('code')?.toString();
-    const yandexOAuth = async () => {
-      const redirect_uri = REDIRECT_URI
-      if (!code) return
-      await authorizeWithYaOAuth({code, redirect_uri})
-    }
+    const yandexOAuth = async (code: string) => {
+      const redirect_uri = REDIRECT_URI;
+      const res = await authorizeWithYaOAuth({code, redirect_uri});
+      if (res==='OK') {
+        return setTimeout(() => {
+         checkAuthorization();
+        }, 1000)
+      }
+    };
     const checkAuthorization = async () => {
       const userInfo = await dispatch(getUserInfoByThunk());
       dispatch(getLeaderboardByThunk(leaderboardDefaultQuery));
       if (userInfo.type !== `${userReducerTypes.getUserInfo}/rejected`) authContext?.setAuthorization(true);
       else authContext?.setAuthorization(false);
     }
-    if (code) {
-      yandexOAuth()
-        .then(() => {
-          checkAuthorization();
-        })
-        .catch(err => console.log(err))
-    } else {
-      checkAuthorization();
-    }
 
-
+    code ? yandexOAuth(code) : checkAuthorization();
   }, []);
 
   return (
