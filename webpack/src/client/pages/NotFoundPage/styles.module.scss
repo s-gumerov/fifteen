@@ -1,0 +1,23 @@
+@use '../../assets/colors' as *;
+
+.notFoundPage {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  font-family: 'JK Abode';
+
+  &__title {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 96px;
+    line-height: 96px;
+    color: $error_title;
+  }
+
+  &__message {
+    color: $message;
+  }
+}
+
