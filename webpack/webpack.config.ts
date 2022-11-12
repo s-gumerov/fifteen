@@ -1,5 +1,4 @@
 import * as path from 'path';
-// const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const NODE_ENV = process.env.NODE_ENV;
 const IS_DEV = NODE_ENV === "development";

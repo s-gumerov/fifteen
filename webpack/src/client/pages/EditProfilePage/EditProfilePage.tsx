@@ -6,7 +6,7 @@ import {EDIT_PROFILE_VALIDATION_SCHEMA, INITIAL_FORM_STATE} from "./validation-s
 import {useAppDispatch, useAppSelector} from "../../hooks/useAppDispatch";
 import {TUserInfo} from "../../api";
 import {changeAvatarByThunk, changeProfileByThunk} from "../../store/user/userSlice";
-import * as styles from './styles.scss';
+import "./styles.scss";
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../router/types";
 

@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { ROUTES } from "../../../../router/types";
 import { ITopicProps } from "./types";
-import styles from './styles.module.scss';
+
+const styles = require('./styles.module.scss');
 const commentSvg = require('../../../../assets/icons/comment.svg');
 
 export const Topic = (

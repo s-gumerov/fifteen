@@ -1,5 +1,5 @@
 import React from 'react';
-import * as styles from './styles.scss';
+import './styles.scss';
 
 export const Triangles = (): JSX.Element => (
     <div className="triangles">

@@ -8,18 +8,18 @@ import {INITIAL_FORM_STATE, AUTH_VALIDATION_SCHEMA} from './validation-schema';
 import {REDIRECT_URI, TAuthData} from '../../api';
 import {useAuth} from '../../context';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
-import {authorizeByThunk} from '../../store/user/userSlice'
-import * as styles from './styles.scss';
+import {authorizeByThunk} from '../../store/user/userSlice';
+import './styles.scss'
 import {getServiceId} from "../../api/OAuth";
 
-// import img from '../../assets/yaAuthBtn.svg';
+const img = require('../../assets/yaAuthBtn.svg');
 
 export const AuthPage = (): JSX.Element => {
   const authContext = useAuth();
   const navigation = useNavigate();
   const dispatch = useAppDispatch();
-  // const yaAuth = new Image()
-  // yaAuth.src = img
+  const yaAuth = new Image()
+  yaAuth.src = img;
   const handleSubmit = async (values: TAuthData) => {
     const res = await dispatch(authorizeByThunk(values));
     if (res.payload === "OK") {
@@ -55,7 +55,7 @@ export const AuthPage = (): JSX.Element => {
       </div>
       <Button className="yaOAuth" onClick={handleSubmitOAuth} fullWidth type="submit" variant="contained" size="large"
               sx={{mt: 4}}>
-        {/*<img src={img} alt=""/>*/}
+        <img src={img} alt=""/>
       </Button>
     </div>
   )
