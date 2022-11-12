@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Logo component Should render Logo component 1`] = `
+<div
+  className="logo"
+>
+  <span
+    className="logo__title"
+  >
+    Пятнашки
+  </span>
+  <a
+    className="logo__button logo__button_hidden"
+    href="/"
+    onClick={[Function]}
+  />
+</div>
+`;
