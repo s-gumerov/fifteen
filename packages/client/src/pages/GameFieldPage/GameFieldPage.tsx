@@ -17,6 +17,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks/useAppDispatch';
 import {ratingFieldName, teamName} from '../../const';
 import {useLeaders} from '../../context/Leaders';
 import {ROUTES} from '../../router/types';
+import {ToggleFullScreenBtn} from '../../components/ToggleFullScreenBtn/ToggleFullScreenBtn';
 
 const Canvas = new CanvasController;
 
@@ -94,13 +95,16 @@ export const GameFieldPage = (): JSX.Element => {
     }, []);
 
     return (
-        <div className="game">
-            <canvas ref={fieldRef} onClick={checkWin ? canvasEngGameHandleClick : handleClickOnField} width={505}
-                    height={505}/>
-            <div className="game__data-wrapper">
-                <div className="game__steps">Ходы: {stepsCount}</div>
-                <div>Время: {transformSecondsCountToWordExpression(secondsCount)}</div>
+        <>
+            <div className="game">
+                <canvas ref={fieldRef} onClick={checkWin ? canvasEngGameHandleClick : handleClickOnField} width={505}
+                        height={505}/>
+                <div className="game__data-wrapper">
+                    <div className="game__steps">Ходы: {stepsCount}</div>
+                    <div>Время: {transformSecondsCountToWordExpression(secondsCount)}</div>
+                </div>
             </div>
-        </div>
+            <ToggleFullScreenBtn/>
+        </>
     );
 }
