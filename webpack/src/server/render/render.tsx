@@ -1,25 +1,38 @@
-import { StaticRouter } from "react-router-dom/server";
+import {StaticRouter} from "react-router-dom/server";
 import path from 'path';
 import fs from 'fs';
 import ReactDOMServer from 'react-dom/server';
-import { Request, Response } from 'express';
+import {Request, Response} from 'express';
 import App from "../../client/App";
+import store from '../../client/store/index'
+import { Provider } from 'react-redux';
+
 
 export function render(req: Request, res: Response) {
-  const reactHtml = ReactDOMServer.renderToString(
-    <StaticRouter location={req.url} >
-      <App />
-    </StaticRouter>
-  );
-  const html = fs.readFileSync(path.join(__dirname, '..', '..', '..', 'src', 'assets', 'index.html'), {
-    encoding: 'utf8',
-  });
+    const reactHtml = ReactDOMServer.renderToString(
+        <StaticRouter location={req.url}>
+            <Provider store={store!}>
+                <App/>
+            </Provider>
+        </StaticRouter>
+    );
 
-  const response = html.replace(
-          '<div id="root"></div>',
-          `<div id="root">${reactHtml}</div>
-          <script src="./client.bundle.js"></script>`
-        );
+    // const html = fs.readFileSync(path.join(__dirname, '..', '..', '..', 'src', 'assets', 'index.html'), {
+    //     encoding: 'utf8',
+    // });
 
-  res.status(200).send(response);
+    const html = fs.readFileSync(path.resolve(__dirname, '/home/salavat/dev/fifteen/webpack/src/assets/index.html'), {
+        encoding: 'utf8',
+    });
+
+    const response = html.replace(
+        '<div id="root"></div>',
+        `<script>
+                       window.__PRELOADED_STATE__=${JSON.stringify(store?.getState()).replace(/</g, '\\u003c')}
+                    </script>
+                    <div id="root">${reactHtml}</div>
+                    <script src="./client.bundle.js"></script>`
+    );
+
+    res.status(200).send(response);
 }
