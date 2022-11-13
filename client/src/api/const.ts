@@ -1,5 +1,5 @@
 export const BASE_URL_API = 'https://ya-praktikum.tech';
-export const REDIRECT_URI = `http://${location.host}`
+export const REDIRECT_URI = 'http://localhost:8080';
 export enum HTTP_STATUS_CODE {
   OK = 200,
   BAD_REQUEST = 400,

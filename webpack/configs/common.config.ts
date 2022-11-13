@@ -1,5 +1,8 @@
 // const isDev = process.env.NODE_ENV === 'development';
 
+import { join, resolve } from "path";
+import webpack from 'webpack';
+
 export default {
   mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
   resolve: {
@@ -31,4 +34,11 @@ export default {
       }
     ]
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      window: resolve(join(__dirname, '../mock/window.mock')),
+      localStorage: resolve(join(__dirname, '../mock/localStorage.mock')),
+      document: resolve(join(__dirname, '../mock/document.mock'))
+    }), 
+  ],
 }

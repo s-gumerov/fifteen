@@ -1,5 +1,5 @@
 import common from './common.config';
-import path from 'path';
+import path, { join, resolve } from 'path';
 import webpack from 'webpack';
 import nodeExternals from 'webpack-node-externals';
 
@@ -50,5 +50,12 @@ export default {
       }
     ]
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      window: resolve(join(__dirname, '../mock/window.mock')),
+      localStorage: resolve(join(__dirname, '../mock/localStorage.mock')),
+      document: 'global/document',
+    }), 
+  ],
   externals: [nodeExternals()]
 } as webpack.Configuration;
