@@ -39,6 +39,14 @@ export default {
       {
         test: /\.svg$/,
         loader: 'svg-inline-loader'
+      },
+      {
+        test: /\.mp3$/,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
       }
     ]
   },

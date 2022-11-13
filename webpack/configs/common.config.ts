@@ -1,4 +1,4 @@
-const isDev = process.env.NODE_ENV === 'development';
+// const isDev = process.env.NODE_ENV === 'development';
 
 export default {
   mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
@@ -21,6 +21,14 @@ export default {
           },
         }
       },
+      {
+        test: /\.mp3$/,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
+      }
     ]
   },
 }

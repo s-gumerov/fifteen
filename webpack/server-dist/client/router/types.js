@@ -1,0 +1,31 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ROUTES_NAME = exports.ROUTES = void 0;
+var ROUTES;
+(function (ROUTES) {
+    ROUTES["MAIN"] = "/";
+    ROUTES["SIGNUP"] = "/signup";
+    ROUTES["AUTH"] = "/auth";
+    ROUTES["GAME_FIELD"] = "/game-field";
+    ROUTES["LEADERS"] = "/leaders";
+    ROUTES["PROFILE"] = "/profile";
+    ROUTES["EDIT_PROFILE"] = "/edit-profile";
+    ROUTES["EDIT_PASSWORD"] = "/edit-password";
+    ROUTES["FORUM"] = "/forum";
+    ROUTES["RULES"] = "/rules";
+    ROUTES["NOT_FOUND"] = "/not-found";
+})(ROUTES = exports.ROUTES || (exports.ROUTES = {}));
+var ROUTES_NAME;
+(function (ROUTES_NAME) {
+    ROUTES_NAME["MAIN"] = "\u0413\u043B\u0430\u0432\u043D\u0430\u044F";
+    ROUTES_NAME["SIGNUP"] = "\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F";
+    ROUTES_NAME["AUTH"] = "\u0410\u0432\u0442\u043E\u0440\u0438\u0437\u0430\u0446\u0438\u044F";
+    ROUTES_NAME["GAME_FIELD"] = "\u0418\u0433\u0440\u043E\u0432\u043E\u0435 \u043F\u043E\u043B\u0435";
+    ROUTES_NAME["LEADERS"] = "\u041B\u0438\u0434\u0435\u0440\u044B";
+    ROUTES_NAME["PROFILE"] = "\u041F\u0440\u043E\u0444\u0438\u043B\u044C";
+    ROUTES_NAME["EDIT_PROFILE"] = "\u0418\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u0435 \u0434\u0430\u043D\u043D\u044B\u0445";
+    ROUTES_NAME["EDIT_PASSWORD"] = "\u0418\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u0435 \u043F\u0430\u0440\u043E\u043B\u044F";
+    ROUTES_NAME["FORUM"] = "\u0424\u043E\u0440\u0443\u043C";
+    ROUTES_NAME["RULES"] = "\u041F\u0440\u0430\u0432\u0438\u043B\u0430 \u0438\u0433\u0440\u044B";
+    ROUTES_NAME["NOT_FOUND"] = "\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430 \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u0430";
+})(ROUTES_NAME = exports.ROUTES_NAME || (exports.ROUTES_NAME = {}));
