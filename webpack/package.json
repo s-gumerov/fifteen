@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "main": "index.js",
   "scripts": {
-    "build:client": "webpack --config webpack.config.ts",
-    "build:server": "tsc --project ./src/server",
-    "start:server": "node ./server-dist/server/index.js",
+    "build:client": "webpack --config webpack.client.config.ts",
+    "build:server": "webpack --config webpack.server.config.ts",
+    "start:server": "node ./server-dist/server.bundle.js",
     "start": "webpack serve"
   },
   "dependencies": {
@@ -74,6 +74,7 @@
     "sass-loader": "13.0.2",
     "style-loader": "3.3.1",
     "ts-jest": "28.0.8",
+    "ts-loader": "^9.4.1",
     "typescript": "4.8.2",
     "typescript-plugin-css-modules": "^3.4.0",
     "url-loader": "4.1.1",
