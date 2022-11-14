@@ -21,7 +21,7 @@ export function render(req: Request, res: Response) {
     //     encoding: 'utf8',
     // });
 
-    const html = fs.readFileSync(path.resolve(__dirname, '/home/salavat/dev/fifteen/webpack/src/assets/index.html'), {
+    const html = fs.readFileSync(path.resolve(__dirname, '../src/assets/index.html'), {
         encoding: 'utf8',
     });
 
@@ -31,7 +31,7 @@ export function render(req: Request, res: Response) {
                        window.__PRELOADED_STATE__=${JSON.stringify(store?.getState()).replace(/</g, '\\u003c')}
                     </script>
                     <div id="root">${reactHtml}</div>
-                    <script src="./client.bundle.js"></script>`
+                    <script src="../dist/client.bundle.js"></script>`
     );
 
     res.status(200).send(response);
