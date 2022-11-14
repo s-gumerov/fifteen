@@ -31,7 +31,7 @@ export function render(req: Request, res: Response) {
                        window.__PRELOADED_STATE__=${JSON.stringify(store?.getState()).replace(/</g, '\\u003c')}
                     </script>
                     <div id="root">${reactHtml}</div>
-                    <script src="../dist/client.bundle.js"></script>`
+                    <script src="http://localhost:8080/client.bundle.js"></script>`
     );
 
     res.status(200).send(response);
