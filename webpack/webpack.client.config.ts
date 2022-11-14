@@ -10,7 +10,7 @@ export default {
   output: {
     filename: 'client.bundle.js',
     path: path.join(__dirname, 'dist'),
-    publicPath: 'http://localhost:8080/',
+    publicPath: '/',
     sourceMapFilename: "[name].js.map"
   },
   devtool: 'source-map',
