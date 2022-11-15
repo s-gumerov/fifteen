@@ -2,7 +2,7 @@ import { KeyboardEvent } from 'react';
 import Avatar from '@mui/material/Avatar';
 import { Comment } from './components/Comment/Comment';
 
-const styles = require('./styles.module.scss');
+import styles from './styles.module.scss';
 
 export const ForumSubPage = (): JSX.Element => {
 

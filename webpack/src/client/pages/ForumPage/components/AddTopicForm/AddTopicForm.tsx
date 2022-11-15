@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import { TextFieldMultiline } from "../../../../components/ui/TextFieldMultiline";
 import { AddTopicFormProps } from './types';
 
-const styles = require('./styles.module.scss');
+import styles from './styles.module.scss';
 
 export const AddTopicForm = ({ closeForm }: AddTopicFormProps): JSX.Element => {
 

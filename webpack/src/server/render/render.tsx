@@ -7,11 +7,10 @@ import App from "../../client/App";
 import store from '../../client/store/index'
 import { Provider } from 'react-redux';
 
-
 export function render(req: Request, res: Response) {
     const reactHtml = ReactDOMServer.renderToString(
         <StaticRouter location={req.url}>
-            <Provider store={store!}>
+            <Provider store={store}>
                 <App/>
             </Provider>
         </StaticRouter>
@@ -20,6 +19,7 @@ export function render(req: Request, res: Response) {
      const html = fs.readFileSync(path.resolve(__dirname, '../src/assets/index.html'), {
         encoding: 'utf8',
     });
+
 
     const response = html.replace(
         '<div id="root"></div>',

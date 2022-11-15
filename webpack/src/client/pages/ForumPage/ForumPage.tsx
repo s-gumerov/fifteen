@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import { Topic } from './components/Topic/Topic';
 import { AddTopicForm } from './components/AddTopicForm/AddTopicForm';
 
-const styles = require('./styles.module.scss');
+import styles from './styles.module.scss';
 
 export const ForumPage = (): JSX.Element => {
   const [showAddTopicForm, setShowAddTopicForm] = useState(false);

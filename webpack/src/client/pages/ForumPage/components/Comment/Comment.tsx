@@ -1,7 +1,7 @@
 import Avatar from '@mui/material/Avatar';
 import { CommentProps } from './types';
 
-const styles = require('./styles.module.scss');
+import styles from './styles.module.scss';
 
 export const Comment = ({ id, username, avatar, date, message }: CommentProps): JSX.Element => {
     return (

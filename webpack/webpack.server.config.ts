@@ -26,10 +26,8 @@ export default {
       {
         test: /\.s[ac]ss$/i,
         use: [
-          // { loader: "style-loader" },
-          { loader: "css-modules-typescript-loader"},
-          { loader: "css-loader", options: { modules: true } },
-          { loader: "sass-loader" },
+          "css-loader",
+          "sass-loader",
         ],
       },
       {
@@ -39,20 +37,6 @@ export default {
           name: '[path][name].[ext]',
         },
       },
-      // {
-      //   test: /\.tsx$/,
-      //   exclude: /node_modules/,
-      //   use: {
-      //     loader: 'babel-loader',
-      //     options: {
-      //       presets: [
-      //         '@babel/preset-env',
-      //         ["@babel/preset-react", {"runtime": "automatic"}],
-      //         '@babel/preset-typescript'
-      //       ]
-      //     },
-      //   }
-      // },
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,

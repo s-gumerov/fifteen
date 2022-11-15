@@ -22,10 +22,9 @@ export default {
       {
         test: /\.s[ac]ss$/i,
         use: [
-          // { loader: "style-loader" },
-          { loader: "css-modules-typescript-loader"},
-          { loader: "css-loader", options: { modules: true } },
-          { loader: "sass-loader" },
+          "style-loader",
+          "css-loader",
+          "sass-loader",
         ],
       },
       {

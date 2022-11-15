@@ -1,9 +1,9 @@
 import { AuthProvider } from './context';
 import { LeadersProvider } from "./context/Leaders";
 import { Router } from './router/Router';
-// import { withErrorBoundary } from 'react-error-boundary';
-// import { ErrorFallback } from './services/errorBoundary/ErrorFallback';
-import './styles.scss';
+import { withErrorBoundary } from 'react-error-boundary';
+import { ErrorFallback } from './services/errorBoundary/ErrorFallback';
+// import './styles.scss';
 
 function startServiceWorker() {
   if ("serviceWorker" in navigator) {
@@ -38,8 +38,6 @@ function App() {
   );
 }
 
-export default App;
-
-// export default withErrorBoundary(App, {
-//     FallbackComponent: ErrorFallback
-// });
+export default withErrorBoundary(App, {
+    FallbackComponent: ErrorFallback
+});
