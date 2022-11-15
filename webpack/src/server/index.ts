@@ -6,8 +6,6 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-// app.use(express.static(path.join(__dirname, '..', '..', 'dist')));
-
 app.use('/', express.static(path.join(__dirname, '../dist')))
 
 app.use(render);

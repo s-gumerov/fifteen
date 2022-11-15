@@ -17,11 +17,7 @@ export function render(req: Request, res: Response) {
         </StaticRouter>
     );
 
-    // const html = fs.readFileSync(path.join(__dirname, '..', '..', '..', 'src', 'assets', 'index.html'), {
-    //     encoding: 'utf8',
-    // });
-
-    const html = fs.readFileSync(path.resolve(__dirname, '../src/assets/index.html'), {
+     const html = fs.readFileSync(path.resolve(__dirname, '../src/assets/index.html'), {
         encoding: 'utf8',
     });
 
