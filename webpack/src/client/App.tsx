@@ -3,7 +3,7 @@ import { LeadersProvider } from "./context/Leaders";
 import { Router } from './router/Router';
 import { withErrorBoundary } from 'react-error-boundary';
 import { ErrorFallback } from './services/errorBoundary/ErrorFallback';
-// import './styles.scss';
+ import './styles.scss'
 
 function startServiceWorker() {
   if ("serviceWorker" in navigator) {
