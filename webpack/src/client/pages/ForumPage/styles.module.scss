@@ -1,7 +1,7 @@
-@use '../../assets/colors' as *;
-@use '../../assets/mixin' as *;
+@use '../../assets/styles/colors' as *;
+@use '../../assets/styles/mixin' as *;
 /* для импорта date и username */
-@use '../../assets/styles' as *;
+@use '../../assets/styles/styles' as *;
 
 $maxWidth: 75%;
 $minWidth: 550px;

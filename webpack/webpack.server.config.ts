@@ -1,9 +1,8 @@
-import path from 'path';
-import webpack from 'webpack';
+import * as path from 'path';
+import * as webpack from 'webpack';
 import {join, resolve} from 'path';
 
 const nodeExternals = require('webpack-node-externals');
-// const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const NODE_ENV = process.env.NODE_ENV;
 const IS_DEV = NODE_ENV === "development";
@@ -32,9 +31,9 @@ export default {
       },
       {
         test: /\.(png|jpg|gif|svg|mp3)$/,
-        loader: 'file-loader',
+        loader: 'url-loader',
         options: {
-          name: '[path][name].[ext]',
+          limit: false,
         },
       },
       {

@@ -11,7 +11,7 @@ const URLS = [
   '/src/api/const.ts',
   '/src/api/index.ts',
   '/src/assets/.keep',
-  '/src/assets/back_arrow.svg',
+  '/src/assets/backArrow.svg',
   '/src/assets/bgPuzzle.svg',
   '/src/assets/colors.scss',
   '/src/assets/icons/comment.svg',

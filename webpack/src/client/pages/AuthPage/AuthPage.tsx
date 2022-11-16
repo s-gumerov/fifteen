@@ -12,7 +12,7 @@ import {authorizeByThunk} from '../../store/user/userSlice';
 import './styles.scss'
 import {getServiceId} from "../../api/OAuth";
 
-import img from '../../assets/yaAuthBtn.svg';
+import img from '../../assets/icons/yaAuthBtn.svg';
 
 export const AuthPage = (): JSX.Element => {
     const authContext = useAuth();

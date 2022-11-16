@@ -20,7 +20,7 @@ import {BoardValues, CanvasButton, TBoard} from './types';
 import {getRatingResult} from "../../utils";
 import {TLeaderboard} from '../../api/leaderbord';
 
-import img from '../../assets/bgPuzzle.svg';
+import img from '../../assets/icons/bgPuzzle.svg';
 
 
 export class CanvasController {

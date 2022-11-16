@@ -1,6 +1,6 @@
-@use '../../../../assets/colors' as *;
+@use '../../../../assets/styles/colors' as *;
 /* для импорта date и username */
-@use '../../../../assets/styles' as *;
+@use '../../../../assets/styles/styles' as *;
 
 .container {
   position: relative;

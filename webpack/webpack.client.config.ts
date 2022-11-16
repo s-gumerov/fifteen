@@ -29,7 +29,10 @@ export default {
       },
       {
         test: /\.(png|jpg|gif|svg|mp3)$/,
-        loader: 'file-loader',
+        loader: 'url-loader',
+        options: {
+          limit: false,
+        },
       },
       {
         test: /\.tsx?$/,
