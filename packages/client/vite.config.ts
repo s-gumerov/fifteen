@@ -16,4 +16,7 @@ export default defineConfig({
     format: 'cjs',
   },
   plugins: [react()],
+  build: {
+    minify: false
+  }
 })

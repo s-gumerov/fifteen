@@ -14,8 +14,9 @@ const port = Number(process.env.SERVER_PORT) || 3001
 
 createClientAndConnect()
 
-app.get('/', (_, res) => {
-  const result = render()
+app.get('/', (reg, res) => {
+
+  const result = render(reg,res)
   res.send(result)
 })
 

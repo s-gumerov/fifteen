@@ -1,25 +1,30 @@
-import { useEffect } from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from "react-redux";
-import { AuthProvider } from './context';
-import { LeadersProvider } from "./context/Leaders";
-import { Router } from './router/Router';
-import { withErrorBoundary } from 'react-error-boundary';
-import { ErrorFallback } from './services/errorBoundary/ErrorFallback';
-import store from './store';
-import './styles.scss';
+import { AuthProvider } from './context'
+import { LeadersProvider } from './context/Leaders'
+import { Router } from './router/Router'
+import { withErrorBoundary } from 'react-error-boundary'
+import { ErrorFallback } from './services/errorBoundary/ErrorFallback'
+import './styles.scss'
 
-function startServiceWorker() {
-  if ("serviceWorker" in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register("/serviceWorker.ts").then(registration => {
-        console.log("ServiceWorker registration successful with  scope: ", registration.scope);
-      }).catch((error: string) => {
-        console.log("ServiceWorker registration failed: ", error);
-      });
-    })
-  }
+if (typeof window !== 'undefined') {
+  // function startServiceWorker() {
+  //   if ('serviceWorker' in navigator) {
+  //     window.addEventListener('load', () => {
+  //       navigator.serviceWorker
+  //           .register('/serviceWorker.ts')
+  //           .then(registration => {
+  //             console.log(
+  //                 'ServiceWorker registration successful with  scope: ',
+  //                 registration.scope
+  //             )
+  //           })
+  //           .catch((error: string) => {
+  //             console.log('ServiceWorker registration failed: ', error)
+  //           })
+  //     })
+  //   }
+  // }
 }
+
 
 function App() {
   // useEffect(() => {
@@ -34,18 +39,14 @@ function App() {
   // }, [])
 
   return (
-    <Provider store={store}>
-      <BrowserRouter>
         <AuthProvider>
           <LeadersProvider>
             <Router />
           </LeadersProvider>
         </AuthProvider>
-      </BrowserRouter>
-    </Provider>
-  );
+  )
 }
 
 export default withErrorBoundary(App, {
-    FallbackComponent: ErrorFallback
-});
+  FallbackComponent: ErrorFallback,
+})

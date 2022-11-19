@@ -1,1 +1,1 @@
-export * from "./TextFieldProfile";
+export * from './TextFieldProfile'

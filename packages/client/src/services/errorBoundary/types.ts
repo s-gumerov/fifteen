@@ -1,4 +1,4 @@
 export type TErrorFallbackProps = {
-  error: Error,
+  error: Error
   resetErrorBoundary: () => void
 }
