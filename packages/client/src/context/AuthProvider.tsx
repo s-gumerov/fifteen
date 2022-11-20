@@ -1,5 +1,6 @@
 import { useState, createContext, PropsWithChildren, useContext } from 'react'
 import { AuthContextProps } from './types'
+import React from 'react'
 
 export const AuthContext = createContext<AuthContextProps>(null)
 export const useAuth = () => useContext(AuthContext)

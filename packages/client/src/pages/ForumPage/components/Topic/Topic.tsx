@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from './styles.module.scss'
 import commentSvg from '../../../../assets/icons/comment.svg'
 import { Link } from 'react-router-dom'

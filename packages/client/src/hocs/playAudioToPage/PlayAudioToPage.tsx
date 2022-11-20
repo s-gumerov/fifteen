@@ -1,42 +1,40 @@
-import React from 'react'
+import React from 'react';
 
 export function withPlayingAudio(
-  WrappedComponent: React.ComponentType,
-  audioUrl: string
+    WrappedComponent: React.ComponentType,
+    audioUrl: string
 ) {
-  class PlayAudioComponent extends React.Component {
-    private audio = new Audio(audioUrl)
+    class PlayAudioComponent extends React.Component {
+        private audio = typeof window !== 'undefined' ? new Audio(audioUrl) : null
 
-    private playAudio() {
-      if (typeof window !== 'undefined') {
-        this.audio.addEventListener('canplaythrough', event => {
-          /* воспроизвести если аудио может быть воспроизведено (загружено) и если позволяют разрешения */
-          this.audio.play()
-          this.repeatPlay()
-        })
-      }
+        private playAudio() {
+            if (this.audio) {
+                this.audio.addEventListener('canplaythrough', event => {
+                    /* воспроизвести если аудио может быть воспроизведено (загружено) и если позволяют разрешения */
+                    this.audio && this.audio.play()
+                    this.repeatPlay()
+                })
+            }
+        }
 
+        private repeatPlay() {
+            if (this.audio) {
+                this.audio.addEventListener('ended', event => {
+                    this.audio && this.audio.play()
+                    this.repeatPlay()
+                })
+            }
+        }
+
+        public componentWillUnmount() {
+            this.audio && this.audio.pause()
+        }
+
+        public render() {
+            this.playAudio()
+            return <WrappedComponent/>
+        }
     }
 
-    private repeatPlay() {
-      if (typeof window !== 'undefined') {
-        this.audio.addEventListener('ended', event => {
-          this.audio.play()
-          this.repeatPlay()
-        })
-      }
-
-    }
-
-    public componentWillUnmount() {
-      this.audio.pause()
-    }
-
-    public render() {
-      this.playAudio()
-      return <WrappedComponent />
-    }
-  }
-
-  return PlayAudioComponent
+    return PlayAudioComponent
 }

@@ -1,25 +1,47 @@
-import dotenv from 'dotenv'
-import cors from 'cors'
+import dotenv from 'dotenv';
+import cors from 'cors';
 dotenv.config()
+import path from "path";
+import { createServer as createViteServer } from 'vite';
+import fs from 'fs';
 
 // @ts-ignore
-import { render } from '../client/dist/ssr/entry-server.cjs'
+import { render } from '../client/dist/ssr/entry-server.cjs';
+import express from 'express';
 
-import express from 'express'
-import { createClientAndConnect } from './db'
+async function createServer() {
 
-const app = express()
-app.use(cors())
-const port = Number(process.env.SERVER_PORT) || 3001
+  const port = Number(process.env.SERVER_PORT) || 3001;
+  const app = express()
 
-createClientAndConnect()
+  app.use(cors())
 
-app.get('/', (reg, res) => {
+  const vite = await createViteServer({
+    server: {
+      middlewareMode: true,
+    },
+    appType: 'custom'
+  })
 
-  const result = render(reg,res)
-  res.send(result)
-})
+  app.use(vite.middlewares)
 
-app.listen(port, () => {
-  console.log(`  ➜ 🎸 Server is listening on port: ${port}`)
-})
+  app.use('*', async (req:any, res:any) => {
+
+    const url = req.originalUrl
+
+      let template = fs.readFileSync(
+        path.resolve(__dirname, '../client/index.html'),
+        'utf-8'
+      )
+    const appHtml = await render(url);
+
+      template = await vite.transformIndexHtml(url, template)
+
+      const html = template.replace(`<div id="root"></div>`, appHtml)
+
+      res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
+  })
+
+  app.listen(port);
+}
+createServer()

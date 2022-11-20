@@ -1,4 +1,5 @@
-import './style.scss'
+import React from 'react';
+import './style.scss';
 
 export const RulesPage = (): JSX.Element => (
   <div className="rules">

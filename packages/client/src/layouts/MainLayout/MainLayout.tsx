@@ -1,3 +1,4 @@
+import React from 'react'
 import { Logo, Triangles } from '../../components/ui'
 import { MainLayoutProps } from './types'
 import './styles.scss'

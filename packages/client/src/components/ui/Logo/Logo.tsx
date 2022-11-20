@@ -1,3 +1,4 @@
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { appTitle } from '../../../const'
 import { LogoProps } from './types'

@@ -1,7 +1,8 @@
-import { KeyboardEvent } from 'react'
-import Avatar from '@mui/material/Avatar'
-import styles from './styles.module.scss'
-import { Comment } from './components/Comment/Comment'
+import React from 'react';
+import { KeyboardEvent } from 'react';
+import Avatar from '@mui/material/Avatar';
+import styles from './styles.module.scss';
+import { Comment } from './components/Comment/Comment';
 
 export const ForumSubPage = (): JSX.Element => {
   const topicInfo = {
