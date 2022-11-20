@@ -1,13 +1,14 @@
 import dotenv from 'dotenv';
 import cors from 'cors';
-dotenv.config()
 import path from "path";
-import { createServer as createViteServer } from 'vite';
+import {createServer as createViteServer} from 'vite';
 import fs from 'fs';
-
 // @ts-ignore
-import { render } from '../client/dist/ssr/entry-server.cjs';
+import {render} from '../client/dist/ssr/entry-server.cjs';
 import express from 'express';
+
+dotenv.config()
+
 
 async function createServer() {
 
@@ -25,23 +26,35 @@ async function createServer() {
 
   app.use(vite.middlewares)
 
-  app.use('*', async (req:any, res:any) => {
+  app.use('*', async (req: any, res: any) => {
 
     const url = req.originalUrl
 
-      let template = fs.readFileSync(
-        path.resolve(__dirname, '../client/index.html'),
+    let template = fs.readFileSync(
+        path.resolve(__dirname, '../client/dist/client/index.html'),
         'utf-8'
       )
-    const appHtml = await render(url);
 
-      template = await vite.transformIndexHtml(url, template)
+    const reactHtml = await render(url);
 
-      const html = template.replace(`<div id="root"></div>`, appHtml)
+    template = await vite.transformIndexHtml(url, template)
 
-      res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
+    const appHtml =
+      `<div id="root">
+        ${reactHtml}
+      </div>
+<!--      <script src="../client/dist/client/assets/index.0d07c960.js"></script>-->
+`;
+
+    const html = template.replace(`<div id="root"></div>`, appHtml)
+
+    res
+      .status(200)
+      .set({'Content-Type': 'text/html'})
+      .send(html)
   })
 
   app.listen(port);
 }
+
 createServer()

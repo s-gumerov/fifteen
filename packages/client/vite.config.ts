@@ -17,6 +17,6 @@ export default defineConfig({
   },
   plugins: [react()],
   build: {
-    minify: false
+    minify: true
   }
 })
