@@ -5,25 +5,21 @@ export function withPlayingAudio(
     audioUrl: string
 ) {
     class PlayAudioComponent extends React.Component {
-        private audio = typeof window !== 'undefined' ? new Audio(audioUrl) : null
+        private audio = new Audio(audioUrl)
 
         private playAudio() {
-            if (this.audio) {
-                this.audio.addEventListener('canplaythrough', event => {
-                    /* воспроизвести если аудио может быть воспроизведено (загружено) и если позволяют разрешения */
-                    this.audio && this.audio.play()
-                    this.repeatPlay()
-                })
-            }
+            this.audio.addEventListener('canplaythrough', event => {
+                /* воспроизвести если аудио может быть воспроизведено (загружено) и если позволяют разрешения */
+                this.audio.play()
+                this.repeatPlay()
+            })
         }
 
         private repeatPlay() {
-            if (this.audio) {
-                this.audio.addEventListener('ended', event => {
-                    this.audio && this.audio.play()
-                    this.repeatPlay()
-                })
-            }
+            this.audio.addEventListener('ended', event => {
+                this.audio.play()
+                this.repeatPlay()
+            })
         }
 
         public componentWillUnmount() {

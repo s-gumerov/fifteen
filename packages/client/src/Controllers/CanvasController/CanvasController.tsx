@@ -39,11 +39,7 @@ export class CanvasController {
         }
     }
 
-    getBackgroundPuzzle(): HTMLImageElement | null {
-        if (typeof window === 'undefined') {
-            return null;
-        }
-
+    getBackgroundPuzzle(): HTMLImageElement {
         const backgroundPuzzle = new Image()
         backgroundPuzzle.src = img
         return backgroundPuzzle
@@ -296,11 +292,8 @@ export class CanvasController {
         board: TBoard,
         backgroundPuzzle: HTMLImageElement
     ): void {
-        if (typeof window !== 'undefined') {
             backgroundPuzzle.addEventListener('load', () => {
                 this.drawField(fieldRef, board, backgroundPuzzle)
             })
-        }
-
     }
 }
