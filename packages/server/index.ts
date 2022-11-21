@@ -9,6 +9,9 @@ import express from 'express';
 
 dotenv.config()
 
+enum PATH {
+  CLIENT = '../client/dist/client/',
+}
 
 async function createServer() {
 
@@ -26,31 +29,30 @@ async function createServer() {
 
   app.use(vite.middlewares)
 
+    app.use(express.static(path.resolve(__dirname, PATH.CLIENT)))
+
   app.use('*', async (req: any, res: any) => {
 
-    const url = req.originalUrl
+    const {originalUrl} = req;
 
     let template = fs.readFileSync(
-        path.resolve(__dirname, '../client/dist/client/index.html'),
-        'utf-8'
-      )
+      path.resolve(__dirname, PATH.CLIENT+'index.html'),
+      'utf-8'
+    )
 
-    const reactHtml = await render(url);
+    const reactHtml = await render(originalUrl);
 
-    template = await vite.transformIndexHtml(url, template)
+    template = await vite.transformIndexHtml(originalUrl, template)
 
     const appHtml =
       `<div id="root">
         ${reactHtml}
-      </div>
-<!--      <script src="../client/dist/client/assets/index.0d07c960.js"></script>-->
-`;
+      </div>`;
 
     const html = template.replace(`<div id="root"></div>`, appHtml)
 
     res
       .status(200)
-      .set({'Content-Type': 'text/html'})
       .send(html)
   })
 
