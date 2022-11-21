@@ -1,2 +1,2 @@
-export * from "./Leaderbord";
-export * from "./types";
+export * from './Leaderbord'
+export * from './types'

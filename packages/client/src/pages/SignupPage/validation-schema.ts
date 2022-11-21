@@ -1,5 +1,10 @@
-import * as Yup from 'yup';
-import { loginRegexp, nameRegexp, passwordRegexp, phoneRegexp } from '../../utils/validation_regexps';
+import * as Yup from 'yup'
+import {
+  loginRegexp,
+  nameRegexp,
+  passwordRegexp,
+  phoneRegexp,
+} from '../../utils/validation_regexps'
 
 export const INITIAL_FORM_STATE = {
   email: '',
@@ -9,10 +14,12 @@ export const INITIAL_FORM_STATE = {
   phone: '',
   password: '',
   password_again: '',
-};
+}
 
 export const SIGNUP_VALIDATION_SCHEMA = Yup.object().shape({
-  email: Yup.string().email('Некорректный email!').required('Введите, пожалуйста, email!'),
+  email: Yup.string()
+    .email('Некорректный email!')
+    .required('Введите, пожалуйста, email!'),
   login: Yup.string()
     .required('Введите, пожалуйста, логин!')
     .min(2, 'Слишком короткий логин!')
@@ -33,7 +40,12 @@ export const SIGNUP_VALIDATION_SCHEMA = Yup.object().shape({
     .required('Введите, пожалуйста, пароль!')
     .min(8, 'Пароль от 8 символов!')
     .max(20, 'Пароль не более 20 символов!')
-    .matches(passwordRegexp, ' Должен содержать хотя бы одну заглавную букву и цифру'),
-  password_again: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать!')
-});
+    .matches(
+      passwordRegexp,
+      ' Должен содержать хотя бы одну заглавную букву и цифру'
+    ),
+  password_again: Yup.string().oneOf(
+    [Yup.ref('password'), null],
+    'Пароли должны совпадать!'
+  ),
+})

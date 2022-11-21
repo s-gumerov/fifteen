@@ -1,4 +1,4 @@
-import {TLeaderboard} from '../../api/leaderbord';
+import { TLeaderboard } from '../../api/leaderbord'
 
 export enum LeaderboardReducerTypes {
   leaderboard = 'leaderboard',
@@ -6,7 +6,7 @@ export enum LeaderboardReducerTypes {
 }
 
 export type TLeaderboardState = {
-  leaderboard: TLeaderboard | null,
-  error: string | null,
-  status: 'INIT' | 'FETCHING' | 'FETCH_FULFILLED' | 'FETCH_FAILED' | null,
+  leaderboard: TLeaderboard | null
+  error: string | null
+  status: 'INIT' | 'FETCHING' | 'FETCH_FULFILLED' | 'FETCH_FAILED' | null
 }

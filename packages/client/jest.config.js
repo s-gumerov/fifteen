@@ -9,6 +9,6 @@ export default {
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
   moduleNameMapper: {
-    "\\.(scss)$": "identity-obj-proxy",
+    '\\.(scss)$': 'identity-obj-proxy',
   },
 }

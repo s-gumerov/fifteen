@@ -14,12 +14,12 @@
     min-height: 350px;
 
     .MuiTableBody-root {
-      background: #4044ED;
+      background: #4044ed;
 
       .MuiTableCell-root {
-        border-bottom: 2px solid #27262C;
-        border-right: 2px solid #FFFFFF;
-        color: #FFFFFF;
+        border-bottom: 2px solid #27262c;
+        border-right: 2px solid #ffffff;
+        color: #ffffff;
 
         &:last-child {
           border-right: none;
@@ -38,16 +38,13 @@
         border: none;
       }
     }
-
-
   }
 
   &__footer {
     .MuiPagination-ul {
       button {
-        background: #FFFFFF;
+        background: #ffffff;
       }
     }
   }
 }
-

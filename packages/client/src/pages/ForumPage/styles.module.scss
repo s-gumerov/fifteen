@@ -1,7 +1,7 @@
-@use '../../assets/colors.scss' as *;
-@use '../../assets/mixin.scss' as *;
+@use '../../assets/styles/colors' as *;
+@use '../../assets/styles/mixin' as *;
 /* для импорта date и username */
-@use '../../assets/styles.scss' as *;
+@use '../../assets/styles/styles' as *;
 
 $maxWidth: 75%;
 $minWidth: 550px;
@@ -56,7 +56,6 @@ $minWidth: 550px;
     line-height: 36px;
     color: $header_text;
   }
-
 }
 
 .topicText {

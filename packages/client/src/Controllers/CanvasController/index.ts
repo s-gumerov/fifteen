@@ -1,1 +1,1 @@
-export * from "./CanvasController";
+export * from './CanvasController'
