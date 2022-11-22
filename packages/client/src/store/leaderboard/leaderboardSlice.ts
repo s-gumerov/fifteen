@@ -19,7 +19,7 @@ export const getLeaderboardByThunk = createAsyncThunk<
   TGetLeaderboard,
   { rejectValue: string }
 >(LeaderboardReducerTypes.allLeaderboard, async function (data, { dispatch }) {
-  const response = await axiosInstance(ENDPOINT.ALLLEADERBOARD, {
+  const response = await axiosInstance(ENDPOINT.ALL_LEADERBOARD, {
     method: 'post',
     data,
   })

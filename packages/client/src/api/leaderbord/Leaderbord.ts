@@ -8,7 +8,7 @@ import {
   TLeaderboard,
 } from './types'
 
-export const setLeaderboardToLocalStorage = async (
+export const setLeaderboardToLocalStorage = (
   leaderboard: TLeaderboard
 ) => {
   localStorage.setItem(STORE_NAME.LEADERBOARD, JSON.stringify(leaderboard))
@@ -36,7 +36,7 @@ export const getAllLeaderboard = async (
 ): Promise<TGetLeaderboardResponse> => {
   try {
     const result = await axiosInstance<TGetLeaderboardResponse>(
-      ENDPOINT.ALLLEADERBOARD,
+      ENDPOINT.ALL_LEADERBOARD,
       {
         method: 'post',
         data,

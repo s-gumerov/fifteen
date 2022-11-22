@@ -14,6 +14,11 @@ enum PATH {
   CLIENT = '../client/dist/client/',
 }
 
+let template = fs.readFileSync(
+  path.resolve(__dirname, PATH.CLIENT + 'index.html'),
+  'utf-8'
+)
+
 async function createServer() {
   const port = Number(process.env.SERVER_PORT) || 3001
   const app = express()
@@ -33,11 +38,6 @@ async function createServer() {
 
   app.use('*', async (req: Request, res: Response) => {
     const { originalUrl } = req
-
-    let template = fs.readFileSync(
-      path.resolve(__dirname, PATH.CLIENT + 'index.html'),
-      'utf-8'
-    )
 
     const reactHtml = await render(originalUrl)
 
