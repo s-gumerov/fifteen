@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { MouseEvent, FormEvent } from 'react'
 import styles from './styles.module.scss'
 import { Button } from '@mui/material'

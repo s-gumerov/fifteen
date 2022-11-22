@@ -1,4 +1,4 @@
-import React,{ useState } from 'react'
+import React, { useState } from 'react'
 import { Button } from '@mui/material'
 import styles from './styles.module.scss'
 import { Topic } from './components/Topic/Topic'

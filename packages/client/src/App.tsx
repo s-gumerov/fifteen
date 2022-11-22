@@ -6,26 +6,23 @@ import { ErrorFallback } from './services/errorBoundary/ErrorFallback'
 import './styles.scss'
 import React from 'react'
 
-
-  function startServiceWorker() {
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker
-            .register('/serviceWorker.ts')
-            .then(registration => {
-              console.log(
-                  'ServiceWorker registration successful with  scope: ',
-                  registration.scope
-              )
-            })
-            .catch((error: string) => {
-              console.log('ServiceWorker registration failed: ', error)
-            })
-      })
-    }
+function startServiceWorker() {
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker
+        .register('/serviceWorker.ts')
+        .then(registration => {
+          console.log(
+            'ServiceWorker registration successful with  scope: ',
+            registration.scope
+          )
+        })
+        .catch((error: string) => {
+          console.log('ServiceWorker registration failed: ', error)
+        })
+    })
   }
-
-
+}
 
 function App() {
   // useEffect(() => {
@@ -40,11 +37,11 @@ function App() {
   // }, [])
 
   return (
-        <AuthProvider>
-          <LeadersProvider>
-            <Router />
-          </LeadersProvider>
-        </AuthProvider>
+    <AuthProvider>
+      <LeadersProvider>
+        <Router />
+      </LeadersProvider>
+    </AuthProvider>
   )
 }
 
