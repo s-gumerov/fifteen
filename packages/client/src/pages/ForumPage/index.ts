@@ -1,2 +1,2 @@
-export * from "./ForumPage";
-export * from "./ForumSubPage";
+export * from './ForumPage'
+export * from './ForumSubPage'

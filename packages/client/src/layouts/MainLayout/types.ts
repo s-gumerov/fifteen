@@ -1,6 +1,6 @@
-import { ROUTES } from "../../router/types";
+import { ROUTES } from '../../router/types'
 
 export type MainLayoutProps = {
-    children: JSX.Element,
-    backUrl?: ROUTES
+  children: JSX.Element
+  backUrl?: ROUTES
 }

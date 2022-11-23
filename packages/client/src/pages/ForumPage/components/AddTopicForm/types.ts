@@ -1,3 +1,3 @@
 export type AddTopicFormProps = {
-    closeForm: () => void;
+  closeForm: () => void
 }

@@ -1,1 +1,1 @@
-export * from "./GameFieldPage";
+export * from './GameFieldPage'

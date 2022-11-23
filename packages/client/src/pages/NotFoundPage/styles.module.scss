@@ -1,4 +1,4 @@
-@use '../../assets/colors.scss' as *;
+@use '../../assets/styles/colors' as *;
 
 .notFoundPage {
   display: flex;
@@ -20,4 +20,3 @@
     color: $message;
   }
 }
-
