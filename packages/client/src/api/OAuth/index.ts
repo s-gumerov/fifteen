@@ -1,1 +1,1 @@
-export * from './YaOAuth'
+export * from "./YaOAuth";
