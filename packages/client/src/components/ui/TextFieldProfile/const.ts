@@ -1,23 +1,23 @@
-import { grey } from '@mui/material/colors';
+import { grey } from '@mui/material/colors'
 
 export const TextFieldProfileStyles = {
-  "& .MuiInputBase-root": {
+  '& .MuiInputBase-root': {
     color: grey[300],
     '&:before': {
-      borderColor: "white",
+      borderColor: 'white',
     },
-    "&:after": {
-      borderColor: "white",
+    '&:after': {
+      borderColor: 'white',
     },
-    "&:hover:not(.Mui-disabled):before": {
-      borderColor: "white",
+    '&:hover:not(.Mui-disabled):before': {
+      borderColor: 'white',
     },
   },
-  "& .MuiInputAdornment-standard p": {
-    color: "gray"
+  '& .MuiInputAdornment-standard p': {
+    color: 'gray',
   },
-  "& .MuiInputBase-input": {
-    textAlign: "right"
+  '& .MuiInputBase-input': {
+    textAlign: 'right',
   },
-  mt: 2
+  mt: 2,
 }

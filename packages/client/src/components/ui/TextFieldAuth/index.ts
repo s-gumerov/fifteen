@@ -1,1 +1,1 @@
-export * from "./TextFieldAuth";
+export * from './TextFieldAuth'

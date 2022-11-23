@@ -1,10 +1,10 @@
-import * as Yup from "yup";
+import * as Yup from 'yup'
 import {
   displayNameRegexp,
   loginRegexp,
   nameRegexp,
-  phoneRegexp
-} from "../../utils/validation_regexps";
+  phoneRegexp,
+} from '../../utils/validation_regexps'
 
 export const INITIAL_FORM_STATE = {
   id: 0,
@@ -17,9 +17,11 @@ export const INITIAL_FORM_STATE = {
   old_password: '',
   password: '',
   password_again: '',
-};
+}
 export const EDIT_PROFILE_VALIDATION_SCHEMA = Yup.object().shape({
-  email: Yup.string().email('Некорректный email!').required('Введите, пожалуйста, email!'),
+  email: Yup.string()
+    .email('Некорректный email!')
+    .required('Введите, пожалуйста, email!'),
   login: Yup.string()
     .required('Введите, пожалуйста, логин!')
     .min(2, 'Слишком короткий логин!')
@@ -40,4 +42,4 @@ export const EDIT_PROFILE_VALIDATION_SCHEMA = Yup.object().shape({
     .min(10, 'Короткий номер телефона!')
     .max(15, 'Слишком длинный номер телефона!')
     .matches(phoneRegexp, 'от 10 до 15 цифр, может начинаться с плюса'),
-});
+})
