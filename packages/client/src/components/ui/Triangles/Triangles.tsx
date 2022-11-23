@@ -1,10 +1,10 @@
-import React from 'react';
-import './styles.scss';
+import React from 'react'
+import './styles.scss'
 
 export const Triangles = (): JSX.Element => (
-    <div className="triangles">
-      <div className="triangles__item triangles__item_one"></div>
-      <div className="triangles__item triangles__item_two"></div>
-      <div className="triangles__item triangles__item_three"></div>
-    </div>
-  )
+  <div className="triangles">
+    <div className="triangles__item triangles__item_one"></div>
+    <div className="triangles__item triangles__item_two"></div>
+    <div className="triangles__item triangles__item_three"></div>
+  </div>
+)

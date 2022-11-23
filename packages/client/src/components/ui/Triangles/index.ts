@@ -1,1 +1,1 @@
-export * from "./Triangles";
+export * from './Triangles'

@@ -5,25 +5,31 @@ import { Link, MemoryRouter } from 'react-router-dom'
 import { Logo } from '../Logo'
 import { ROUTES } from '../../../../router/types'
 
-Enzyme.configure({ adapter: new Adapter() });
+Enzyme.configure({ adapter: new Adapter() })
 
 describe('Logo component', () => {
   it('Should render Logo component', () => {
     const tree = renderer
-      .create(<MemoryRouter><Logo /></MemoryRouter>)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
+      .create(
+        <MemoryRouter>
+          <Logo />
+        </MemoryRouter>
+      )
+      .toJSON()
+    expect(tree).toMatchSnapshot()
+  })
 
   it('Should render hidden button "Go back"', () => {
-    const component = shallow(<Logo />);
-    const LinkComponent = component.find(Link);
-    expect(LinkComponent.props().className).toEqual('logo__button logo__button_hidden');
-  });
+    const component = shallow(<Logo />)
+    const LinkComponent = component.find(Link)
+    expect(LinkComponent.props().className).toEqual(
+      'logo__button logo__button_hidden'
+    )
+  })
 
   it('Should render visible button "Go back"', () => {
-    const component = shallow(<Logo backUrl={ROUTES.MAIN}/>);
-    const LinkComponent = component.find(Link);
-    expect(LinkComponent.props().className).toEqual('logo__button');
-  });
-});
+    const component = shallow(<Logo backUrl={ROUTES.MAIN} />)
+    const LinkComponent = component.find(Link)
+    expect(LinkComponent.props().className).toEqual('logo__button')
+  })
+})

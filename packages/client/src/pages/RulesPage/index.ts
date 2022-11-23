@@ -1,1 +1,1 @@
-export * from "./RulesPage";
+export * from './RulesPage'

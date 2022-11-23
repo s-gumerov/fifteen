@@ -1,4 +1,4 @@
-import {TUserInfo} from '../../api';
+import { TUserInfo } from '../../api'
 
 export enum userReducerTypes {
   getUserInfo = 'user/getUserInfo',
@@ -10,7 +10,7 @@ export enum userReducerTypes {
 }
 
 export type TUserState = {
-  user: TUserInfo | null,
-  error: string | null,
-  status: 'INIT' | 'FETCHING' | 'FETCH_FULFILLED' | 'FETCH_FAILED' | null,
+  user: TUserInfo | null
+  error: string | null
+  status: 'INIT' | 'FETCHING' | 'FETCH_FULFILLED' | 'FETCH_FAILED' | null
 }
