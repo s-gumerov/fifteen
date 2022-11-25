@@ -1,14 +1,16 @@
+import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import path from 'path'
 import { createServer as createViteServer } from 'vite'
 import type { Request, Response } from 'express'
 import fs from 'fs'
+import bodyParser from 'body-parser'
 // @ts-ignore
 import { render } from '../client/dist/ssr/entry-server.cjs'
-import express from 'express'
-
+import { router } from './routes/api'
 dotenv.config()
+import { sequelize } from './db'
 
 enum PATH {
   CLIENT = '../client/dist/client/',
@@ -19,18 +21,25 @@ let template = fs.readFileSync(
   'utf-8'
 )
 
+sequelize
+  .authenticate()
+  .then(() => console.log('Connected.'))
+  .catch(err => console.error('Connection error: ', err))
+
 async function createServer() {
   const port = Number(process.env.SERVER_PORT) || 3001
   const app = express()
-
-  app.use(cors())
-
   const vite = await createViteServer({
     server: {
       middlewareMode: true,
     },
     appType: 'custom',
   })
+
+  app.use(cors())
+
+  app.use(bodyParser.json())
+  app.use(router)
 
   app.use(vite.middlewares)
 

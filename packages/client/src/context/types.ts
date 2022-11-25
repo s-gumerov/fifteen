@@ -1,5 +1,4 @@
 import React from 'react'
-import { TPlayers } from '../pages/LeadersPage/types'
 import { TLeaderboard } from '../api/leaderbord'
 
 export type AuthContextProps = {

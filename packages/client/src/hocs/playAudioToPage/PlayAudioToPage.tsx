@@ -8,7 +8,7 @@ export function withPlayingAudio(
     private audio = new Audio(audioUrl)
 
     private playAudio() {
-      this.audio.addEventListener('canplaythrough', event => {
+      this.audio.addEventListener('canplaythrough', () => {
         /* воспроизвести если аудио может быть воспроизведено (загружено) и если позволяют разрешения */
         this.audio.play()
         this.repeatPlay()
@@ -16,7 +16,7 @@ export function withPlayingAudio(
     }
 
     private repeatPlay() {
-      this.audio.addEventListener('ended', event => {
+      this.audio.addEventListener('ended', () => {
         this.audio.play()
         this.repeatPlay()
       })
