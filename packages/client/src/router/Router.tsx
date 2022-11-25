@@ -39,7 +39,7 @@ export const Router = () => {
     const OAuthParams = new URLSearchParams(location.search)
     const code = OAuthParams.get('code')?.toString()
     const yandexOAuth = async (code: string) => {
-      const redirect_uri = REDIRECT_URI
+      const redirect_uri = REDIRECT_URI()
       const res = await authorizeWithYaOAuth({ code, redirect_uri })
       if (res === 'OK') {
         return setTimeout(() => {

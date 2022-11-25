@@ -1,28 +1,79 @@
-import { Client } from 'pg'
+import { Sequelize, SequelizeOptions, DataType } from 'sequelize-typescript';
 
-const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT } =
-  process.env
+const sequelizeOptions: SequelizeOptions = {
+  host: 'localhost',
+  port: 5432,
+  username: 'postgres',
+  password:'postgres',
+  database: 'postgres', 
+  dialect: 'postgres',
+};
 
-export const createClientAndConnect = async (): Promise<Client | null> => {
-  try {
-    const client = new Client({
-      user: POSTGRES_USER,
-      host: 'localhost',
-      database: POSTGRES_DB,
-      password: POSTGRES_PASSWORD,
-      port: Number(POSTGRES_PORT),
-    })
+const sequelize = new Sequelize(sequelizeOptions);
 
-    await client.connect()
+const initTables = async () => {
+  await sequelize.sync();
+}  
 
-    const res = await client.query('SELECT NOW()')
-    console.log('  ➜ 🎸 Connected to the database at:', res?.rows?.[0].now)
-    client.end()
-
-    return client
-  } catch (e) {
-    console.error(e)
+const Topic = sequelize.define(
+  'Topic',
+  {
+    id: {
+      type: DataType.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false
+    },
+    author_id: {
+      type: DataType.INTEGER,
+      allowNull: false
+    },
+    text: DataType.STRING
   }
+);
 
-  return null
-}
+const User = sequelize.define(
+  'User',
+  {
+    id: {
+      type: DataType.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    login: DataType.STRING,
+    avatar_url: DataType.STRING
+  }
+)
+
+const Thread = sequelize.define(
+  'Thread',
+  {
+    id: {
+      type: DataType.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    author_id: DataType.INTEGER,
+    topic_id: DataType.INTEGER,
+    text: DataType.STRING
+  }
+)
+
+const ThreadAnswer = sequelize.define(
+  'Thread_answer',
+  {
+    id: {
+      type: DataType.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    author_id: DataType.INTEGER,
+    thread_id: DataType.INTEGER,
+    text: DataType.STRING
+  }
+)
+
+
+initTables();
+
+export { sequelize, Topic, User, Thread, ThreadAnswer }; 
