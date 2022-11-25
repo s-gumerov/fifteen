@@ -8,9 +8,7 @@ import {
   TLeaderboard,
 } from './types'
 
-export const setLeaderboardToLocalStorage = (
-  leaderboard: TLeaderboard
-) => {
+export const setLeaderboardToLocalStorage = (leaderboard: TLeaderboard) => {
   localStorage.setItem(STORE_NAME.LEADERBOARD, JSON.stringify(leaderboard))
 }
 

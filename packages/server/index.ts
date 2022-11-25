@@ -24,8 +24,8 @@ let template = fs.readFileSync(
 sequelize
   .authenticate()
   .then(() => console.log('Connected.'))
-  .catch((err) => console.error('Connection error: ', err))
-  
+  .catch(err => console.error('Connection error: ', err))
+
 async function createServer() {
   const port = Number(process.env.SERVER_PORT) || 3001
   const app = express()
@@ -35,7 +35,7 @@ async function createServer() {
     },
     appType: 'custom',
   })
-  
+
   app.use(cors())
 
   app.use(bodyParser.json())

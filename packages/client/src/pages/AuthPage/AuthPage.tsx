@@ -5,13 +5,14 @@ import { Formik, Form } from 'formik'
 import { TextFieldAuth } from '../../components/ui'
 import { ROUTES } from '../../router/types'
 import { INITIAL_FORM_STATE, AUTH_VALIDATION_SCHEMA } from './validation-schema'
-import { REDIRECT_URI, TAuthData } from '../../api'
+import { TAuthData } from '../../api'
 import { useAuth } from '../../context'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { authorizeByThunk } from '../../store/user/userSlice'
 import './styles.scss'
-import img from '../../assets/icons/yaAuthBtn.svg'
+import img from '../../assets/yaAuthBtn.svg'
 import { getServiceId } from '../../api/OAuth'
+import { getRedirectURI } from '../../utils/getRedirectURI'
 
 export const AuthPage = (): JSX.Element => {
   const authContext = useAuth()
@@ -32,7 +33,7 @@ export const AuthPage = (): JSX.Element => {
     const { service_id } = res
     if (service_id) {
       window.location.replace(
-        `https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=${REDIRECT_URI}`
+        `https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=${getRedirectURI()}`
       )
     }
   }

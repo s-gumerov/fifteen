@@ -1,12 +1,13 @@
 import { axiosInstance } from '../axios'
-import { ENDPOINT, REDIRECT_URI } from '../const'
+import { ENDPOINT } from '../const'
 import { TAuthResponse, TOAuth } from '../auth'
+import { getRedirectURI } from '../../utils/getRedirectURI'
 
 export const getServiceId = async () => {
   try {
     const result = await axiosInstance(ENDPOINT.SERVICE_ID, {
       method: 'get',
-      params: { REDIRECT_URI },
+      params: { getRedirectURI },
     })
     return result.data
   } catch (error) {

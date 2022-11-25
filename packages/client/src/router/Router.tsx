@@ -26,7 +26,7 @@ import gameAudio from '../assets/audio/pirates_of_the_caribbean.mp3'
 import { withPlayingAudio } from '../hocs/playAudioToPage/PlayAudioToPage'
 import { getLeaderboardByThunk } from '../store/leaderboard/leaderboardSlice'
 import { leaderboardDefaultQuery } from '../const'
-import { REDIRECT_URI } from '../api'
+import { getRedirectURI } from '../utils/getRedirectURI'
 import { authorizeWithYaOAuth } from '../api/OAuth'
 
 export const Router = () => {
@@ -39,7 +39,7 @@ export const Router = () => {
     const OAuthParams = new URLSearchParams(location.search)
     const code = OAuthParams.get('code')?.toString()
     const yandexOAuth = async (code: string) => {
-      const redirect_uri = REDIRECT_URI()
+      const redirect_uri = getRedirectURI()
       const res = await authorizeWithYaOAuth({ code, redirect_uri })
       if (res === 'OK') {
         return setTimeout(() => {

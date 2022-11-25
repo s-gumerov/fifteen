@@ -1,16 +1,16 @@
 const CACHE_NAME = 'cache-v1'
 
 const URLS = [
-  "/index.html",
-  "/vite.svg",
-  "/assets/back_arrow.1ce1cb6b.svg",
-  "/assets/bgPuzzle.c763b640.svg",
-  "/assets/comment.661f5d59.svg",
-  "/assets/index.489b68d8.css",
-  "/assets/index.dbb84263.js",
-  "/assets/pirates_of_the_caribbean.575d0887.mp3",
-  "/assets/yaAuthBtn.d811afe9.svg",
-  "/assets/index.dbb84263.js",
+  '/index.html',
+  '/vite.svg',
+  '/assets/back_arrow.1ce1cb6b.svg',
+  '/assets/bgPuzzle.c763b640.svg',
+  '/assets/comment.661f5d59.svg',
+  '/assets/index.489b68d8.css',
+  '/assets/index.dbb84263.js',
+  '/assets/pirates_of_the_caribbean.575d0887.mp3',
+  '/assets/yaAuthBtn.d811afe9.svg',
+  '/assets/index.dbb84263.js',
 ]
 
 this.addEventListener('install', event => {
