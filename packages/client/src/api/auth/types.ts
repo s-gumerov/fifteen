@@ -24,7 +24,7 @@ export type TOAuth = {
 }
 
 export type TOAuth = {
-  code: string,
+  code: string
   redirect_uri: string
 }
 

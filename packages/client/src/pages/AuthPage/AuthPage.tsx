@@ -1,18 +1,18 @@
-import React from 'react';
-import {Link, useNavigate} from 'react-router-dom'
-import {Button} from '@mui/material';
-import {Formik, Form} from 'formik';
-import {TextFieldAuth} from '../../components/ui';
-import {ROUTES} from '../../router/types';
-import {INITIAL_FORM_STATE, AUTH_VALIDATION_SCHEMA} from './validation-schema';
-import {REDIRECT_URI, TAuthData} from '../../api';
-import {useAuth} from '../../context';
-import {useAppDispatch} from '../../hooks/useAppDispatch';
-import {authorizeByThunk} from '../../store/user/userSlice'
+import React from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { Button } from '@mui/material'
+import { Formik, Form } from 'formik'
+import { TextFieldAuth } from '../../components/ui'
+import { ROUTES } from '../../router/types'
+import { INITIAL_FORM_STATE, AUTH_VALIDATION_SCHEMA } from './validation-schema'
+import { TAuthData } from '../../api'
+import { useAuth } from '../../context'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { authorizeByThunk } from '../../store/user/userSlice'
 import './styles.scss'
 import img from '../../assets/yaAuthBtn.svg'
-import {getServiceId} from "../../api/OAuth";
-
+import { getServiceId } from '../../api/OAuth'
+import { getRedirectURI } from '../../utils/getRedirectURI'
 
 export const AuthPage = (): JSX.Element => {
   const authContext = useAuth()
@@ -33,7 +33,7 @@ export const AuthPage = (): JSX.Element => {
     const { service_id } = res
     if (service_id) {
       window.location.replace(
-        `https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=${REDIRECT_URI}`
+        `https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=${getRedirectURI()}`
       )
     }
   }
@@ -79,4 +79,3 @@ export const AuthPage = (): JSX.Element => {
     </div>
   )
 }
-

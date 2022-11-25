@@ -6,18 +6,18 @@ import { useTimer } from '../../hooks/useTimer'
 import { CanvasController } from '../../Controllers'
 import { TBoard } from '../../Controllers/CanvasController/types'
 import {
-    buttonLeaders,
-    buttonRepeatGame,
-} from '../../Controllers/CanvasController/const';
-import {addPlayerToLeaderboardByThunk} from '../../store/leaderboard/leaderboardSlice';
-import {TAddPlayerToLeaderboard} from '../../api/leaderbord';
-import "./style.scss";
-import {TPlayer} from '../LeadersPage/types';
-import {useAppDispatch, useAppSelector} from '../../hooks/useAppDispatch';
-import {ratingFieldName, teamName} from '../../const';
-import {useLeaders} from '../../context/Leaders';
-import {ROUTES} from '../../router/types';
-import {ToggleFullScreenBtn} from '../../components/ToggleFullScreenBtn/ToggleFullScreenBtn';
+  buttonLeaders,
+  buttonRepeatGame,
+} from '../../Controllers/CanvasController/const'
+import { addPlayerToLeaderboardByThunk } from '../../store/leaderboard/leaderboardSlice'
+import { TAddPlayerToLeaderboard } from '../../api/leaderbord'
+import './style.scss'
+import { TPlayer } from '../LeadersPage/types'
+import { useAppDispatch, useAppSelector } from '../../hooks/useAppDispatch'
+import { ratingFieldName, teamName } from '../../const'
+import { useLeaders } from '../../context/Leaders'
+import { ROUTES } from '../../router/types'
+import { ToggleFullScreenBtn } from '../../components/ToggleFullScreenBtn/ToggleFullScreenBtn'
 
 const Canvas = new CanvasController()
 
@@ -97,21 +97,23 @@ export const GameFieldPage = (): JSX.Element => {
     Canvas.init(fieldRef, board as TBoard, backgroundPuzzle)
   }, [])
 
-    return (
-        <>
-            <div className="game">
-                <canvas
-                    ref={fieldRef}
-                    onClick={checkWin ? canvasEngGameHandleClick : handleClickOnField}
-                    width={505}
-                    height={505}
-                />
-                <div className="game__data-wrapper">
-                    <div className="game__steps">Ходы: {stepsCount}</div>
-                    <div>Время: {transformSecondsCountToWordExpression(secondsCount)}</div>
-                </div>
-            </div>
-            <ToggleFullScreenBtn/>
-        </>
-    );
+  return (
+    <>
+      <div className="game">
+        <canvas
+          ref={fieldRef}
+          onClick={checkWin ? canvasEngGameHandleClick : handleClickOnField}
+          width={505}
+          height={505}
+        />
+        <div className="game__data-wrapper">
+          <div className="game__steps">Ходы: {stepsCount}</div>
+          <div>
+            Время: {transformSecondsCountToWordExpression(secondsCount)}
+          </div>
+        </div>
+      </div>
+      <ToggleFullScreenBtn />
+    </>
+  )
 }

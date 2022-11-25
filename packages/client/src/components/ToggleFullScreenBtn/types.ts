@@ -1,6 +1,5 @@
-import {SxProps} from '@mui/material';
+import { SxProps } from '@mui/material'
 
 export type ToggleFullScreenBtnProps = {
-  styles?:SxProps;
+  styles?: SxProps
 }
-
