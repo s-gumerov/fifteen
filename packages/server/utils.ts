@@ -18,23 +18,23 @@ export const getUserInfo = async (cookie?: string): Promise<TUser | string> => {
   }
 }
 
-export const getUrl = (
+export const getUrlAndRedirect = (
   user: TUser | null,
   originalUrl: CLIENT_ROUTES,
   isPrivateRoute: boolean,
   isPublicRoute: boolean
-): CLIENT_ROUTES => {
+): { url: CLIENT_ROUTES, isRedirect: boolean } => {
   if (user) {
     if (isPublicRoute) {
-      return CLIENT_ROUTES.MAIN
+      return { url: CLIENT_ROUTES.MAIN, isRedirect: true }
     } else {
-      return originalUrl
+      return { url: originalUrl, isRedirect: false }
     }
   } else {
     if (isPrivateRoute) {
-      return CLIENT_ROUTES.AUTH
+      return { url: CLIENT_ROUTES.AUTH, isRedirect: true }
     } else {
-      return originalUrl
+      return { url: originalUrl, isRedirect: false }
     }
   }
 }

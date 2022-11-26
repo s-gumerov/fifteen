@@ -6,24 +6,24 @@ import { TextFieldAuth } from '../../components/ui'
 import { ROUTES } from '../../router/types'
 import { INITIAL_FORM_STATE, AUTH_VALIDATION_SCHEMA } from './validation-schema'
 import { TAuthData } from '../../api'
-import { useAuth } from '../../context'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { authorizeByThunk } from '../../store/user/userSlice'
 import './styles.scss'
 import img from '../../assets/yaAuthBtn.svg'
 import { getServiceId } from '../../api/OAuth'
 import { getRedirectURI } from '../../utils/getRedirectURI'
+import { getLeaderboardByThunk } from "../../store/leaderboard/leaderboardSlice";
+import { leaderboardDefaultQuery } from "../../const";
 
 export const AuthPage = (): JSX.Element => {
-  const authContext = useAuth()
   const navigation = useNavigate()
   const dispatch = useAppDispatch()
-  const yaAuth = new Image()
-  yaAuth.src = img
+  // const yaAuth = new Image()
+  // yaAuth.src = img
   const handleSubmit = async (values: TAuthData) => {
     const res = await dispatch(authorizeByThunk(values))
     if (res.payload === 'OK') {
-      authContext?.setAuthorization(true)
+      dispatch(getLeaderboardByThunk(leaderboardDefaultQuery))
       navigation(ROUTES.MAIN)
     }
   }
@@ -74,7 +74,7 @@ export const AuthPage = (): JSX.Element => {
         variant="contained"
         size="large"
         sx={{ mt: 4 }}>
-        <img src={img} alt="" />
+        {/*<img src={img} alt="" />*/}
       </Button>
     </div>
   )
