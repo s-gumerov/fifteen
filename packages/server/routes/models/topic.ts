@@ -15,7 +15,7 @@ export namespace createTopic {
 
   /** Параметры api ответа */
   export interface Response {
-    authorId: number
+    id: number
   }
 }
 

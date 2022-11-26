@@ -6,6 +6,7 @@ const router = Router()
 
 router.post(createTopic.route, async (req, res) => {
   const newTopic = await Topic.create({
+    id: null,
     author_id: req.body.authorId,
     login: req.body.login,
     avatar_url: req.body.avatarUrl,
@@ -14,8 +15,7 @@ router.post(createTopic.route, async (req, res) => {
   await newTopic.save()
   await newTopic.reload();
   const result: createTopic.Response = {
-    //@ts-ignore
-    id: newTopic.id
+    id: (newTopic as Record<any, any>).id
   }
   res.send(result)
 })

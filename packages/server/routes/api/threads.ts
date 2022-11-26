@@ -15,8 +15,7 @@ router.post(createThread.route, async (req, res) => {
   await newThread.save();
   await newThread.reload();
   const result: createThread.Response = {
-    //@ts-ignore
-    id: newThread.id
+    id: (newThread as Record<any, any>).id
   }
   res.send(result)
 })

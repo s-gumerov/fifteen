@@ -16,7 +16,7 @@ export namespace createThread {
 
   /** Параметры api ответа */
   export interface Response {
-    authorId: number
+    id: number
   }
 }
 
