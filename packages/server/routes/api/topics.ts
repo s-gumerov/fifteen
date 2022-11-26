@@ -12,7 +12,11 @@ router.post(createTopic.route, async (req, res) => {
     text: req.body.text,
   })
   await newTopic.save()
-  const result: createTopic.Response = req.body.authorId
+  await newTopic.reload();
+  const result: createTopic.Response = {
+    //@ts-ignore
+    id: newTopic.id
+  }
   res.send(result)
 })
 
@@ -26,6 +30,7 @@ router.get(getTopic.route, async (req, res) => {
   let result = {}
   if (topic) {
     result = {
+      id: topic.dataValues.id,
       authorId: topic.dataValues.author_id,
       login: topic.dataValues.login,
       avatarUrl: topic.dataValues.avatar_url,
@@ -44,6 +49,7 @@ router.get(getTopics.route, async (req, res) => {
   const aTopic = topics.slice(start, quantity)
   const result = aTopic.map(topic => {
     return {
+      id: topic.dataValues.id,
       authorId: topic.dataValues.author_id,
       login: topic.dataValues.login,
       avatarUrl: topic.dataValues.avatar_url,

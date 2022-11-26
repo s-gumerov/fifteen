@@ -12,8 +12,12 @@ router.post(createThread.route, async (req, res) => {
     topic_id: req.body.topicId,
     text: req.body.text,
   })
-  await newThread.save()
-  const result: createThread.Response = req.body.authorId
+  await newThread.save();
+  await newThread.reload();
+  const result: createThread.Response = {
+    //@ts-ignore
+    id: newThread.id
+  }
   res.send(result)
 })
 
@@ -28,6 +32,7 @@ router.get(getThread.route, async (req, res) => {
   let result = {}
   if (thread) {
     result = {
+      id: thread.dataValues.id,
       authorId: thread.dataValues.author_id,
       login: thread.dataValues.login,
       avatarUrl: thread.dataValues.avatar_url,
@@ -49,6 +54,7 @@ router.get(getThreadsByTopic.route, async (req, res) => {
   const aThread = threads.slice(start, quantity)
   const result = aThread.map(thread => {
     return {
+      id: thread.dataValues.id,
       authorId: thread.dataValues.author_id,
       login: thread.dataValues.login,
       avatarUrl: thread.dataValues.avatar_url,

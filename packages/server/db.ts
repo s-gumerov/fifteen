@@ -12,7 +12,7 @@ const sequelizeOptions: SequelizeOptions = {
 const sequelize = new Sequelize(sequelizeOptions)
 
 const initTables = async () => {
-  await sequelize.sync({ force: true })
+  await sequelize.sync()
 }
 
 const Topic = sequelize.define('Topic', {
