@@ -12,7 +12,7 @@ const sequelizeOptions: SequelizeOptions = {
 const sequelize = new Sequelize(sequelizeOptions)
 
 const initTables = async () => {
-  await sequelize.sync()
+  await sequelize.sync({ force: true })
 }
 
 const Topic = sequelize.define('Topic', {
@@ -32,8 +32,10 @@ const Topic = sequelize.define('Topic', {
 const User = sequelize.define('User', {
   id: {
     type: DataType.INTEGER,
-    primaryKey: true
+    primaryKey: true,
+    autoIncrement: true
   },
+  yandex_id: DataType.INTEGER,
   login: DataType.STRING,
   avatar_url: DataType.STRING,
 })

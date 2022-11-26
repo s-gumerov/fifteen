@@ -6,20 +6,21 @@ const router = Router()
 
 router.post(setNewUser.route, async (req, res) => {
   const newUser = await User.create({
+    yandex_id: req.body.id,
     login: req.body.login,
     avatar_url: req.body.avatarUrl,
   })
   await newUser.save()
   const users = await User.findAll()
-  const id = users[users.length - 1].dataValues.id
-  const result: setNewUser.Response = { userId: id }
+  const yandex_id = users[users.length - 1].dataValues.yandex_id
+  const result: setNewUser.Response = { userId: yandex_id }
   res.send(result)
 })
 
 router.get(getUser.route, async (req, res) => {
   const user = await User.findOne({
     where: {
-      id: req.body.id,
+      yandex_id: req.body.id,
     },
   })
   let result = {}

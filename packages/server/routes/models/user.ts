@@ -8,7 +8,7 @@ export namespace setNewUser {
   /** Параметры api запроса */
   export interface Request {
     id: number,
-    login: string
+    login: string,
     avatarUrl: string
   }
 
