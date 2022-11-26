@@ -32,8 +32,7 @@ const Topic = sequelize.define('Topic', {
 const User = sequelize.define('User', {
   id: {
     type: DataType.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
+    primaryKey: true
   },
   login: DataType.STRING,
   avatar_url: DataType.STRING,
