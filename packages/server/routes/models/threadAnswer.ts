@@ -8,6 +8,8 @@ export namespace createThreadAnswer {
   /** Параметры api запроса */
   export interface Request {
     authorId: number
+    login: string
+    avatarUrl: string
     threadId: number
     text: string
   }
@@ -36,6 +38,8 @@ export namespace getAnswersByThread {
   export interface Response {
     threads: {
       authorId: number
+      login: string
+      avatarUrl: string
       text: string
       createdAt: string
     }[]
@@ -58,6 +62,8 @@ export namespace getThreadAnswer {
   /** Параметры api ответа */
   export interface Response {
     authorId: number
+    login: string
+    avatarUrl: string
     text: string
     createdAt: string
   }

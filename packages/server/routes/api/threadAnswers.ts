@@ -11,6 +11,8 @@ const router = Router()
 router.post(createThreadAnswer.route, async (req, res) => {
   const newThreadAnswer = await ThreadAnswer.create({
     author_id: req.body.authorId,
+    login: req.body.login,
+    avatar_url: req.body.avatarUrl,
     thread_id: req.body.threadId,
     text: req.body.text,
   })
@@ -31,6 +33,8 @@ router.get(getThreadAnswer.route, async (req, res) => {
   if (threadAnswer) {
     result = {
       authorId: threadAnswer.dataValues.author_id,
+      login: threadAnswer.dataValues.login,
+      avatarUrl: threadAnswer.dataValues.avatar_url,
       text: threadAnswer.dataValues.text,
       createdAt: threadAnswer.dataValues.createdAt,
     }
@@ -50,6 +54,8 @@ router.get(getAnswersByThread.route, async (req, res) => {
   const result = aThreadAnswer.map(answer => {
     return {
       authorId: answer.dataValues.author_id,
+      login: answer.dataValues.login,
+      avatarUrl: answer.dataValues.avatar_url,
       text: answer.dataValues.text,
       createdAt: answer.dataValues.createdAt,
     }

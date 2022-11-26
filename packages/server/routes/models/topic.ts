@@ -8,6 +8,8 @@ export namespace createTopic {
   /** Параметры api запроса */
   export interface Request {
     authorId: number
+    login: string
+    avatarUrl: string
     text: string
   }
 
@@ -34,6 +36,8 @@ export namespace getTopics {
   export interface Response {
     topics: {
       authorId: number
+      login: string
+      avatarUrl: string
       text: string
       createdAt: string
     }[]
@@ -55,6 +59,8 @@ export namespace getTopic {
   /** Параметры api ответа */
   export interface Response {
     authorId: number
+    login: string
+    avatarUrl: string
     text: string
     createdAt: string
   }

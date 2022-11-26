@@ -7,6 +7,8 @@ const router = Router()
 router.post(createTopic.route, async (req, res) => {
   const newTopic = await Topic.create({
     author_id: req.body.authorId,
+    login: req.body.login,
+    avatar_url: req.body.avatarUrl,
     text: req.body.text,
   })
   await newTopic.save()
@@ -25,6 +27,8 @@ router.get(getTopic.route, async (req, res) => {
   if (topic) {
     result = {
       authorId: topic.dataValues.author_id,
+      login: topic.dataValues.login,
+      avatarUrl: topic.dataValues.avatar_url,
       text: topic.dataValues.text,
       createdAt: topic.dataValues.createdAt,
     }
@@ -41,6 +45,8 @@ router.get(getTopics.route, async (req, res) => {
   const result = aTopic.map(topic => {
     return {
       authorId: topic.dataValues.author_id,
+      login: topic.dataValues.login,
+      avatarUrl: topic.dataValues.avatar_url,
       text: topic.dataValues.text,
       createdAt: topic.dataValues.createdAt,
     }

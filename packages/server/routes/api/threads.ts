@@ -7,6 +7,8 @@ const router = Router()
 router.post(createThread.route, async (req, res) => {
   const newThread = await Thread.create({
     author_id: req.body.authorId,
+    login: req.body.login,
+    avatar_url: req.body.avatarUrl,
     topic_id: req.body.topicId,
     text: req.body.text,
   })
@@ -27,6 +29,8 @@ router.get(getThread.route, async (req, res) => {
   if (thread) {
     result = {
       authorId: thread.dataValues.author_id,
+      login: thread.dataValues.login,
+      avatarUrl: thread.dataValues.avatar_url,
       text: thread.dataValues.text,
       createdAt: thread.dataValues.createdAt,
     }
@@ -46,6 +50,8 @@ router.get(getThreadsByTopic.route, async (req, res) => {
   const result = aThread.map(thread => {
     return {
       authorId: thread.dataValues.author_id,
+      login: thread.dataValues.login,
+      avatarUrl: thread.dataValues.avatar_url,
       text: thread.dataValues.text,
       createdAt: thread.dataValues.createdAt,
     }
