@@ -35,6 +35,7 @@ export namespace getTopics {
   /** Параметры api ответа */
   export interface Response {
     topics: {
+      id: number
       authorId: number
       login: string
       avatarUrl: string

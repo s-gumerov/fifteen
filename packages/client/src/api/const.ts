@@ -1,4 +1,5 @@
 export const BASE_URL_API = 'https://ya-praktikum.tech'
+export const DB_URL_API = 'http://localhost:3001'
 
 export enum HTTP_STATUS_CODE {
   OK = 200,

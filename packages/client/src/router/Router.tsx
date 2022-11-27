@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
-import { Route, Routes } from 'react-router-dom'
-import { useAuth } from '../context'
+import React, {useEffect} from 'react'
+import {Route, Routes} from 'react-router-dom'
+import {useAuth} from '../context'
 import {
   MainPage,
   SignupPage,
@@ -15,21 +15,25 @@ import {
   RulesPage,
   NotFoundPage,
 } from '../pages'
-import { ROUTES } from './types'
-import { MainLayout } from '../layouts'
-import { PrivateRoute } from './PrivateRoute'
-import { PublicRoute } from './PublicRoute'
-import { useAppDispatch } from '../hooks/useAppDispatch'
-import { getUserInfoByThunk } from '../store/user/userSlice'
-import { userReducerTypes } from '../store/user/types'
+import {ROUTES} from './types'
+import {MainLayout} from '../layouts'
+import {PrivateRoute} from './PrivateRoute'
+import {PublicRoute} from './PublicRoute'
+import {useAppDispatch, useAppSelector} from '../hooks/useAppDispatch'
+import {addUserToDB, getUserInfoByThunk} from '../store/user/userSlice'
+import {userReducerTypes} from '../store/user/types'
 import gameAudio from '../assets/audio/pirates_of_the_caribbean.mp3'
-import { withPlayingAudio } from '../hocs/playAudioToPage/PlayAudioToPage'
-import { getLeaderboardByThunk } from '../store/leaderboard/leaderboardSlice'
-import { leaderboardDefaultQuery } from '../const'
-import { getRedirectURI } from '../utils/getRedirectURI'
-import { authorizeWithYaOAuth } from '../api/OAuth'
+import {withPlayingAudio} from '../hocs/playAudioToPage/PlayAudioToPage'
+import {getLeaderboardByThunk} from '../store/leaderboard/leaderboardSlice'
+import {leaderboardDefaultQuery} from '../const'
+import {getRedirectURI} from '../utils/getRedirectURI'
+import {authorizeWithYaOAuth} from '../api/OAuth'
+import {TUserInfo} from '../api'
+import {getTopicsWithThreads, getTopicThreads} from "../store/forum/forumSlice";
 
 export const Router = () => {
+  const {user} = useAppSelector(state => state.user)
+  const {forum} = useAppSelector(state => state.forum)
   const authContext = useAuth()
   const dispatch = useAppDispatch()
   /* оборачиваем страницу с игрой в HOC, чтобы при каждом её открытии циклически воспроизводилось аудио */
@@ -40,7 +44,7 @@ export const Router = () => {
     const code = OAuthParams.get('code')?.toString()
     const yandexOAuth = async (code: string) => {
       const redirect_uri = getRedirectURI()
-      const res = await authorizeWithYaOAuth({ code, redirect_uri })
+      const res = await authorizeWithYaOAuth({code, redirect_uri})
       if (res === 'OK') {
         return setTimeout(() => {
           checkAuthorization()
@@ -56,116 +60,130 @@ export const Router = () => {
     }
 
     code ? yandexOAuth(code) : checkAuthorization()
+    dispatch(getTopicsWithThreads({quantity: 100, start: 0}))
+    const data = {"topic": 1, "quantity": 100, "start": 0}
+    console.log(data)
+    const threads = getTopicThreads(JSON.stringify(data))
+    console.log(threads)
   }, [])
+
+  useEffect(() => {
+    if (user) {
+      const {id, login, avatar} = user as TUserInfo
+      console.log(id, login, avatar)
+      addUserToDB({id: id!, login: login, avatarUrl: avatar!})
+    }
+    console.log(forum)
+  }, [user])
 
   return (
     <Routes>
-      <Route element={<PublicRoute />}>
+      <Route element={<PublicRoute/>}>
         <Route
           path={ROUTES.SIGNUP}
           element={
             <MainLayout>
-              <SignupPage />
+              <SignupPage/>
             </MainLayout>
           }
         />
       </Route>
-      <Route element={<PublicRoute />}>
+      <Route element={<PublicRoute/>}>
         <Route
           path={ROUTES.AUTH}
           element={
             <MainLayout>
-              <AuthPage />
+              <AuthPage/>
             </MainLayout>
           }
         />
       </Route>
-      <Route element={<PrivateRoute />}>
+      <Route element={<PrivateRoute/>}>
         <Route
           path={ROUTES.MAIN}
           element={
             <MainLayout>
-              <MainPage />
+              <MainPage/>
             </MainLayout>
           }
         />
       </Route>
-      <Route element={<PrivateRoute />}>
+      <Route element={<PrivateRoute/>}>
         <Route
           path={ROUTES.GAME_FIELD}
           element={
             <MainLayout backUrl={ROUTES.MAIN}>
-              <GameFieldPageWithAudio />
+              <GameFieldPageWithAudio/>
             </MainLayout>
           }
         />
       </Route>
-      <Route element={<PrivateRoute />}>
+      <Route element={<PrivateRoute/>}>
         <Route
           path={ROUTES.LEADERS}
           element={
             <MainLayout backUrl={ROUTES.MAIN}>
-              <LeadersPage />
+              <LeadersPage/>
             </MainLayout>
           }
         />
       </Route>
-      <Route element={<PrivateRoute />}>
+      <Route element={<PrivateRoute/>}>
         <Route
           path={ROUTES.PROFILE}
           element={
             <MainLayout backUrl={ROUTES.MAIN}>
-              <ProfilePage />
+              <ProfilePage/>
             </MainLayout>
           }
         />
       </Route>
-      <Route element={<PrivateRoute />}>
+      <Route element={<PrivateRoute/>}>
         <Route
           path={ROUTES.EDIT_PROFILE}
           element={
             <MainLayout backUrl={ROUTES.PROFILE}>
-              <EditProfilePage />
+              <EditProfilePage/>
             </MainLayout>
           }
         />
       </Route>
-      <Route element={<PrivateRoute />}>
+      <Route element={<PrivateRoute/>}>
         <Route
           path={ROUTES.EDIT_PASSWORD}
           element={
             <MainLayout backUrl={ROUTES.PROFILE}>
-              <EditPasswordPage />
+              <EditPasswordPage/>
             </MainLayout>
           }
         />
       </Route>
-      <Route element={<PrivateRoute />}>
+      <Route element={<PrivateRoute/>}>
         <Route
           path={ROUTES.FORUM}
           element={
             <MainLayout backUrl={ROUTES.MAIN}>
-              <ForumPage />
+              <ForumPage/>
             </MainLayout>
           }
         />
       </Route>
-      <Route element={<PrivateRoute />}>
+      <Route element={<PrivateRoute/>}>
         <Route
           path={`${ROUTES.FORUM}/:id`}
           element={
             <MainLayout backUrl={ROUTES.FORUM}>
-              <ForumSubPage />
+              <ForumSubPage/>
             </MainLayout>
           }
         />
       </Route>
-      <Route element={<PrivateRoute />}>
+      <Route element={<PrivateRoute/>}>
         <Route
           path={ROUTES.RULES}
           element={
             <MainLayout backUrl={ROUTES.MAIN}>
-              <RulesPage />
+              <RulesPage/>
             </MainLayout>
           }
         />
@@ -174,7 +192,7 @@ export const Router = () => {
         path="*"
         element={
           <MainLayout backUrl={ROUTES.MAIN}>
-            <NotFoundPage />
+            <NotFoundPage/>
           </MainLayout>
         }
       />

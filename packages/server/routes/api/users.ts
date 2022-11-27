@@ -26,7 +26,7 @@ router.get(getUser.route, async (req, res) => {
   let result = {}
   if (user) {
     result = {
-      id: user.dataValues.id,
+      id: user.dataValues.yandex_id,
       login: user.dataValues.login,
       avatarUrl: user.dataValues.avatar_url,
     }

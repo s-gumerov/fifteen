@@ -44,6 +44,7 @@ router.get(getThread.route, async (req, res) => {
 
 router.get(getThreadsByTopic.route, async (req, res) => {
   const { topic, quantity, start } = req.body
+  console.log(req.body)
   const threads = await Thread.findAll({
     where: {
       topic_id: topic,
