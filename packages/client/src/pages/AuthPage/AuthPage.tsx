@@ -18,8 +18,11 @@ import { leaderboardDefaultQuery } from "../../const";
 export const AuthPage = (): JSX.Element => {
   const navigation = useNavigate()
   const dispatch = useAppDispatch()
-  // const yaAuth = new Image()
-  // yaAuth.src = img
+  const yaAuth = typeof window !== 'undefined' && new Image()
+  if(yaAuth){
+    yaAuth.src = img
+
+  }
   const handleSubmit = async (values: TAuthData) => {
     const res = await dispatch(authorizeByThunk(values))
     if (res.payload === 'OK') {
@@ -74,7 +77,7 @@ export const AuthPage = (): JSX.Element => {
         variant="contained"
         size="large"
         sx={{ mt: 4 }}>
-        {/*<img src={img} alt="" />*/}
+        <img src={img} alt="" />
       </Button>
     </div>
   )

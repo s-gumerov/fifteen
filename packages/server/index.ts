@@ -35,6 +35,10 @@ let template = fs.readFileSync(
 //   .then(() => console.log('Connected.'))
 //   .catch(err => console.error('Connection error: ', err))
 
+const serverStore = {
+  user:'ivanov ivan',
+  leaderboard:'leaderboard'
+}
 async function createServer() {
   const port = Number(process.env.SERVER_PORT) || 3001
   const app = express()
@@ -66,7 +70,11 @@ async function createServer() {
 
     const reactHtml = await render(originalUrl);
     template = await vite.transformIndexHtml(originalUrl, template)
-    const appHtml = `<div id="root">${reactHtml}</div>`
+    const appHtml =
+      `<script>window.__PRELOADED_STATE__=${JSON.stringify(serverStore)
+      .replace(/</g, '\\\u003c')}
+      </script>
+                    <div id="root">${reactHtml}</div>`
     const html = template.replace(`<div id="root"></div>`, appHtml)
     res.status(status).send(html)
   }
@@ -86,8 +94,16 @@ async function createServer() {
   app.use(bodyParser.urlencoded({ extended: false }))
 
   app.use('*', authMiddleware);
-  app.use(express.static(path.resolve(__dirname, PATH.CLIENT)));
+  // app.use(express.static(path.resolve(__dirname, PATH.CLIENT)));
+
+  app.use(
+    (await import('serve-static')).default(path.resolve(__dirname,PATH.CLIENT), {
+      index: false
+    })
+  )
+
   app.use('*', serverRenderMiddleware);
+
 
   app.listen(port)
 }
