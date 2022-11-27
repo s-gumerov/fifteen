@@ -19,8 +19,8 @@ import { MainLayout } from '../layouts'
 import { useAppDispatch } from '../hooks/useAppDispatch'
 import gameAudio from '../assets/audio/pirates_of_the_caribbean.mp3'
 import { withPlayingAudio } from '../hocs/playAudioToPage/PlayAudioToPage'
-import { getRedirectURI } from '../utils/getRedirectURI'
 import { authorizeWithYaOAuth } from '../api/OAuth'
+import { getLocationOrigin } from "../utils";
 
 export const Router = () => {
   const dispatch = useAppDispatch()
@@ -31,7 +31,7 @@ export const Router = () => {
     const OAuthParams = new URLSearchParams(location.search)
     const code = OAuthParams.get('code')?.toString()
     const yandexOAuth = async (code: string) => {
-      const redirect_uri = getRedirectURI()
+      const redirect_uri = getLocationOrigin()
       const res = await authorizeWithYaOAuth({ code, redirect_uri })
     }
     if(code) yandexOAuth(code)

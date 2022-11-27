@@ -8,12 +8,12 @@ import { INITIAL_FORM_STATE, AUTH_VALIDATION_SCHEMA } from './validation-schema'
 import { TAuthData } from '../../api'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { authorizeByThunk } from '../../store/user/userSlice'
-import './styles.scss'
-import img from '../../assets/yaAuthBtn.svg'
 import { getServiceId } from '../../api/OAuth'
-import { getRedirectURI } from '../../utils/getRedirectURI'
 import { getLeaderboardByThunk } from "../../store/leaderboard/leaderboardSlice";
 import { leaderboardDefaultQuery } from "../../const";
+import { getLocationOrigin } from "../../utils";
+import img from '../../assets/yaAuthBtn.svg'
+import './styles.scss'
 
 export const AuthPage = (): JSX.Element => {
   const navigation = useNavigate()
@@ -21,7 +21,6 @@ export const AuthPage = (): JSX.Element => {
   const yaAuth = typeof window !== 'undefined' && new Image()
   if(yaAuth){
     yaAuth.src = img
-
   }
   const handleSubmit = async (values: TAuthData) => {
     const res = await dispatch(authorizeByThunk(values))
@@ -36,7 +35,7 @@ export const AuthPage = (): JSX.Element => {
     const { service_id } = res
     if (service_id) {
       window.location.replace(
-        `https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=${getRedirectURI()}`
+        `https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=${getLocationOrigin()}`
       )
     }
   }

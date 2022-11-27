@@ -1,5 +1,7 @@
-// export const BASE_URL_API = 'https://ya-praktikum.tech'
-export const BASE_URL_API = 'http://localhost:3001/praktikum-api';
+import { getLocationOrigin } from "../utils";
+
+const HOST = typeof window !== 'undefined' ? getLocationOrigin() : '';
+export const BASE_URL_API = `${HOST}/praktikum-api`;
 
 export enum HTTP_STATUS_CODE {
   OK = 200,

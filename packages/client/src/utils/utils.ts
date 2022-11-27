@@ -38,3 +38,5 @@ export const getRatingResult = (
   }
   return result
 }
+
+export const getLocationOrigin = (): string => location.origin
