@@ -1,13 +1,13 @@
 import { axiosInstance } from '../axios'
 import { ENDPOINT } from '../const'
 import { TAuthResponse, TOAuth } from '../auth'
-import { getLocationOrigin } from "../../utils";
+import { getLocationOrigin, isClient } from "../../utils";
 
 export const getServiceId = async () => {
   try {
     const result = await axiosInstance(ENDPOINT.SERVICE_ID, {
       method: 'get',
-      params: { redirect_uri: typeof window !== 'undefined' ? getLocationOrigin() : '' },
+      params: { redirect_uri: isClient() ? getLocationOrigin() : '' },
     })
     return result.data
   } catch (error) {

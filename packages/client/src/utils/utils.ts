@@ -39,4 +39,6 @@ export const getRatingResult = (
   return result
 }
 
+export const isClient = () => typeof window !== 'undefined'
+
 export const getLocationOrigin = (): string => location.origin

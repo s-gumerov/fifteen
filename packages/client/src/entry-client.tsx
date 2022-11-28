@@ -5,12 +5,6 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import store from './store'
 
-declare global {
-  interface Window {
-    __PRELOADED_STATE__?: object
-  }
-}
-
 ReactDOM.hydrateRoot(
   document.getElementById('root') as HTMLElement,
   <Provider store={store}>

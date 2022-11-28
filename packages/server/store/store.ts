@@ -1,6 +1,6 @@
-import axios from 'axios'
-import type { TGetLeaderboard, TLeaderboard, TState, TUser } from './types'
-import { PRAKTIKUM_API_URL } from '../const'
+import { axiosInstance } from "./axios";
+import { TGetLeaderboard, TLeaderboard, TState, TUser } from './types'
+import { TLeaderboardState } from "./types";
 
 export const initialState: TState = {
   user: {
@@ -16,48 +16,53 @@ export const initialState: TState = {
 }
 
 export const getStoreFromServer = (
-  user: TUser | null,
-  leaderboard: TLeaderboard | null
-): TState =>
-  user
-    ? {
-        user: {
-          user,
-          error: null,
-          status: 'FETCH_FULFILLED',
-        },
-        leaderboard: {
-          leaderboard,
-          error: null,
-          status: 'FETCH_FULFILLED',
-        },
-      }
-    : {
-        user: {
-          user: null,
-          error: 'Error!',
-          status: 'FETCH_FAILED',
-        },
-        leaderboard: {
-          leaderboard: null,
-          error: 'Error!',
-          status: 'FETCH_FAILED',
-        },
-      }
+  userData: TUser | null,
+  leaderboardData?: TLeaderboard | null
+): TState => {
+  const leaderboard: TLeaderboardState = leaderboardData ? {
+    leaderboard: leaderboardData,
+    error: null,
+    status: 'FETCH_FULFILLED',
+  } : {
+    leaderboard: null,
+    error: null,
+    status: null,
+  }
 
-export const getUserInfo = async (cookie?: string): Promise<TUser | string> => {
+  return userData
+    ? {
+      user: {
+        user: userData,
+        error: null,
+        status: 'FETCH_FULFILLED',
+      },
+      leaderboard,
+    }
+    : {
+      user: {
+        user: null,
+        error: 'Error!',
+        status: 'FETCH_FAILED',
+      },
+      leaderboard: {
+        leaderboard: null,
+        error: 'Error!',
+        status: 'FETCH_FAILED',
+      },
+    }
+}
+
+export const getUserInfo = async (cookie?: string): Promise<TUser | null> => {
   try {
-    const result = await axios<TUser>(`${PRAKTIKUM_API_URL}/api/v2/auth/user`, {
+    const result = await axiosInstance<TUser>('/api/v2/auth/user', {
       method: 'get',
       headers: {
-        'Content-Type': 'application/json',
         Cookie: cookie,
       },
-      withCredentials: true,
     })
     return result.data
   } catch (error) {
-    return (error as Error).message
+    return null
   }
 }
 
@@ -70,19 +75,17 @@ const leaderboardDefaultQuery: TGetLeaderboard = {
 
 export const getLeaderboardByThunk = async (
   cookie?: string
-): Promise<TLeaderboard | string> => {
+): Promise<TLeaderboard | null> => {
   try {
-    const result = await axios(`${PRAKTIKUM_API_URL}/api/v2/leaderboard/all`, {
+    const result = await axiosInstance('/api/v2/leaderboard/all', {
       method: 'post',
       data: leaderboardDefaultQuery,
       headers: {
-        'Content-Type': 'application/json',
         Cookie: cookie,
-      },
-      withCredentials: true,
+      }
     })
     return result.data
   } catch (error) {
-    return (error as Error).message
+    return null
   }
 }

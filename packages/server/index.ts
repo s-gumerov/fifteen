@@ -1,4 +1,4 @@
-import express, {Request, Response, NextFunction} from 'express'
+import express, { Request, Response } from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import path from 'path'
@@ -7,29 +7,16 @@ import fs from 'fs'
 import bodyParser from 'body-parser'
 // @ts-ignore
 import { render } from '../client/dist/ssr/entry-server.cjs'
-import { CLIENT_DIR, HTTP_STATUS_CODE, PRAKTIKUM_API_URL } from './const'
-import { getUrlAndRedirect } from './utils'
-import {
-  CLIENT_ROUTES,
-  PRIVATE_CLIENT_ROUTES,
-  PUPLIC_CLIENT_ROUTES,
-} from './routes/client'
-import {
-  getLeaderboardByThunk,
-  getStoreFromServer,
-  getUserInfo,
-  TState,
-} from './store'
+import { CLIENT_DIR, PRAKTIKUM_API_URL } from './const'
+import type { RequestCustom } from './middlewares'
+import { authMiddleware } from './middlewares'
+import { getLeaderboardByThunk, getStoreFromServer, TState } from "./store";
+import { CLIENT_ROUTES } from "./routes/client";
 // import { router } from './routes/api'
 
 const { createProxyMiddleware } = require('http-proxy-middleware')
 dotenv.config()
 // import { sequelize } from './db'
-
-interface RequestCustom extends Request {
-  calculatedStatus: HTTP_STATUS_CODE.OK | HTTP_STATUS_CODE.UNAUTHORIZED
-  storeFromServer: TState
-}
 
 let template = fs.readFileSync(
   path.resolve(__dirname, CLIENT_DIR + 'index.html'),
@@ -53,50 +40,18 @@ async function createServer() {
   app.use(vite.middlewares)
   app.use(cors())
 
-  const authMiddleware = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => {
-    const { originalUrl } = req
-
-    const getUser = await getUserInfo(req.headers.cookie)
-    const getLeaderboard = await getLeaderboardByThunk(req.headers.cookie)
-
-    const user = typeof getUser !== 'string' ? getUser : null
-    const leaderboard =
-      typeof getLeaderboard !== 'string' ? getLeaderboard : null
-
-    const isPrivateRoute = PRIVATE_CLIENT_ROUTES.includes(
-      originalUrl as CLIENT_ROUTES
-    )
-    const isPublicRoute = PUPLIC_CLIENT_ROUTES.includes(
-      originalUrl as CLIENT_ROUTES
-    )
-
-    const urlAndRedirect = getUrlAndRedirect(
-      user,
-      originalUrl as CLIENT_ROUTES,
-      isPrivateRoute,
-      isPublicRoute
-    )
-    const status = user ? HTTP_STATUS_CODE.OK : HTTP_STATUS_CODE.UNAUTHORIZED
-    ;(req as RequestCustom).calculatedStatus = status
-
-    const store: TState = getStoreFromServer(user, leaderboard)
-    ;(req as RequestCustom).storeFromServer = store
-
-    urlAndRedirect.isRedirect ? res.redirect(urlAndRedirect.url) : next()
-  }
-
   const serverRenderMiddleware = async (req: Request, res: Response) => {
     const { originalUrl } = req
     const status = (req as RequestCustom).calculatedStatus
-    const serverStore = (req as RequestCustom).storeFromServer
+    const user = (req as RequestCustom).userData
+
+    const leaderboard = originalUrl === CLIENT_ROUTES.LEADERS ? await getLeaderboardByThunk(req.headers.cookie) : undefined
+
+    const store: TState = getStoreFromServer(user, leaderboard)
 
     const reactHtml = await render(originalUrl)
     template = await vite.transformIndexHtml(originalUrl, template)
-    const preloadedState = JSON.stringify(serverStore).replace(/</g, '\\\u003c')
+    const preloadedState = JSON.stringify(store).replace(/</g, '\\\u003c')
     const appHtml = `<script>window.__PRELOADED_STATE__=${preloadedState}</script>
                     <div id="root">${reactHtml}</div>`
     const html = template.replace(`<div id="root"></div>`, appHtml)
@@ -122,9 +77,11 @@ async function createServer() {
 
   app.use('*', authMiddleware)
 
-  app.use(express.static(path.resolve(__dirname, CLIENT_DIR),{
-    index:false
-  }))
+  app.use(
+    express.static(path.resolve(__dirname, CLIENT_DIR), {
+      index: false,
+    })
+  )
 
   app.use('*', serverRenderMiddleware)
 

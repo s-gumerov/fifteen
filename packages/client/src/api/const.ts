@@ -1,6 +1,6 @@
-import { getLocationOrigin } from "../utils";
+import { getLocationOrigin, isClient } from "../utils";
 
-const HOST = typeof window !== 'undefined' ? getLocationOrigin() : '';
+const HOST = isClient() ? getLocationOrigin() : '';
 export const BASE_URL_API = `${HOST}/praktikum-api`;
 
 export enum HTTP_STATUS_CODE {
