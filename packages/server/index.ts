@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from 'express'
+import express, {Request, Response, NextFunction} from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import path from 'path'
@@ -122,14 +122,9 @@ async function createServer() {
 
   app.use('*', authMiddleware)
 
-  app.use(
-    (await import('serve-static')).default(
-      path.resolve(__dirname, CLIENT_DIR),
-      {
-        index: false,
-      }
-    )
-  )
+  app.use(express.static(path.resolve(__dirname, CLIENT_DIR),{
+    index:false
+  }))
 
   app.use('*', serverRenderMiddleware)
 
