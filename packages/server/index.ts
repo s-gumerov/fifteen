@@ -12,24 +12,24 @@ import type { RequestCustom } from './middlewares'
 import { authMiddleware } from './middlewares'
 import { getLeaderboardByThunk, getStoreFromServer, TState } from "./store";
 import { CLIENT_ROUTES } from "./routes/client";
-// import { router } from './routes/api'
+import { router } from './routes/api'
 
 const { createProxyMiddleware } = require('http-proxy-middleware')
 dotenv.config()
-// import { sequelize } from './db'
+import { sequelize } from './db'
 
 let template = fs.readFileSync(
   path.resolve(__dirname, CLIENT_DIR + 'index.html'),
   'utf-8'
 )
 
-// sequelize
-//   .authenticate()
-//   .then(() => console.log('Connected.'))
-//   .catch(err => console.error('Connection error: ', err))
+sequelize
+  .authenticate()
+  .then(() => console.log('Connected.'))
+  .catch(err => console.error('Connection error: ', err))
 
 async function createServer() {
-  const port = Number(process.env.SERVER_PORT) || 3001
+  const port = 8080;
   const app = express()
   const vite = await createViteServer({
     server: {
@@ -58,8 +58,6 @@ async function createServer() {
     res.status(status).send(html)
   }
 
-  // app.use(router)
-
   app.use(
     '/praktikum-api',
     createProxyMiddleware({
@@ -76,6 +74,7 @@ async function createServer() {
   app.use(bodyParser.urlencoded({ extended: false }))
 
   app.use('*', authMiddleware)
+  app.use(router)
 
   app.use(
     express.static(path.resolve(__dirname, CLIENT_DIR), {
