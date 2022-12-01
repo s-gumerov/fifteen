@@ -9,21 +9,20 @@ import {
   SIGNUP_VALIDATION_SCHEMA,
 } from './validation-schema'
 import { TUserInfo } from '../../api'
-import { useAuth } from '../../context'
-import './styles.scss'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { signUpByThunk } from '../../store/user/userSlice'
+import { getLeaderboardByThunk } from "../../store/leaderboard/leaderboardSlice";
+import { leaderboardDefaultQuery } from "../../const";
+import './styles.scss'
 
 export const SignupPage = (): JSX.Element => {
-  const authContext = useAuth()
   const navigation = useNavigate()
   const dispatch = useAppDispatch()
 
   const handleSubmit = async (values: TUserInfo) => {
     const res = await dispatch(signUpByThunk(values))
-    console.log(res.payload)
     if (res.payload) {
-      authContext?.setAuthorization(true)
+      dispatch(getLeaderboardByThunk(leaderboardDefaultQuery))
       navigation(ROUTES.MAIN)
     }
   }

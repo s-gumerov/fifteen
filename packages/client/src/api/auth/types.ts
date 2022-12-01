@@ -23,11 +23,6 @@ export type TOAuth = {
   redirect_uri: string
 }
 
-export type TOAuth = {
-  code: string
-  redirect_uri: string
-}
-
 export type TChangeAvatar = {
   avatar: FormData
 }

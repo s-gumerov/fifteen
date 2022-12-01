@@ -13,6 +13,7 @@ import {
 } from '../../api/leaderbord'
 import { leaderboardDefaultQuery } from '../../const'
 import { isError } from '../../utils/isError'
+import { TInitialState } from "../types";
 
 export const getLeaderboardByThunk = createAsyncThunk<
   TGetLeaderboardResponse | TBadRequest,
@@ -45,38 +46,40 @@ export const addPlayerToLeaderboardByThunk = createAsyncThunk<
   return response.data
 })
 
-const initialState: TLeaderboardState = {
+export const initialStateOfLeaderboard: TLeaderboardState = {
   leaderboard: null,
   error: null,
   status: null,
 }
 
-const leaderboardSlice = createSlice({
-  name: 'leaderboard',
-  initialState,
-  reducers: {},
-  extraReducers: builder => {
-    builder
-      .addCase(getLeaderboardByThunk.pending, state => {
-        state.status = 'FETCHING'
-        state.error = null
-      })
-      .addCase(getLeaderboardByThunk.fulfilled, (state, action) => {
-        state.leaderboard = action.payload as TLeaderboard
-        state.error = null
-        state.status = 'FETCH_FULFILLED'
-      })
-      .addCase(addPlayerToLeaderboardByThunk.fulfilled, state => {
-        state.leaderboard = null
-        state.error = null
-        state.status = null
-      })
-      .addMatcher(isError, (state, action: PayloadAction<string>) => {
-        state.leaderboard = null
-        state.error = action.payload ?? 'Error!'
-        state.status = 'FETCH_FAILED'
-      })
-  },
-})
+export const getLeaderboardReducer = (state: TInitialState) => {
+  const leaderboardSlice = createSlice({
+    name: 'leaderboard',
+    initialState: state.leaderboard,
+    reducers: {},
+    extraReducers: builder => {
+      builder
+        .addCase(getLeaderboardByThunk.pending, state => {
+          state.status = 'FETCHING'
+          state.error = null
+        })
+        .addCase(getLeaderboardByThunk.fulfilled, (state, action) => {
+          state.leaderboard = action.payload as TLeaderboard
+          state.error = null
+          state.status = 'FETCH_FULFILLED'
+        })
+        .addCase(addPlayerToLeaderboardByThunk.fulfilled, state => {
+          state.leaderboard = null
+          state.error = null
+          state.status = null
+        })
+        .addMatcher(isError, (state, action: PayloadAction<string>) => {
+          state.leaderboard = null
+          state.error = action.payload ?? 'Error!'
+          state.status = 'FETCH_FAILED'
+        })
+    },
+  })
 
-export default leaderboardSlice.reducer
+  return leaderboardSlice.reducer
+}

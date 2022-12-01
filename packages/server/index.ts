@@ -1,30 +1,32 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import path from 'path'
 import { createServer as createViteServer } from 'vite'
-import type { Request, Response } from 'express'
 import fs from 'fs'
 import bodyParser from 'body-parser'
 // @ts-ignore
 import { render } from '../client/dist/ssr/entry-server.cjs'
-import { router } from './routes/api'
-dotenv.config()
-import { sequelize } from './db'
+import { CLIENT_DIR, PRAKTIKUM_API_URL } from './const'
+import type { RequestCustom } from './middlewares'
+import { authMiddleware } from './middlewares'
+import { getLeaderboardByThunk, getStoreFromServer, TState } from "./store";
+import { CLIENT_ROUTES } from "./routes/client";
+// import { router } from './routes/api'
 
-enum PATH {
-  CLIENT = '../client/dist/client/',
-}
+const { createProxyMiddleware } = require('http-proxy-middleware')
+dotenv.config()
+// import { sequelize } from './db'
 
 let template = fs.readFileSync(
-  path.resolve(__dirname, PATH.CLIENT + 'index.html'),
+  path.resolve(__dirname, CLIENT_DIR + 'index.html'),
   'utf-8'
 )
 
-sequelize
-  .authenticate()
-  .then(() => console.log('Connected.'))
-  .catch(err => console.error('Connection error: ', err))
+// sequelize
+//   .authenticate()
+//   .then(() => console.log('Connected.'))
+//   .catch(err => console.error('Connection error: ', err))
 
 async function createServer() {
   const port = Number(process.env.SERVER_PORT) || 3001
@@ -35,29 +37,53 @@ async function createServer() {
     },
     appType: 'custom',
   })
-
+  app.use(vite.middlewares)
   app.use(cors())
 
-  app.use(bodyParser.json())
-  app.use(router)
-
-  app.use(vite.middlewares)
-
-  app.use(express.static(path.resolve(__dirname, PATH.CLIENT)))
-
-  app.use('*', async (req: Request, res: Response) => {
+  const serverRenderMiddleware = async (req: Request, res: Response) => {
     const { originalUrl } = req
+    const status = (req as RequestCustom).calculatedStatus
+    const user = (req as RequestCustom).userData
+
+    const leaderboard = originalUrl === CLIENT_ROUTES.LEADERS ? await getLeaderboardByThunk(req.headers.cookie) : undefined
+
+    const store: TState = getStoreFromServer(user, leaderboard)
 
     const reactHtml = await render(originalUrl)
-
     template = await vite.transformIndexHtml(originalUrl, template)
-
-    const appHtml = `<div id="root">${reactHtml}</div>`
-
+    const preloadedState = JSON.stringify(store).replace(/</g, '\\\u003c')
+    const appHtml = `<script>window.__PRELOADED_STATE__=${preloadedState}</script>
+                    <div id="root">${reactHtml}</div>`
     const html = template.replace(`<div id="root"></div>`, appHtml)
+    res.status(status).send(html)
+  }
 
-    res.status(200).send(html)
-  })
+  // app.use(router)
+
+  app.use(
+    '/praktikum-api',
+    createProxyMiddleware({
+      pathRewrite: { '^/praktikum-api': '/' },
+      target: PRAKTIKUM_API_URL,
+      changeOrigin: true,
+      cookieDomainRewrite: 'localhost',
+      secure: false,
+      debug: true,
+    })
+  )
+
+  app.use(bodyParser.json())
+  app.use(bodyParser.urlencoded({ extended: false }))
+
+  app.use('*', authMiddleware)
+
+  app.use(
+    express.static(path.resolve(__dirname, CLIENT_DIR), {
+      index: false,
+    })
+  )
+
+  app.use('*', serverRenderMiddleware)
 
   app.listen(port)
 }
