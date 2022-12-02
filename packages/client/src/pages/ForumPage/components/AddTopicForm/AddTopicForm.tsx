@@ -4,18 +4,48 @@ import styles from './styles.module.scss'
 import { Button } from '@mui/material'
 import { TextFieldMultiline } from '../../../../components/ui/TextFieldMultiline'
 import { AddTopicFormProps } from './types'
+import {useAppDispatch, useAppSelector} from "../../../../hooks/useAppDispatch";
+import {createComment, createTopic, getTopics, getTopicsWithThreads} from "../../../../store/forum/forumSlice";
+import {topicQuantityToPage} from "../../const";
+import {getStartIndex} from "../../../../utils";
 
-export const AddTopicForm = ({ closeForm }: AddTopicFormProps): JSX.Element => {
+export const AddTopicForm = ({ closeForm, setTopicLength,setForumPage }: AddTopicFormProps): JSX.Element => {
+  const dispatch = useAppDispatch()
+  const {user} = useAppSelector(state => state.user)
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     e.stopPropagation()
     const { topic_name, topic_description } = e.target as HTMLFormElement
+    if (topic_name.value === '' || topic_description.value === '') return
     const data = {
       topic_name: topic_name.value,
       topic_description: topic_description.value,
     }
-    console.log(data)
+    createTopic({
+      authorId: user!.id!,
+      login: user!.login,
+      avatarUrl: user!.avatar!,
+      text: data.topic_name
+    })
+      .then((res) => {
+        createComment({
+          authorId: user!.id!,
+          login: user!.login,
+          avatarUrl: user!.avatar!,
+          topicId: res.id,
+          text: data.topic_description
+        })
+        getTopics().then(res => {
+          setTopicLength(res.length)
+        })
+      })
+      .then(() => {
+        const firstPage = 1
+        dispatch(getTopicsWithThreads({quantity: topicQuantityToPage * firstPage, start: getStartIndex(firstPage)}))
+        setForumPage( firstPage)
+      })
     closeForm()
+
   }
 
   return (

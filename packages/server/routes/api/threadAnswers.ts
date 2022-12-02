@@ -24,7 +24,7 @@ router.post(createThreadAnswer.route, async (req, res) => {
   res.send(result)
 })
 
-router.get(getThreadAnswer.route, async (req, res) => {
+router.post(getThreadAnswer.route, async (req, res) => {
   const { id, threadId } = req.body
   const threadAnswer = await ThreadAnswer.findOne({
     where: {
@@ -46,7 +46,7 @@ router.get(getThreadAnswer.route, async (req, res) => {
   res.send(result)
 })
 
-router.get(getAnswersByThread.route, async (req, res) => {
+router.post(getAnswersByThread.route, async (req, res) => {
   const { thread, quantity, start } = req.body
   const threadAnswers = await ThreadAnswer.findAll({
     where: {

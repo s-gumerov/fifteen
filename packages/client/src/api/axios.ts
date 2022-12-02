@@ -10,5 +10,5 @@ export const axiosInstance = axios.create({
 export const axiosInstanceDB = axios.create({
   baseURL: DB_URL_API,
   headers: { 'Content-Type': 'application/json' },
-  withCredentials: true,
+  // headers: { 'Content-Type': 'application/x-www-form-urlencoded'},
 })

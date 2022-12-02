@@ -29,22 +29,22 @@ sequelize
 async function createServer() {
   const port = Number(process.env.SERVER_PORT) || 3001
   const app = express()
+  app.use(bodyParser.json())
   const vite = await createViteServer({
     server: {
       middlewareMode: true,
     },
     appType: 'custom',
   })
-
   app.use(cors())
 
-  app.use(bodyParser.json())
+  // app.use(bodyParser.json())
   app.use(router)
 
   app.use(vite.middlewares)
-
   app.use(express.static(path.resolve(__dirname, PATH.CLIENT)))
-
+  // app.use(bodyParser.json())
+  // app.use(bodyParser.urlencoded({ extended: false }))
   app.use('*', async (req: Request, res: Response) => {
     const { originalUrl } = req
 

@@ -6,7 +6,7 @@ export type ITopicProps = {
   date: string
   owner: string
   last_message: {
-    author: string
+    login: string
     date: string
   }
 }

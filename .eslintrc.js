@@ -20,6 +20,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 0,
     'import/no-unresolved': 0,
     '@typescript-eslint/no-empty-interface': 0,
-    "@typescript-eslint/no-namespace": "off"
+    "@typescript-eslint/no-namespace": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
   },
 }

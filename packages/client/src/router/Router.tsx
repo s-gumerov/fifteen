@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Route, Routes} from 'react-router-dom'
 import {useAuth} from '../context'
 import {
@@ -29,16 +29,17 @@ import {leaderboardDefaultQuery} from '../const'
 import {getRedirectURI} from '../utils/getRedirectURI'
 import {authorizeWithYaOAuth} from '../api/OAuth'
 import {TUserInfo} from '../api'
-import {getTopicsWithThreads, getTopicThreads} from "../store/forum/forumSlice";
+import {getTopicsWithThreads} from "../store/forum/forumSlice";
+import {topicQuantityToPage} from "../pages/ForumPage/const";
+import {getStartIndex} from "../utils";
 
 export const Router = () => {
+  const [forumPage, setForumPage] = useState(1)
   const {user} = useAppSelector(state => state.user)
-  const {forum} = useAppSelector(state => state.forum)
   const authContext = useAuth()
   const dispatch = useAppDispatch()
   /* оборачиваем страницу с игрой в HOC, чтобы при каждом её открытии циклически воспроизводилось аудио */
   const GameFieldPageWithAudio = withPlayingAudio(GameFieldPage, gameAudio)
-
   useEffect(() => {
     const OAuthParams = new URLSearchParams(location.search)
     const code = OAuthParams.get('code')?.toString()
@@ -54,28 +55,25 @@ export const Router = () => {
     const checkAuthorization = async () => {
       const userInfo = await dispatch(getUserInfoByThunk())
       dispatch(getLeaderboardByThunk(leaderboardDefaultQuery))
+
       if (userInfo.type !== `${userReducerTypes.getUserInfo}/rejected`)
         authContext?.setAuthorization(true)
       else authContext?.setAuthorization(false)
     }
 
     code ? yandexOAuth(code) : checkAuthorization()
-    dispatch(getTopicsWithThreads({quantity: 100, start: 0}))
-    const data = {"topic": 1, "quantity": 100, "start": 0}
-    console.log(data)
-    const threads = getTopicThreads(JSON.stringify(data))
-    console.log(threads)
+
   }, [])
 
   useEffect(() => {
     if (user) {
       const {id, login, avatar} = user as TUserInfo
-      console.log(id, login, avatar)
       addUserToDB({id: id!, login: login, avatarUrl: avatar!})
     }
-    console.log(forum)
   }, [user])
-
+  useEffect(() => {
+    dispatch(getTopicsWithThreads({quantity: topicQuantityToPage * forumPage, start: getStartIndex(forumPage)}))
+  }, [forumPage])
   return (
     <Routes>
       <Route element={<PublicRoute/>}>
@@ -163,7 +161,7 @@ export const Router = () => {
           path={ROUTES.FORUM}
           element={
             <MainLayout backUrl={ROUTES.MAIN}>
-              <ForumPage/>
+              <ForumPage forumPage={forumPage} setForumPage={setForumPage}/>
             </MainLayout>
           }
         />

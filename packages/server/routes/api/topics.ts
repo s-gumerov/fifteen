@@ -20,7 +20,7 @@ router.post(createTopic.route, async (req, res) => {
   res.send(result)
 })
 
-router.get(getTopic.route, async (req, res) => {
+router.post(getTopic.route, async (req, res) => {
   const { id } = req.body
   const topic = await Topic.findOne({
     where: {
@@ -41,10 +41,10 @@ router.get(getTopic.route, async (req, res) => {
   res.send(result)
 })
 
-router.get(getTopics.route, async (req, res) => {
+router.post(getTopics.route, async (req, res) => {
   const { quantity, start } = req.body
   const topics = await Topic.findAll({
-    order: [['createdAt', 'ASC']],
+    order: [['createdAt', 'DESC']],
   })
   const aTopic = topics.slice(start, quantity)
   const result = aTopic.map(topic => {

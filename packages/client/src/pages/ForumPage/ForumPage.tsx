@@ -1,57 +1,33 @@
-import React, { useState } from 'react'
-import { Button } from '@mui/material'
+import React, {ChangeEvent, useEffect, useState} from 'react'
+import {Button, Pagination} from '@mui/material'
 import styles from './styles.module.scss'
-import { Topic } from './components/Topic/Topic'
-import { AddTopicForm } from './components/AddTopicForm/AddTopicForm'
+import {Topic} from './components/Topic/Topic'
+import {AddTopicForm} from './components/AddTopicForm/AddTopicForm'
+import { useAppSelector} from "../../hooks/useAppDispatch";
 
-export const ForumPage = (): JSX.Element => {
+import {getTopics} from "../../store/forum/forumSlice";
+
+import {ForumPageProps} from "./types";
+
+export const ForumPage = ({forumPage, setForumPage}: ForumPageProps): JSX.Element => {
+  const {forum} = useAppSelector(state => state.forum)
   const [showAddTopicForm, setShowAddTopicForm] = useState(false)
+  const [topicLength, setTopicLength] = useState(1)
+  const [rowsPerPage] = useState(3)
 
-  const testData = [
-    {
-      id: '1',
-      title: 'Заметки и правила стримерам',
-      description:
-        'Правила стримеру: 1. Ответственность за контент несет стример. Аккуратно выбирайто то что стриммите 2. Рекомендуется проводить стрими на игровую тематику, в случае большой доли Аккуратно выбирайто то что стриммите 2. Рекомендуется проводить стрими на игровую тематику, в случае большой доли',
-      comments_count: 1520,
-      date: '01 января 2022 в 10:10',
-      owner: 'Super_man',
-      last_message: {
-        author: 'Spider_man',
-        date: '01 октября 2022 в 14:35',
-      },
-    },
-    {
-      id: '2',
-      title: 'Заметки и правила стримерам',
-      description:
-        'Правила стримеру: 1. Ответственность за контент несет стример. Аккуратно выбирайто то что стриммите 2. Рекомендуется проводить стрими на игровую тематику, в случае большой доли',
-      comments_count: 1520,
-      date: '01 января 2022 в 10:10',
-      owner: 'Super_man',
-      last_message: {
-        author: 'Spider_man',
-        date: '01 октября 2022 в 14:35',
-      },
-    },
-    {
-      id: '3',
-      title: 'Заметки и правила стримерам',
-      description:
-        'Правила стримеру: 1. Ответственность за контент несет стример. Аккуратно выбирайто то что стриммите 2. Рекомендуется проводить стрими на игровую тематику, в случае большой доли',
-      comments_count: 1520,
-      date: '01 января 2022 в 10:10',
-      owner: 'Super_man',
-      last_message: {
-        author: 'Spider_man',
-        date: '01 октября 2022 в 14:35',
-      },
-    },
-  ]
+  const handleChangePage = (event: ChangeEvent<unknown>, newPage: number) => {
+    setForumPage(newPage)
+  }
 
-  const topics = testData.map(topic => <Topic key={topic.id} {...topic} />)
+  useEffect(() => {
+    getTopics().then(res => setTopicLength(res.length))
+  }, [forum])
 
-  const closeForm = () => setShowAddTopicForm(false)
+  const topics = forum?.map(forum => <Topic key={forum.id} {...forum} />)
+  const closeForm = () => {
+    setShowAddTopicForm(false)
+    setForumPage(1)
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -60,7 +36,7 @@ export const ForumPage = (): JSX.Element => {
         <Button
           variant="outlined"
           size="large"
-          sx={{ mt: 4, mb: 2, width: '290px', color: '#ffffff' }}
+          sx={{mt: 4, mb: 2, width: '290px', color: '#ffffff'}}
           onClick={() => setShowAddTopicForm(true)}>
           СОЗДАТЬ ТЕМУ
         </Button>
@@ -76,12 +52,24 @@ export const ForumPage = (): JSX.Element => {
                 Последнее сообщение
               </span>
             </div>
-
             <div className={styles.forum__content}>{topics}</div>
           </div>
         </div>
+        <div className={styles.forum__pagination}>
+          <Pagination
+            className={styles.MuiPagination__root}
+            variant="outlined"
+            shape="rounded"
+            color="primary"
+            count={
+              forum ? Math.ceil(topicLength / rowsPerPage) : undefined
+            }
+            page={forumPage}
+            onChange={handleChangePage}
+          />
+        </div>
       </div>
-      {showAddTopicForm && <AddTopicForm closeForm={closeForm} />}
+      {showAddTopicForm && <AddTopicForm closeForm={closeForm} setTopicLength={setTopicLength} setForumPage={setForumPage}/>}
     </div>
   )
 }
