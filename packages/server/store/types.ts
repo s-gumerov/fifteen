@@ -21,6 +21,8 @@ export type TLeaderboard = {
   data: TPlayer
 }[]
 
+export type TTheme = 'dark' | 'pink'
+
 export type TLeaderboardState = {
   leaderboard: TLeaderboard | null
   error: string | null
@@ -33,9 +35,16 @@ export type TUserState = {
   status: 'INIT' | 'FETCHING' | 'FETCH_FULFILLED' | 'FETCH_FAILED' | null
 }
 
+export type TThemeState = {
+  theme: TTheme
+  error: string | null
+  status: 'INIT' | 'FETCHING' | 'FETCH_FULFILLED' | 'FETCH_FAILED' | null
+}
+
 export type TState = {
-  user: TUserState;
-  leaderboard?: TLeaderboardState;
+  user: TUserState
+  leaderboard?: TLeaderboardState
+  theme: TThemeState
 }
 
 export type TGetLeaderboard = {

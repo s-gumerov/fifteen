@@ -3,9 +3,12 @@ import { Button } from '@mui/material'
 import styles from './styles.module.scss'
 import { Topic } from './components/Topic/Topic'
 import { AddTopicForm } from './components/AddTopicForm/AddTopicForm'
+import {useAppSelector} from '../../hooks/useAppDispatch';
 
 export const ForumPage = (): JSX.Element => {
   const [showAddTopicForm, setShowAddTopicForm] = useState(false)
+  const {theme} = useAppSelector(state => state.theme)
+  const themeColor = theme === 'dark' ? '#4044ed' : '#ED40DC'
 
   const testData = [
     {
@@ -60,7 +63,7 @@ export const ForumPage = (): JSX.Element => {
         <Button
           variant="outlined"
           size="large"
-          sx={{ mt: 4, mb: 2, width: '290px', color: '#ffffff' }}
+          sx={{ mt: 4, mb: 2, width: '290px', color: '#ffffff', borderColor:themeColor }}
           onClick={() => setShowAddTopicForm(true)}>
           СОЗДАТЬ ТЕМУ
         </Button>

@@ -1,6 +1,13 @@
-import { axiosInstance } from "./axios";
-import { TGetLeaderboard, TLeaderboard, TState, TUser } from './types'
-import { TLeaderboardState } from "./types";
+import { axiosInstance } from './axios'
+import {
+  TGetLeaderboard,
+  TLeaderboard,
+  TState,
+  TTheme,
+  TThemeState,
+  TUser,
+} from './types'
+import { TLeaderboardState } from './types'
 
 export const initialState: TState = {
   user: {
@@ -13,43 +20,59 @@ export const initialState: TState = {
     error: null,
     status: null,
   },
+  theme: {
+    theme: 'pink',
+    error: null,
+    status: null,
+  },
 }
 
 export const getStoreFromServer = (
   userData: TUser | null,
+  themeData: TTheme,
   leaderboardData?: TLeaderboard | null
 ): TState => {
-  const leaderboard: TLeaderboardState = leaderboardData ? {
-    leaderboard: leaderboardData,
+  const leaderboard: TLeaderboardState = leaderboardData
+    ? {
+        leaderboard: leaderboardData,
+        error: null,
+        status: 'FETCH_FULFILLED',
+      }
+    : {
+        leaderboard: null,
+        error: null,
+        status: null,
+      }
+
+  const theme: TThemeState = {
+    theme: themeData,
     error: null,
     status: 'FETCH_FULFILLED',
-  } : {
-    leaderboard: null,
-    error: null,
-    status: null,
   }
 
   return userData
     ? {
-      user: {
-        user: userData,
-        error: null,
-        status: 'FETCH_FULFILLED',
-      },
-      leaderboard,
-    }
+        user: {
+          user: userData,
+          error: null,
+          status: 'FETCH_FULFILLED',
+        },
+        theme,
+        leaderboard,
+      }
     : {
-      user: {
-        user: null,
-        error: 'Error!',
-        status: 'FETCH_FAILED',
-      },
-      leaderboard: {
-        leaderboard: null,
-        error: 'Error!',
-        status: 'FETCH_FAILED',
-      },
-    }
+        user: {
+          user: null,
+          error: 'Error!',
+          status: 'FETCH_FAILED',
+        },
+        theme,
+        leaderboard: {
+          leaderboard: null,
+          error: 'Error!',
+          status: 'FETCH_FAILED',
+        },
+      }
 }
 
 export const getUserInfo = async (cookie?: string): Promise<TUser | null> => {
@@ -82,7 +105,7 @@ export const getLeaderboardByThunk = async (
       data: leaderboardDefaultQuery,
       headers: {
         Cookie: cookie,
-      }
+      },
     })
     return result.data
   } catch (error) {

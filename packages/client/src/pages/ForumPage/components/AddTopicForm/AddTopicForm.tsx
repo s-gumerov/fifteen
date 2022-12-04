@@ -4,8 +4,11 @@ import styles from './styles.module.scss'
 import { Button } from '@mui/material'
 import { TextFieldMultiline } from '../../../../components/ui/TextFieldMultiline'
 import { AddTopicFormProps } from './types'
+import {useAppSelector} from '../../../../hooks/useAppDispatch';
 
 export const AddTopicForm = ({ closeForm }: AddTopicFormProps): JSX.Element => {
+  const {theme} = useAppSelector(state => state.theme)
+  const themeColor = theme === 'dark' ? '#4044ed' : '#ED40DC'
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     e.stopPropagation()
@@ -48,7 +51,7 @@ export const AddTopicForm = ({ closeForm }: AddTopicFormProps): JSX.Element => {
           type="submit"
           variant="outlined"
           size="large"
-          sx={{ mt: 5, mb: 2, width: '80%' }}>
+          sx={{ mt: 5, mb: 2, width: '80%', borderColor: themeColor, color:themeColor}}>
           Сохранить
         </Button>
       </form>
