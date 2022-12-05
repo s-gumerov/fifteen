@@ -15,23 +15,16 @@ export const initialStateOfTheme: TThemeState = {
   error: null,
   status: null,
 }
-export const getThemesByThunk = createAsyncThunk<
-  TTheme[] | TBadRequest,
-  undefined,
-  { rejectValue: string }
->(themeReducerTypes.getThemes, async function () {
-  const response = await axiosInstance('/api/v2/auth/user', {
-    method: 'get',
-  })
-  response.data.avatar = `${BASE_URL_API}/api/v2/resources${response.data.avatar}`
-  return response.data
-})
+
+enum PATH  {
+  GET_THEME ='/get-theme'
+}
 
 export const setUserThemeByThunk = createAsyncThunk<
-  'ok' | TBadRequest,
-  TAuthData,
+  TTheme | TBadRequest,
+  TTheme,
   { rejectValue: string }
->(themeReducerTypes.setUserTheme, async function (data, {dispatch}) {
+>(themeReducerTypes.setUserTheme, async function (data) {
   const response = await axiosInstance('/api/v2/auth/signin', {
     method: 'post',
     data,
@@ -42,13 +35,14 @@ export const setUserThemeByThunk = createAsyncThunk<
 
 export const getUserThemeByThunk = createAsyncThunk<
   TTheme | TBadRequest,
-  TTheme,
-  { rejectValue: string }
->(themeReducerTypes.getUserTheme, async function (data, {dispatch}) {
-  const response = await axiosInstance('/api/v2/auth/signup', {
-    method: 'post',
-    data,
+  undefined,
+    { rejectValue: string }
+>(themeReducerTypes.getUserTheme, async function () {
+
+  const response = await axiosInstance(PATH.GET_THEME, {
+    method: 'get',
   })
+  console.log()
   return response.data
 })
 
@@ -59,14 +53,15 @@ export const getThemeReducer = (state: TInitialState) => {
     reducers: {},
     extraReducers: builder => {
       builder
-        .addCase(getThemesByThunk.pending, state => {
-          state.status = 'FETCHING'
-          state.error = null
-        })
         .addCase(getUserThemeByThunk.fulfilled, (state, action) => {
           state.theme = action.payload as TTheme
           state.error = null
           state.status = 'FETCH_FULFILLED'
+        })
+        .addCase(setUserThemeByThunk.fulfilled, (state, action) => {
+          // if(action.payload ==='ok'){
+          //   getUserThemeByThunk()
+          // }
         })
         .addMatcher(isError, (state, action: PayloadAction<string>) => {
           state.theme = 'dark'
