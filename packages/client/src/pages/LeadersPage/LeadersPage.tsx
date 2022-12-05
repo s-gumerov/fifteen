@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useState, useEffect } from 'react'
 import {
   Pagination,
   Table,
@@ -11,17 +11,27 @@ import {
 import './styles.scss'
 import { TPlayer } from './types'
 import { useLeaders } from '../../context/Leaders'
-import { useAppSelector } from '../../hooks/useAppDispatch'
+import { useAppDispatch, useAppSelector } from '../../hooks/useAppDispatch'
+import { getLeaderboardByThunk } from "../../store/leaderboard/leaderboardSlice";
+import { leaderboardDefaultQuery } from "../../const";
 
 export const LeadersPage = (): JSX.Element => {
   const [page, setPage] = useState(1)
   const [rowsPerPage] = useState(5)
+  const dispatch = useAppDispatch()
   const leadersContext = useLeaders()
   const { user } = useAppSelector(state => state.user)
+  const { leaderboard } = useAppSelector(state => state.leaderboard)
 
   const handleChangePage = (event: ChangeEvent<unknown>, newPage: number) => {
     setPage(newPage)
   }
+
+  useEffect(() => {
+    if(!leaderboard) {
+      dispatch(getLeaderboardByThunk(leaderboardDefaultQuery))
+    }
+  }, [])
 
   return (
     <div className="leaders">

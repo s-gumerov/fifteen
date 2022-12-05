@@ -9,9 +9,10 @@ import {
   BASE_URL_API,
   TUserPassword,
 } from '../../api'
-import {axiosInstance, axiosInstanceDB} from '../../api/axios'
-import {TUserState, TUserToDB, userReducerTypes} from './types'
-import {isError} from '../../utils/isError'
+import { axiosInstance, axiosInstanceDB } from '../../api/axios'
+import { TUserState, TUserToDB, userReducerTypes } from './types'
+import { isError } from '../../utils/isError'
+import { TInitialState } from "../types";
 
 export const getUserInfoByThunk = createAsyncThunk<TUserInfo | TBadRequest,
   undefined,
@@ -104,50 +105,52 @@ export const changePassword = async function (data: TUserPassword) {
   })
 }
 
-const initialState: TUserState = {
+export const initialStateOfUser: TUserState = {
   user: null,
   error: null,
   status: null,
 }
 
-const userSlice = createSlice({
-  name: 'user',
-  initialState,
-  reducers: {},
-  extraReducers: builder => {
-    builder
-      .addCase(getUserInfoByThunk.pending, state => {
-        state.status = 'FETCHING'
-        state.error = null
-      })
-      .addCase(getUserInfoByThunk.fulfilled, (state, action) => {
-        state.user = action.payload as TUserInfo
-        if (state.user.display_name === null)
-          state.user.display_name = (action.payload as TUserInfo).login
-        state.error = null
-        state.status = 'FETCH_FULFILLED'
-      })
-      .addCase(logoutByThunk.fulfilled, state => {
-        state.user = null
-        state.error = null
-        state.status = null
-      })
-      .addCase(changeProfileByThunk.fulfilled, (state, action) => {
-        state.user = action.payload as TUserInfo
-        state.error = null
-        state.status = 'FETCH_FULFILLED'
-      })
-      .addCase(changeAvatarByThunk.fulfilled, (state, action) => {
-        state.user = action.payload as TUserInfo
-        state.error = null
-        state.status = 'FETCH_FULFILLED'
-      })
-      .addMatcher(isError, (state, action: PayloadAction<string>) => {
-        state.user = null
-        state.error = action.payload ?? 'Error!'
-        state.status = 'FETCH_FAILED'
-      })
-  },
-})
+export const getUserReducer = (state: TInitialState) => {
+  const userSlice = createSlice({
+    name: 'user',
+    initialState: state.user,
+    reducers: {},
+    extraReducers: builder => {
+      builder
+        .addCase(getUserInfoByThunk.pending, state => {
+          state.status = 'FETCHING'
+          state.error = null
+        })
+        .addCase(getUserInfoByThunk.fulfilled, (state, action) => {
+          state.user = action.payload as TUserInfo
+          if (state.user.display_name === null)
+            state.user.display_name = (action.payload as TUserInfo).login
+          state.error = null
+          state.status = 'FETCH_FULFILLED'
+        })
+        .addCase(logoutByThunk.fulfilled, state => {
+          state.user = null
+          state.error = null
+          state.status = null
+        })
+        .addCase(changeProfileByThunk.fulfilled, (state, action) => {
+          state.user = action.payload as TUserInfo
+          state.error = null
+          state.status = 'FETCH_FULFILLED'
+        })
+        .addCase(changeAvatarByThunk.fulfilled, (state, action) => {
+          state.user = action.payload as TUserInfo
+          state.error = null
+          state.status = 'FETCH_FULFILLED'
+        })
+        .addMatcher(isError, (state, action: PayloadAction<string>) => {
+          state.user = null
+          state.error = action.payload ?? 'Error!'
+          state.status = 'FETCH_FAILED'
+        })
+    },
+  })
 
-export default userSlice.reducer
+  return userSlice.reducer
+}

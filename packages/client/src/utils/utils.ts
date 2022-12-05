@@ -53,3 +53,7 @@ export const getPartComments = (arr: TThread[], pageNum: number) => {
   if (pageNum === 1 || pageNum < 0) return arr.slice(0, 3)
   return arr.slice((pageNum-1)*3, (pageNum-1)*3+3)
 }
+
+export const isClient = () => typeof window !== 'undefined'
+
+export const getLocationOrigin = (): string => location.origin

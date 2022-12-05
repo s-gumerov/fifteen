@@ -11,8 +11,39 @@ const sequelizeOptions: SequelizeOptions = {
 
 const sequelize = new Sequelize(sequelizeOptions)
 
+const createThemes = async (table: any, themes: { 
+  mainColor: string, 
+  secondColor: string,
+  themeName: string
+}[]): Promise<void> => {
+  for (const theme of themes) {
+    const themeInstance = await table.create({
+      theme_name: theme.themeName,
+      main_color: theme.mainColor,
+      second_color: theme.secondColor
+    });
+    await themeInstance.save();
+  }
+  await table.sync();
+}
+
 const initTables = async () => {
-  await sequelize.sync()
+  await sequelize.sync({force: true})
+
+  //Создаем темы
+  
+  await createThemes(Theme, [
+    {
+      mainColor: '#27262c',
+      secondColor: '#d9d9d9',
+      themeName: 'dark'
+    },
+    {
+      mainColor: '#d9d9d9',
+      secondColor: '#27262c',
+      themeName: 'light'
+    }
+  ])
 }
 
 const Topic = sequelize.define('Topic', {
@@ -68,6 +99,17 @@ const ThreadAnswer = sequelize.define('Thread_answer', {
   text: DataType.STRING,
 })
 
+const Theme = sequelize.define('Theme',{
+  id: {
+    type: DataType.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  theme_name: DataType.STRING,
+  main_color: DataType.STRING,
+  second_color: DataType.STRING
+})
+
 initTables()
 
-export { sequelize, Topic, User, Thread, ThreadAnswer }
+export { sequelize, Topic, User, Thread, ThreadAnswer, Theme }

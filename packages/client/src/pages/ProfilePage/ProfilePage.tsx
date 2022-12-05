@@ -1,24 +1,23 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { useAuth } from '../../context'
+import { Link, useNavigate } from 'react-router-dom'
 import { TextFieldProfile } from '../../components/ui'
 import { Avatar } from '@mui/material'
 import { ROUTES } from '../../router/types'
 import { Form, Formik } from 'formik'
 import { logoutByThunk } from '../../store/user/userSlice'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppDispatch'
-import './styles.scss'
 import { INITIAL_FORM_STATE } from '../EditProfilePage/validation-schema'
+import './styles.scss'
 
 export const ProfilePage = (): JSX.Element => {
-  const authContext = useAuth()
   const dispatch = useAppDispatch()
   const { user } = useAppSelector(state => state.user)
+  const navigate = useNavigate();
 
   const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault()
-    await dispatch(logoutByThunk())
-    authContext?.setAuthorization(false)
+    e.preventDefault();
+    await dispatch(logoutByThunk());
+    navigate(0);
   }
 
   return (

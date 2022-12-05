@@ -1,10 +1,9 @@
-import { AuthProvider } from './context'
+import React from 'react'
 import { LeadersProvider } from './context/Leaders'
 import { Router } from './router/Router'
 import { withErrorBoundary } from 'react-error-boundary'
 import { ErrorFallback } from './services/errorBoundary/ErrorFallback'
 import './styles.scss'
-import React from 'react'
 
 function startServiceWorker() {
   if ('serviceWorker' in navigator) {
@@ -24,26 +23,11 @@ function startServiceWorker() {
   }
 }
 
-function App() {
-  // useEffect(() => {
-  //   const fetchServerData = async () => {
-  //     const url = `http://localhost:${__SERVER_PORT__}`
-  //     const response = await fetch(url)
-  //     const data = await response.json()
-  //     console.log(data)
-  //   }
-  //
-  //   fetchServerData()
-  // }, [])
-
-  return (
-    <AuthProvider>
-      <LeadersProvider>
-        <Router />
-      </LeadersProvider>
-    </AuthProvider>
+const App = () => (
+    <LeadersProvider>
+      <Router />
+    </LeadersProvider>
   )
-}
 
 export default withErrorBoundary(App, {
   FallbackComponent: ErrorFallback,
