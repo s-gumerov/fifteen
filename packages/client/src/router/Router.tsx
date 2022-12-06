@@ -122,7 +122,7 @@ export const Router = () => {
         path={ROUTES.FORUM}
         element={
           <MainLayout backUrl={ROUTES.MAIN}>
-            <ForumPage />
+            <ForumPage forumPage={forumPage} setForumPage={setForumPage}/>
           </MainLayout>
         }
       />

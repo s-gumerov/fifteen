@@ -92,7 +92,7 @@ export const changeAvatarByThunk = createAsyncThunk<TChangeAvatarResponse | TBad
 
 
 export const addUserToDB = async (data: TUserToDB) => {
-  await axiosInstanceDB('/api/set-new-user', {
+  await axiosInstanceDB('/set-new-user', {
     method: 'post',
     data
   })

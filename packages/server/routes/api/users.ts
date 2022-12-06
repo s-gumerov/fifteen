@@ -6,9 +6,9 @@ const router = Router()
 
 router.post(setNewUser.route, async (req, res) => {
   const newUser = await User.create({
-    yandex_id: req.body.id,
-    login: req.body.login,
-    avatar_url: req.body.avatarUrl,
+    yandex_id: req.body?.id,
+    login: req.body?.login,
+    avatar_url: req.body?.avatarUrl,
   })
   await newUser.save()
   const users = await User.findAll()

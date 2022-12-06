@@ -23,7 +23,7 @@ export const getTopicsWithThreads = createAsyncThunk<TForum, TForumRequest>
 })
 
 export const getTopics = async (data: TForumRequest = {}) => {
-  const response = await axiosInstanceDB('/api/get-topics', {
+  const response = await axiosInstanceDB('/get-topics', {
     method: 'post',
     data
   })
@@ -31,7 +31,7 @@ export const getTopics = async (data: TForumRequest = {}) => {
 }
 
 export const getTopicById = async (data: TGetTopicByIdRequest ) => {
-  const response = await axiosInstanceDB('/api/get-topic', {
+  const response = await axiosInstanceDB('/get-topic', {
     method: 'post',
     data
   })
@@ -39,7 +39,7 @@ export const getTopicById = async (data: TGetTopicByIdRequest ) => {
 }
 
 export const createTopic = async (data: TCreateTopicRequest) => {
-  const response = await axiosInstanceDB('/api/create-topic', {
+  const response = await axiosInstanceDB('/create-topic', {
     method: 'post',
     data,
   })
@@ -47,7 +47,7 @@ export const createTopic = async (data: TCreateTopicRequest) => {
 }
 
 export const getTopicThreads = async (data: TThreadRequest) => {
-  const response = await axiosInstanceDB('/api/get-thread-by-topic', {
+  const response = await axiosInstanceDB('/get-thread-by-topic', {
     method: 'post',
     data
   })
@@ -55,7 +55,7 @@ export const getTopicThreads = async (data: TThreadRequest) => {
 }
 
 export const getThreadById = async (data: TThreadByIdRequest) => {
-  const response = await axiosInstanceDB('/api/get-thread', {
+  const response = await axiosInstanceDB('/get-thread', {
     method: 'post',
     data
   })
@@ -63,7 +63,7 @@ export const getThreadById = async (data: TThreadByIdRequest) => {
 }
 
 export const getThreadAnswers = async (data: TAnswerRequest) => {
-  const response = await axiosInstanceDB('/api/get-answers-by-thread', {
+  const response = await axiosInstanceDB('/get-answers-by-thread', {
     method: 'post',
     data
   })
@@ -72,7 +72,7 @@ export const getThreadAnswers = async (data: TAnswerRequest) => {
 
 
 export const createComment = async (data: TCreateThreadRequest) => {
-  const response = await axiosInstanceDB('/api/create-thread', {
+  const response = await axiosInstanceDB('/create-thread', {
     method: 'post',
     data,
   })
