@@ -33,9 +33,16 @@ export type TUserState = {
   status: 'INIT' | 'FETCHING' | 'FETCH_FULFILLED' | 'FETCH_FAILED' | null
 }
 
+export type TForumState = {
+  forum: TForum | null
+  error: string | null
+  status: 'INIT' | 'FETCHING' | 'FETCH_FULFILLED' | 'FETCH_FAILED' | null
+}
+
 export type TState = {
   user: TUserState;
   leaderboard?: TLeaderboardState;
+  forum?: TForumState
 }
 
 export type TGetLeaderboard = {
@@ -43,4 +50,34 @@ export type TGetLeaderboard = {
   cursor: number
   limit: number
   teamName: 'fifteen'
+}
+
+export type TForum = TTopic[]
+
+export type TTopic = {
+  id: number
+  authorId: number
+  login: string
+  avatarUrl: string
+  text: string
+  createdAt: string
+  comments?: TThread[]
+}
+export type TThread = {
+  id: number
+  authorId: number
+  login: string,
+  avatarUrl: string,
+  text: string
+  createdAt: string
+}
+
+export type TForumRequest = {
+  quantity?: number //Количество топиков
+  start?: number //Номер первого топика (отсортированы по created_at)
+}
+export type TThreadRequest = {
+  topic: number //Тема для которой нужны комментарии
+  quantity?: number //Количество комментариев
+  start?: number //Номер первого комментария (отсортированы по created_at)
 }

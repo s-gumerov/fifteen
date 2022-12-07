@@ -1,6 +1,5 @@
-import { axiosInstance } from "./axios";
-import { TGetLeaderboard, TLeaderboard, TState, TUser } from './types'
-import { TLeaderboardState } from "./types";
+import { axiosInstance, axiosInstanceDB } from "./axios";
+import {TForumState, TLeaderboardState, TGetLeaderboard, TLeaderboard, TState, TUser, TForum, TForumRequest, TThreadRequest} from './types'
 
 export const initialState: TState = {
   user: {
@@ -13,11 +12,17 @@ export const initialState: TState = {
     error: null,
     status: null,
   },
+  forum: {
+    forum: null,
+    error: null,
+    status: null,
+  }
 }
 
 export const getStoreFromServer = (
   userData: TUser | null,
-  leaderboardData?: TLeaderboard | null
+  leaderboardData?: TLeaderboard | null,
+  forumData?: TForum | null
 ): TState => {
   const leaderboard: TLeaderboardState = leaderboardData ? {
     leaderboard: leaderboardData,
@@ -25,6 +30,15 @@ export const getStoreFromServer = (
     status: 'FETCH_FULFILLED',
   } : {
     leaderboard: null,
+    error: null,
+    status: null,
+  }
+  const forum: TForumState = forumData ? {
+    forum: forumData,
+    error: null,
+    status: 'FETCH_FULFILLED',
+  } : {
+    forum: null,
     error: null,
     status: null,
   }
@@ -37,6 +51,7 @@ export const getStoreFromServer = (
         status: 'FETCH_FULFILLED',
       },
       leaderboard,
+      forum,
     }
     : {
       user: {
@@ -49,6 +64,11 @@ export const getStoreFromServer = (
         error: 'Error!',
         status: 'FETCH_FAILED',
       },
+      forum: {
+        forum: null,
+        error: 'Error!',
+        status: 'FETCH_FAILED',
+      }
     }
 }
 
@@ -88,4 +108,31 @@ export const getLeaderboardByThunk = async (
   } catch (error) {
     return null
   }
+}
+
+export const getTopicsWithThreads = async (): Promise<TForum | null> => {
+  const responseTopics = await getTopics({
+    quantity: 3,
+    start: 0
+  })
+  for (const topic of responseTopics) {
+    const {id} = topic
+    topic.comments = await getTopicThreads({topic: id})
+  }
+  return responseTopics
+}
+
+export const getTopics = async (data: TForumRequest = {}) => {
+  const response = await axiosInstanceDB('/get-topics', {
+    method: 'post',
+    data
+  })
+  return response.data
+}
+export const getTopicThreads = async (data: TThreadRequest) => {
+  const response = await axiosInstanceDB('/get-thread-by-topic', {
+    method: 'post',
+    data
+  })
+  return response.data
 }

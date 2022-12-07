@@ -47,7 +47,7 @@ router.post(getTopics.route, async (req: Request, res: Response) => {
   const topics = await Topic.findAll({
     order: [['createdAt', 'DESC']],
   })
-  const aTopic = topics.slice(start, quantity)
+  const aTopic = quantity !== 0 ? topics.slice(start, quantity) : topics
   const result = aTopic.map(topic => {
     return {
       id: topic.dataValues.id,

@@ -4,9 +4,7 @@ import styles from './styles.module.scss'
 import {Topic} from './components/Topic/Topic'
 import {AddTopicForm} from './components/AddTopicForm/AddTopicForm'
 import { useAppSelector} from "../../hooks/useAppDispatch";
-
 import {getTopics} from "../../store/forum/forumSlice";
-
 import {ForumPageProps} from "./types";
 
 export const ForumPage = ({forumPage, setForumPage}: ForumPageProps): JSX.Element => {

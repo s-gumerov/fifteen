@@ -1,22 +1,22 @@
-import express, { Request, Response } from 'express'
+import express, {Request, Response} from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import path from 'path'
-import { createServer as createViteServer } from 'vite'
+import {createServer as createViteServer} from 'vite'
 import fs from 'fs'
 import bodyParser from 'body-parser'
 // @ts-ignore
-import { render } from '../client/dist/ssr/entry-server.cjs'
-import { CLIENT_DIR, PRAKTIKUM_API_URL } from './const'
-import type { RequestCustom } from './middlewares'
-import { authMiddleware } from './middlewares'
-import { getLeaderboardByThunk, getStoreFromServer, TState } from "./store";
-import { CLIENT_ROUTES } from "./routes/client";
-import { router } from './routes/api'
+import {render} from '../client/dist/ssr/entry-server.cjs'
+import {CLIENT_DIR, PRAKTIKUM_API_URL} from './const'
+import type {RequestCustom} from './middlewares'
+import {authMiddleware} from './middlewares'
+import {getLeaderboardByThunk, getStoreFromServer, getTopicsWithThreads, TState} from "./store";
+import {CLIENT_ROUTES} from "./routes/client";
+import {router} from './routes/api'
 
-const { createProxyMiddleware } = require('http-proxy-middleware')
+const {createProxyMiddleware} = require('http-proxy-middleware')
 dotenv.config()
-import { sequelize } from './db'
+import {sequelize} from './db'
 
 let template = fs.readFileSync(
   path.resolve(__dirname, CLIENT_DIR + 'index.html'),
@@ -42,13 +42,13 @@ async function createServer() {
   app.use(cors())
 
   const serverRenderMiddleware = async (req: Request, res: Response) => {
-    const { originalUrl } = req
+    const {originalUrl} = req
     const status = (req as RequestCustom).calculatedStatus
     const user = (req as RequestCustom).userData
 
     const leaderboard = originalUrl === CLIENT_ROUTES.LEADERS ? await getLeaderboardByThunk(req.headers.cookie) : undefined
-
-    const store: TState = getStoreFromServer(user, leaderboard)
+    const forum = originalUrl === CLIENT_ROUTES.FORUM ? await getTopicsWithThreads() : undefined
+    const store: TState = getStoreFromServer(user, leaderboard, forum)
 
     const reactHtml = await render(originalUrl)
     template = await vite.transformIndexHtml(originalUrl, template)
@@ -62,7 +62,7 @@ async function createServer() {
   app.use(
     '/praktikum-api',
     createProxyMiddleware({
-      pathRewrite: { '^/praktikum-api': '/' },
+      pathRewrite: {'^/praktikum-api': '/'},
       target: PRAKTIKUM_API_URL,
       changeOrigin: true,
       cookieDomainRewrite: 'localhost',
@@ -72,7 +72,7 @@ async function createServer() {
   )
 
   app.use(bodyParser.json())
-  app.use(bodyParser.urlencoded({ extended: false }))
+  app.use(bodyParser.urlencoded({extended: false}))
   app.use(router)
 
   app.use('*', authMiddleware)

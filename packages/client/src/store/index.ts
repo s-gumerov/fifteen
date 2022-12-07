@@ -3,11 +3,12 @@ import { getUserReducer, initialStateOfUser } from './user/userSlice'
 import { getLeaderboardReducer, initialStateOfLeaderboard} from './leaderboard/leaderboardSlice'
 import { TInitialState } from "./types";
 import { isClient } from "../utils";
-import forumSlice from "./forum/forumSlice";
+import { getForumReducer, initialStateOfForum} from "./forum/forumSlice";
 
 const initialState = {
   user: initialStateOfUser,
   leaderboard: initialStateOfLeaderboard,
+  forum: initialStateOfForum
 }
 
 declare global {
@@ -23,7 +24,7 @@ const store = configureStore({
   reducer: {
     user: getUserReducer(serverStore),
     leaderboard: getLeaderboardReducer(serverStore),
-    forum: forumSlice
+    forum: getForumReducer(serverStore)
   },
 })
 

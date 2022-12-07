@@ -43,7 +43,9 @@ router.post(getThread.route, async (req, res) => {
 })
 
 router.post(getThreadsByTopic.route, async (req, res) => {
-  const { topic, quantity, start } = req.body
+  const topic = req.body.topic
+  const quantity = req.body?.quantity ?? 0
+  const start = req.body?.start ?? 0
   console.log(req.body)
   const threads = await Thread.findAll({
     where: {
@@ -51,7 +53,7 @@ router.post(getThreadsByTopic.route, async (req, res) => {
     },
     order: [['createdAt', 'ASC']],
   })
-  const aThread = threads.slice(start, quantity)
+  const aThread = quantity !== 0 ? threads.slice(start, quantity) : threads
   const result = aThread.map(thread => {
     return {
       id: thread.dataValues.id,

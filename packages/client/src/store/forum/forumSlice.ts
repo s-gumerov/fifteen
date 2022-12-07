@@ -11,6 +11,7 @@ import {
   TThreadRequest
 } from './types'
 import {isError} from '../../utils/isError'
+import {TInitialState} from "../types";
 
 export const getTopicsWithThreads = createAsyncThunk<TForum, TForumRequest>
 (forumReducerTypes.getTopicsWithComments, async function (data) {
@@ -79,33 +80,34 @@ export const createComment = async (data: TCreateThreadRequest) => {
   return response.data
 }
 
-const initialState: TForumState = {
+export const initialStateOfForum: TForumState = {
   forum: null,
   error: null,
   status: null,
 }
+export const getForumReducer = (state: TInitialState) => {
+  const forumSlice = createSlice({
+    name: 'forum',
+    initialState: state.forum,
+    reducers: {},
+    extraReducers: builder => {
+      builder
+        .addCase(getTopicsWithThreads.pending, state => {
+          state.status = 'FETCHING'
+          state.error = null
+        })
+        .addCase(getTopicsWithThreads.fulfilled, (state, action) => {
+          state.forum = action.payload as TForum
+          state.error = null
+          state.status = 'FETCH_FULFILLED'
+        })
+        .addMatcher(isError, (state, action: PayloadAction<string>) => {
+          state.forum = null
+          state.error = action.payload ?? 'Error!'
+          state.status = 'FETCH_FAILED'
+        })
+    },
+  })
 
-const forumSlice = createSlice({
-  name: 'forum',
-  initialState,
-  reducers: {},
-  extraReducers: builder => {
-    builder
-      .addCase(getTopicsWithThreads.pending, state => {
-        state.status = 'FETCHING'
-        state.error = null
-      })
-      .addCase(getTopicsWithThreads.fulfilled, (state, action) => {
-        state.forum = action.payload as TForum
-        state.error = null
-        state.status = 'FETCH_FULFILLED'
-      })
-      .addMatcher(isError, (state, action: PayloadAction<string>) => {
-        state.forum = null
-        state.error = action.payload ?? 'Error!'
-        state.status = 'FETCH_FAILED'
-      })
-  },
-})
-
-export default forumSlice.reducer
+  return forumSlice.reducer
+}

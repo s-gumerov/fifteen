@@ -29,6 +29,7 @@ export const ForumSubPage = (): JSX.Element => {
     })
     getTopicById({id: getTopicId()}).then((res) => setTopic(res))
     const lastPage = Math.ceil(comments.length / rowsPerPage)
+    setPage(lastPage)
     setRenderComments(getPartComments(comments, lastPage))
   }, [comments.length])
 
@@ -56,11 +57,9 @@ export const ForumSubPage = (): JSX.Element => {
         })
     }
   }
-
   const handleChangePage = (event: ChangeEvent<unknown>, newPage: number) => {
     setPage(newPage)
     setRenderComments(getPartComments(comments, newPage))
-    console.log(renderComments)
   }
 
   return (
