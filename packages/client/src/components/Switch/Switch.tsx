@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {styled} from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import {useAppSelector} from '../../hooks/useAppDispatch';
-import {useAppDispatch} from '../../hooks/useAppDispatch';
+import '../../assets/styles/styles.scss'
 
 export default function CustomizedSwitches(): JSX.Element {
     const [checked, setChecked] = useState<boolean>(true);
@@ -61,6 +61,23 @@ export default function CustomizedSwitches(): JSX.Element {
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
+
+        const rootElement = document.getElementById('root')
+
+        if(rootElement){
+            const classes = rootElement.classList;
+            if (classes.contains('darkTheme')) {
+                classes.remove('darkTheme')
+                return classes.add('pinkTheme')
+            }
+            if (classes.contains('pinkTheme')) {
+                classes.remove('pinkTheme')
+                return classes.add('darkTheme')
+            }
+            return classes.add('darkTheme')
+        }
+
+
     };
 
     return (

@@ -12,7 +12,7 @@ import { getServiceId } from '../../api/OAuth'
 import { getLeaderboardByThunk } from "../../store/leaderboard/leaderboardSlice";
 import { leaderboardDefaultQuery } from "../../const";
 import { getLocationOrigin, isClient } from "../../utils";
-import img from '../../assets/yaAuthBtn.svg'
+import img from '../../assets/icons/yaAuthBtn.svg'
 import './styles.scss'
 
 export const AuthPage = (): JSX.Element => {

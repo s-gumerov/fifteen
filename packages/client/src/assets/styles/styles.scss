@@ -1,6 +1,12 @@
 @use 'colors' as *;
 @use "mixin" as *;
 
+:root {
+  --theme: #4044ed;
+  --logoBtn:#93dfff;
+  --leaderboard_entry:#008000
+}
+
 .date {
   height: 27px;
   font-family: 'IRANSansX';
@@ -21,24 +27,8 @@
   color: $topic_username;
 }
 
-/* use pink theme */
-.pinkBackgroundTheme {
-  background-color: $pink_background_theme;
-}
-
-.pinkTrianglesTheme {
-  border: 5em solid transparent;
-  transform: rotate(-45deg);
-  opacity: 0.5;
-  border-bottom: 10em solid $pink_background_theme;
-}
-
-.leaderboardEntryForPinkTheme {
-  background-color: $leaderboard_entry_for_pink_theme;
-}
-
-.logoBtnForPinkTheme {
-  background: $logo_btn_for_pink_theme;
+.logoBtnTheme {
+  background: var(--logoBtn);
   width: 76px;
   height: 76px;
   top: 61px;
@@ -50,32 +40,30 @@
   @include flex-center($direction: 'row')
 }
 
-
-/*use dark theme*/
-.blueBackgroundTheme {
-  background-color: $blue_background_theme;
+.background-theme {
+  background-color: var(--theme);
 }
 
-.blueTrianglesTheme {
+.triangles-theme {
   border: 5em solid transparent;
   transform: rotate(-45deg);
   opacity: 0.5;
-  border-bottom: 10em solid $blue_background_theme;
+  border-bottom: 10em solid var(--theme);
 }
 
-.leaderboardEntryForDarkTheme {
-  background-color: $leaderboard_entry_for_dark_theme;
+.leaderboardEntryTheme {
+  background-color: var(--leaderboard_entry);
 }
 
-.logoBtnForDarkTheme {
-  background: $logo_btn_for_dark_theme;
-  width: 76px;
-  height: 76px;
-  top: 61px;
-  border-radius: 50%;
-  position: absolute;
-  right: 414px;
-  transition: all 0.3s;
-  transform: rotate(-90deg);
-  @include flex-center($direction: 'row')
+/* use theme */
+.darkTheme {
+  --theme: #4044ed;
+  --logoBtn:#93dfff;
+  --leaderboard_entry:#008000
+}
+
+.pinkTheme {
+  --theme: #ED40DC;
+  --logoBtn:#E08AFE;
+  --leaderboard_entry:#D9FD44
 }
