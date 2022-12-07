@@ -1,61 +1,66 @@
-import React from 'react'
-import { KeyboardEvent } from 'react'
+import React, {ChangeEvent, useEffect, useState} from 'react'
+import {KeyboardEvent} from 'react'
 import Avatar from '@mui/material/Avatar'
 import styles from './styles.module.scss'
-import { Comment } from './components/Comment/Comment'
+import {Comment} from './components/Comment/Comment'
+import {useAppSelector} from "../../hooks/useAppDispatch";
+import {getPartComments, getTopicId} from "../../utils";
+import {TThread, TTopic} from '../../store/forum/types'
+import {
+  createComment,
+  getThreadById,
+  getTopicById,
+  getTopicThreads
+} from "../../store/forum/forumSlice";
+import {Pagination} from "@mui/material";
+import moment from "moment";
 
 export const ForumSubPage = (): JSX.Element => {
-  const topicInfo = {
-    id: '1',
-    topic_name: 'Заметки стримерам',
-    description:
-      'Правила стримеру: 1. Ответственность за контент несет стример. Аккуратно выбирайто то что стриммите 2. Рекомендуется проводить стрими на игровую тематику, в случае большой доли Аккуратно выбирайто то что стриммите 2. Рекомендуется проводить стрими на игровую тематику, в случае большой доли',
-    info: {
-      avatar:
-        'https://static.1tv.ru/uploads/photo/image/2/huge/4062_huge_876c41f50e.jpg',
-      owner: 'Super_man',
-      date: '01 января 2022 в 10:10',
-      comments_count: 1520,
-    },
-  }
+  const {user} = useAppSelector(state => state.user)
+  const [topic, setTopic] = useState<TTopic | null>(null)
+  const [comments, setComments] = useState<TThread[]>([])
+  const [renderComments, setRenderComments] = useState<TThread[]>([])
+  const [page, setPage] = useState(1)
+  const [rowsPerPage] = useState(3)
 
-  const topicComments = [
-    {
-      id: '1',
-      username: 'Super_man',
-      avatar: 'https://s1.1zoom.ru/big3/888/Eyes_Owls_Bubo_502568.jpg',
-      date: '01 января 2022 в 10:10',
-      message:
-        'Авата́р, авата́ра (просторечн. авата́рка, а́ва, ава́, от англ. avatar), а также юзерпик (англ. userpic, сокр. от англ. users picture — «картинка пользователя»)— графическое представление пользователя, его альтер-эго, игрового интернет-персонажа. Аватар может быть',
-    },
-    {
-      id: '2',
-      username: 'Super_man',
-      avatar: 'https://s1.1zoom.ru/big3/888/Eyes_Owls_Bubo_502568.jpg',
-      date: '01 января 2022 в 10:10',
-      message:
-        'Авата́р, авата́ра (просторечн. авата́рка, а́ва, ава́, от англ. avatar), а также юзерпик (англ. userpic, сокр. от англ. users picture — «картинка пользователя»)— графическое представление пользователя, его альтер-эго, игрового интернет-персонажа. Аватар может быть',
-    },
-    {
-      id: '3',
-      username: 'Super_man',
-      avatar: 'https://s1.1zoom.ru/big3/888/Eyes_Owls_Bubo_502568.jpg',
-      date: '01 января 2022 в 10:10',
-      message:
-        'Авата́р, авата́ра (просторечн. авата́рка, а́ва, ава́, от англ. avatar), а также юзерпик (англ. userpic, сокр. от англ. users picture — «картинка пользователя»)— графическое представление пользователя, его альтер-эго, игрового интернет-персонажа. Аватар может быть',
-    },
-  ]
+  useEffect(() => {
+    getTopicThreads({topic: getTopicId()}).then(res => {
+      setComments(res)
+    })
+    getTopicById({id: getTopicId()}).then((res) => setTopic(res))
+    const lastPage = Math.ceil(comments.length / rowsPerPage)
+    setRenderComments(getPartComments(comments, lastPage))
+  }, [comments.length])
 
-  const comments = topicComments.map(comment => (
+  const commentsToRender = renderComments?.map((comment: TThread) => (
     <Comment key={comment.id} {...comment} />
   ))
 
   const onKeyUpHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.code === 'Enter' || e.code === 'NumpadEnter') {
       const message = e.currentTarget.value
+      if (message === '' || message.length > 250) return
       e.currentTarget.value = ''
-      console.log(message)
+      createComment({
+        authorId: user!.id!,
+        login: user!.login,
+        avatarUrl: user!.avatar!,
+        topicId: getTopicId(),
+        text: message
+      })
+        .then(res => {
+          return getThreadById({id: res.id, topicId: getTopicId()})
+        })
+        .then(res => {
+          setComments(oldComments => [...oldComments, res])
+        })
     }
+  }
+
+  const handleChangePage = (event: ChangeEvent<unknown>, newPage: number) => {
+    setPage(newPage)
+    setRenderComments(getPartComments(comments, newPage))
+    console.log(renderComments)
   }
 
   return (
@@ -64,38 +69,50 @@ export const ForumSubPage = (): JSX.Element => {
         <h1 className={styles.forum__title}>
           Форум {'> '}
           <span className={styles.forumSubPage__title_underline}>
-            {topicInfo.topic_name}
+            {topic?.text}
           </span>
         </h1>
 
         <div className={styles.forumSubPage__topicDescription}>
-          {topicInfo.description}
+
         </div>
 
         <div className={styles.info}>
           <Avatar
-            alt={topicInfo.info.owner}
-            src={topicInfo.info.avatar}
+            alt={topic?.login}
+            src={topic?.avatarUrl}
             variant="square"
-            sx={{ width: 55, height: 55 }}
+            sx={{width: 55, height: 55}}
           />
           <div className={styles.info__owner}>
-            <span className={styles.username}>{topicInfo.info.owner}</span>
+            <span className={styles.username}>Created by {topic?.login}</span>
 
-            <span className={styles.date}>{topicInfo.info.date}</span>
+            <span className={styles.date}>at {moment(topic?.createdAt).format('MMMM Do YYYY')}</span>
           </div>
         </div>
 
-        <div className={styles.forumSubPage__line} />
+        <div className={styles.forumSubPage__line}/>
 
         <div className={styles.comments}>
           <div className={styles.comments__header}>
             <span className={styles.msgCount}>
-              {topicInfo.info.comments_count} КОММЕНТАРИЕВ
+              {comments.length} КОММЕНТАРИЕВ
             </span>
           </div>
-
-          {comments}
+          {commentsToRender}
+        </div>
+        <div className={styles.forum__pagination}>
+          <Pagination
+            className={styles.MuiPagination__root}
+            variant="outlined"
+            shape="rounded"
+            color="primary"
+            count={
+              comments ? Math.ceil(comments.length / rowsPerPage) : undefined
+            }
+            page={page}
+            onChange={handleChangePage}
+          />
         </div>
         <input
           type="text"

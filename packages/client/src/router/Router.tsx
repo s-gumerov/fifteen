@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import {
   MainPage,
@@ -16,17 +16,23 @@ import {
 } from '../pages'
 import { ROUTES } from './types'
 import { MainLayout } from '../layouts'
-import { useAppDispatch } from '../hooks/useAppDispatch'
+import { useAppDispatch, useAppSelector } from '../hooks/useAppDispatch'
 import gameAudio from '../assets/audio/pirates_of_the_caribbean.mp3'
 import { withPlayingAudio } from '../hocs/playAudioToPage/PlayAudioToPage'
 import { authorizeWithYaOAuth } from '../api/OAuth'
 import { getLocationOrigin } from "../utils";
+import { addUserToDB } from '../store/user/userSlice'
+import { TUserInfo } from '../api'
+import { getTopicsWithThreads } from "../store/forum/forumSlice";
+import { topicQuantityToPage } from "../pages/ForumPage/const";
+import { getStartIndex } from "../utils";
 
 export const Router = () => {
+  const [forumPage, setForumPage] = useState(1)
+  const { user } = useAppSelector(state => state.user)
   const dispatch = useAppDispatch()
   /* оборачиваем страницу с игрой в HOC, чтобы при каждом её открытии циклически воспроизводилось аудио */
   const GameFieldPageWithAudio = withPlayingAudio(GameFieldPage, gameAudio)
-
   useEffect(() => {
     const OAuthParams = new URLSearchParams(location.search)
     const code = OAuthParams.get('code')?.toString()
@@ -37,6 +43,15 @@ export const Router = () => {
     if(code) yandexOAuth(code)
   }, [])
 
+  useEffect(() => {
+    if (user) {
+      const {id, login, avatar} = user as TUserInfo
+      addUserToDB({id: id!, login: login, avatarUrl: avatar!})
+    }
+  }, [user])
+  useEffect(() => {
+    dispatch(getTopicsWithThreads({quantity: topicQuantityToPage * forumPage, start: getStartIndex(forumPage)}))
+  }, [forumPage])
   return (
     <Routes>
       <Route
@@ -107,7 +122,7 @@ export const Router = () => {
         path={ROUTES.FORUM}
         element={
           <MainLayout backUrl={ROUTES.MAIN}>
-            <ForumPage />
+            <ForumPage forumPage={forumPage} setForumPage={setForumPage}/>
           </MainLayout>
         }
       />
@@ -131,7 +146,7 @@ export const Router = () => {
         path="*"
         element={
           <MainLayout backUrl={ROUTES.MAIN}>
-            <NotFoundPage />
+            <NotFoundPage/>
           </MainLayout>
         }
       />

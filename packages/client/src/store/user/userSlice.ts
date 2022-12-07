@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
-import { TBadRequest } from '../../api/types'
+import {createSlice, PayloadAction, createAsyncThunk} from '@reduxjs/toolkit'
+import {TBadRequest} from '../../api/types'
 import {
   STORE_NAME,
   TAuthData,
@@ -9,16 +9,14 @@ import {
   BASE_URL_API,
   TUserPassword,
 } from '../../api'
-import { axiosInstance } from '../../api/axios'
-import { TUserState, userReducerTypes } from './types'
+import { axiosInstance, axiosInstanceDB } from '../../api/axios'
+import { TUserState, TUserToDB, userReducerTypes } from './types'
 import { isError } from '../../utils/isError'
 import { TInitialState } from "../types";
 
-export const getUserInfoByThunk = createAsyncThunk<
-  TUserInfo | TBadRequest,
+export const getUserInfoByThunk = createAsyncThunk<TUserInfo | TBadRequest,
   undefined,
-  { rejectValue: string }
->(userReducerTypes.getUserInfo, async function () {
+  { rejectValue: string }>(userReducerTypes.getUserInfo, async function () {
   const response = await axiosInstance('/api/v2/auth/user', {
     method: 'get',
   })
@@ -26,11 +24,9 @@ export const getUserInfoByThunk = createAsyncThunk<
   return response.data
 })
 
-export const authorizeByThunk = createAsyncThunk<
-  TAuthResponse | TBadRequest,
+export const authorizeByThunk = createAsyncThunk<TAuthResponse | TBadRequest,
   TAuthData,
-  { rejectValue: string }
->(userReducerTypes.authorize, async function (data, { dispatch }) {
+  { rejectValue: string }>(userReducerTypes.authorize, async function (data, {dispatch}) {
   const response = await axiosInstance('/api/v2/auth/signin', {
     method: 'post',
     data,
@@ -41,11 +37,9 @@ export const authorizeByThunk = createAsyncThunk<
   return response.data
 })
 
-export const signUpByThunk = createAsyncThunk<
-  TUserInfo | TBadRequest,
+export const signUpByThunk = createAsyncThunk<TUserInfo | TBadRequest,
   TUserInfo,
-  { rejectValue: string }
->(userReducerTypes.authorize, async function (data, { dispatch }) {
+  { rejectValue: string }>(userReducerTypes.authorize, async function (data, {dispatch}) {
   const response = await axiosInstance('/api/v2/auth/signup', {
     method: 'post',
     data,
@@ -56,11 +50,9 @@ export const signUpByThunk = createAsyncThunk<
   return response.data
 })
 
-export const logoutByThunk = createAsyncThunk<
-  TAuthResponse,
+export const logoutByThunk = createAsyncThunk<TAuthResponse,
   undefined,
-  { rejectValue: string }
->(userReducerTypes.logout, async function () {
+  { rejectValue: string }>(userReducerTypes.logout, async function () {
   const response = await axiosInstance('/api/v2/auth/logout', {
     method: 'post',
   })
@@ -69,11 +61,9 @@ export const logoutByThunk = createAsyncThunk<
   return response.data
 })
 
-export const changeProfileByThunk = createAsyncThunk<
-  TUserInfo | TBadRequest,
+export const changeProfileByThunk = createAsyncThunk<TUserInfo | TBadRequest,
   TUserInfo,
-  { rejectValue: string }
->(userReducerTypes.changeProfile, async function (data, { dispatch }) {
+  { rejectValue: string }>(userReducerTypes.changeProfile, async function (data, {dispatch}) {
   const response = await axiosInstance('/api/v2/user/profile', {
     method: 'put',
     data,
@@ -85,10 +75,8 @@ export const changeProfileByThunk = createAsyncThunk<
   return response.data
 })
 
-export const changeAvatarByThunk = createAsyncThunk<
-  TChangeAvatarResponse | TBadRequest | TUserInfo,
-  FormData
->(userReducerTypes.changeAvatar, async function (data, { dispatch }) {
+export const changeAvatarByThunk = createAsyncThunk<TChangeAvatarResponse | TBadRequest | TUserInfo,
+  FormData>(userReducerTypes.changeAvatar, async function (data, {dispatch}) {
   const response = await axiosInstance('/api/v2/user/profile/avatar', {
     method: 'put',
     headers: {
@@ -101,6 +89,14 @@ export const changeAvatarByThunk = createAsyncThunk<
   localStorage.setItem(STORE_NAME.USER, JSON.stringify(userInfo.payload))
   return response.data
 })
+
+
+export const addUserToDB = async (data: TUserToDB) => {
+  await axiosInstanceDB('/set-new-user', {
+    method: 'post',
+    data
+  })
+}
 
 export const changePassword = async function (data: TUserPassword) {
   await axiosInstance('/api/v2/user/password', {

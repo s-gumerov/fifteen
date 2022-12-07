@@ -57,6 +57,8 @@ const Topic = sequelize.define('Topic', {
     type: DataType.INTEGER,
     allowNull: false,
   },
+  login: DataType.STRING,
+  avatar_url: DataType.STRING,
   text: DataType.STRING,
 })
 
@@ -64,8 +66,9 @@ const User = sequelize.define('User', {
   id: {
     type: DataType.INTEGER,
     primaryKey: true,
-    autoIncrement: true,
+    autoIncrement: true
   },
+  yandex_id: DataType.INTEGER,
   login: DataType.STRING,
   avatar_url: DataType.STRING,
 })
@@ -77,6 +80,8 @@ const Thread = sequelize.define('Thread', {
     autoIncrement: true,
   },
   author_id: DataType.INTEGER,
+  login: DataType.STRING,
+  avatar_url: DataType.STRING,
   topic_id: DataType.INTEGER,
   text: DataType.STRING,
 })
@@ -88,6 +93,8 @@ const ThreadAnswer = sequelize.define('Thread_answer', {
     autoIncrement: true,
   },
   author_id: DataType.INTEGER,
+  login: DataType.STRING,
+  avatar_url: DataType.STRING,
   thread_id: DataType.INTEGER,
   text: DataType.STRING,
 })

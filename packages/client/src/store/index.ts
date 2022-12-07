@@ -3,6 +3,7 @@ import { getUserReducer, initialStateOfUser } from './user/userSlice'
 import { getLeaderboardReducer, initialStateOfLeaderboard} from './leaderboard/leaderboardSlice'
 import { TInitialState } from "./types";
 import { isClient } from "../utils";
+import forumSlice from "./forum/forumSlice";
 
 const initialState = {
   user: initialStateOfUser,
@@ -22,6 +23,7 @@ const store = configureStore({
   reducer: {
     user: getUserReducer(serverStore),
     leaderboard: getLeaderboardReducer(serverStore),
+    forum: forumSlice
   },
 })
 
