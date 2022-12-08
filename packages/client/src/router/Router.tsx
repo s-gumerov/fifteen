@@ -28,9 +28,7 @@ import { topicQuantityToPage } from "../pages/ForumPage/const";
 import { getStartIndex } from "../utils";
 
 export const Router = () => {
-  const [forumPage, setForumPage] = useState(1)
   const { user } = useAppSelector(state => state.user)
-  const dispatch = useAppDispatch()
   /* оборачиваем страницу с игрой в HOC, чтобы при каждом её открытии циклически воспроизводилось аудио */
   const GameFieldPageWithAudio = withPlayingAudio(GameFieldPage, gameAudio)
   useEffect(() => {
@@ -49,9 +47,6 @@ export const Router = () => {
       addUserToDB({id: id!, login: login, avatarUrl: avatar!})
     }
   }, [user])
-  useEffect(() => {
-    dispatch(getTopicsWithThreads({quantity: topicQuantityToPage * forumPage, start: getStartIndex(forumPage)}))
-  }, [forumPage])
   return (
     <Routes>
       <Route
@@ -122,10 +117,11 @@ export const Router = () => {
         path={ROUTES.FORUM}
         element={
           <MainLayout backUrl={ROUTES.MAIN}>
-            <ForumPage forumPage={forumPage} setForumPage={setForumPage}/>
+            <ForumPage />
           </MainLayout>
         }
       />
+      {/*forumPage={forumPage} setForumPage={setForumPage}*/}
       <Route
         path={`${ROUTES.FORUM}/:id`}
         element={

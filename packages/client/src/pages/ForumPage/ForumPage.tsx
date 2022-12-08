@@ -3,12 +3,15 @@ import {Button, Pagination} from '@mui/material'
 import styles from './styles.module.scss'
 import {Topic} from './components/Topic/Topic'
 import {AddTopicForm} from './components/AddTopicForm/AddTopicForm'
-import { useAppSelector} from "../../hooks/useAppDispatch";
-import {getTopics} from "../../store/forum/forumSlice";
-import {ForumPageProps} from "./types";
+import {useAppDispatch, useAppSelector} from "../../hooks/useAppDispatch";
+import {getTopics, getTopicsWithThreads} from "../../store/forum/forumSlice";
+import { topicQuantityToPage } from './const'
+import { getStartIndex } from '../../utils'
 
-export const ForumPage = ({forumPage, setForumPage}: ForumPageProps): JSX.Element => {
+export const ForumPage = (): JSX.Element => {
+  const [forumPage, setForumPage] = useState(1)
   const {forum} = useAppSelector(state => state.forum)
+  const dispatch = useAppDispatch()
   const [showAddTopicForm, setShowAddTopicForm] = useState(false)
   const [topicLength, setTopicLength] = useState(1)
   const [rowsPerPage] = useState(3)
@@ -16,6 +19,11 @@ export const ForumPage = ({forumPage, setForumPage}: ForumPageProps): JSX.Elemen
   const handleChangePage = (event: ChangeEvent<unknown>, newPage: number) => {
     setForumPage(newPage)
   }
+  useEffect(() => {
+    if (!forum) {
+      dispatch(getTopicsWithThreads({quantity: topicQuantityToPage * forumPage, start: getStartIndex(forumPage)}))
+    }
+  }, [forumPage])
 
   useEffect(() => {
     getTopics().then(res => setTopicLength(res.length))
@@ -67,7 +75,8 @@ export const ForumPage = ({forumPage, setForumPage}: ForumPageProps): JSX.Elemen
           />
         </div>
       </div>
-      {showAddTopicForm && <AddTopicForm closeForm={closeForm} setTopicLength={setTopicLength} setForumPage={setForumPage}/>}
+      {showAddTopicForm &&
+      <AddTopicForm closeForm={closeForm} setTopicLength={setTopicLength} setForumPage={setForumPage}/>}
     </div>
   )
 }
