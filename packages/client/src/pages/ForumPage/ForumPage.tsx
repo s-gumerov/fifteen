@@ -20,9 +20,7 @@ export const ForumPage = (): JSX.Element => {
     setForumPage(newPage)
   }
   useEffect(() => {
-    if (!forum) {
       dispatch(getTopicsWithThreads({quantity: topicQuantityToPage * forumPage, start: getStartIndex(forumPage)}))
-    }
   }, [forumPage])
 
   useEffect(() => {
