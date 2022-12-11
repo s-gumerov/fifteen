@@ -24,4 +24,4 @@ RUN rm -rf /app/packages/server/dist/ && yarn build --scope=server
 # RUN yarn install --production=true
 
 EXPOSE $SERVER_PORT
-CMD [ "node", "/app/packages/server/index.js" ]
+CMD [ "node", "/app/packages/server/dist/index.js" ]
