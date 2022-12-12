@@ -4,7 +4,7 @@ export enum themeReducerTypes {
   getUserTheme='/user/get-theme'
 }
 
-export type TTheme = 'dark' | 'pink'
+export type TTheme = 'darkTheme' | 'pinkTheme'
 
 export type TThemeState = {
   theme: TTheme

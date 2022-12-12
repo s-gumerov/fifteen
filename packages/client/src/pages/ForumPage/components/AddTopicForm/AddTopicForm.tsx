@@ -8,7 +8,7 @@ import {useAppSelector} from '../../../../hooks/useAppDispatch';
 
 export const AddTopicForm = ({ closeForm }: AddTopicFormProps): JSX.Element => {
   const {theme} = useAppSelector(state => state.theme)
-  const themeColor = theme === 'dark' ? '#4044ed' : '#ED40DC'
+  const themeColor = theme === 'darkTheme' ? '#4044ed' : '#ED40DC'
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     e.stopPropagation()

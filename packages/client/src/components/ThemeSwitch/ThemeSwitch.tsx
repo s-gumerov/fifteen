@@ -4,15 +4,18 @@ import Switch from '@mui/material/Switch';
 import {useAppSelector} from '../../hooks/useAppDispatch';
 import '../../assets/styles/styles.scss'
 
-export default function CustomizedSwitches(): JSX.Element {
-    const [checked, setChecked] = useState<boolean>(true);
+export const ThemeSwitch = ():JSX.Element => {
+
     const {theme} = useAppSelector(state => state.theme)
+    const [checked, setChecked] = useState<boolean>(theme === 'darkTheme' ? true : false);
+    const rootElement = document.getElementById('root')
 
     useEffect(() => {
-        theme === 'dark' ? setChecked(true) : setChecked(false)
+        theme === 'darkTheme' ? setChecked(true) : setChecked(false)
     }, [theme])
 
-    const MaterialUISwitch = styled(Switch)(({theme}) => ({
+    const Theme = styled(Switch)(({theme}) => (
+        {
         width: 62,
         height: 34,
         padding: 7,
@@ -57,31 +60,29 @@ export default function CustomizedSwitches(): JSX.Element {
             backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be',
             borderRadius: 20 / 2,
         },
-    }));
+    }
+    ));
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setChecked(event.target.checked);
 
-        const rootElement = document.getElementById('root')
+        if (rootElement)
+        {
+            if (event.target.checked === true) {
+                /* отправляем на сервер darkTheme */
+                setChecked(event.target.checked)
+                return rootElement.className = 'darkTheme'
+            }
+            if (event.target.checked === false) {
+                /* отправляем на сервер pinkTheme */
+                setChecked(event.target.checked)
+                return rootElement.className = 'pinkTheme'
+            }
 
-        if(rootElement){
-            const classes = rootElement.classList;
-            if (classes.contains('darkTheme')) {
-                classes.remove('darkTheme')
-                return classes.add('pinkTheme')
-            }
-            if (classes.contains('pinkTheme')) {
-                classes.remove('pinkTheme')
-                return classes.add('darkTheme')
-            }
-            return classes.add('darkTheme')
         }
-
-
     };
 
     return (
-        <MaterialUISwitch
+        <Theme
             onChange={handleChange}
             checked={checked}
             sx={{

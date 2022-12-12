@@ -14,8 +14,8 @@ import {
   getLeaderboardByThunk,
   getStoreFromServer,
   TState,
-  TTheme,
 } from './store'
+import {TTheme} from 'client/src/store/theme/types';
 import { CLIENT_ROUTES } from './routes/client'
 // import { router } from './routes/api'
 
@@ -55,7 +55,7 @@ async function createServer() {
         ? await getLeaderboardByThunk(req.headers.cookie)
         : undefined
 
-    const theme: TTheme = 'dark'
+    const theme: TTheme = 'darkTheme'
 
     const store: TState = getStoreFromServer(user, theme, leaderboard)
 

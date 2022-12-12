@@ -1,3 +1,5 @@
+import {TThemeState} from 'client/src/store/theme/types';
+
 export type TUser = {
   id: number
   first_name: string
@@ -21,8 +23,6 @@ export type TLeaderboard = {
   data: TPlayer
 }[]
 
-export type TTheme = 'dark' | 'pink'
-
 export type TLeaderboardState = {
   leaderboard: TLeaderboard | null
   error: string | null
@@ -31,12 +31,6 @@ export type TLeaderboardState = {
 
 export type TUserState = {
   user: TUser | null
-  error: string | null
-  status: 'INIT' | 'FETCHING' | 'FETCH_FULFILLED' | 'FETCH_FAILED' | null
-}
-
-export type TThemeState = {
-  theme: TTheme
   error: string | null
   status: 'INIT' | 'FETCHING' | 'FETCH_FULFILLED' | 'FETCH_FAILED' | null
 }

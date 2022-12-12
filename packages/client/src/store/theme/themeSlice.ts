@@ -11,7 +11,7 @@ import {isError} from '../../utils/isError'
 import {TInitialState} from "../types";
 
 export const initialStateOfTheme: TThemeState = {
-  theme: 'pink',
+  theme: 'darkTheme',
   error: null,
   status: null,
 }
@@ -64,7 +64,7 @@ export const getThemeReducer = (state: TInitialState) => {
           // }
         })
         .addMatcher(isError, (state, action: PayloadAction<string>) => {
-          state.theme = 'dark'
+          state.theme = 'darkTheme'
           state.error = action.payload ?? 'Error!'
           state.status = 'FETCH_FAILED'
         })

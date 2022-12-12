@@ -21,7 +21,7 @@ export const initialState: TState = {
     status: null,
   },
   theme: {
-    theme: 'pink',
+    theme: 'darkTheme',
     error: null,
     status: null,
   },

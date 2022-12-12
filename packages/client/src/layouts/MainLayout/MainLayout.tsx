@@ -1,7 +1,7 @@
 import React from 'react'
 import { Logo, Triangles } from '../../components/ui'
 import { MainLayoutProps } from './types'
-import ThemeSwitch from '../../components/Switch/Switch'
+import { ThemeSwitch } from '../../components/ThemeSwitch/ThemeSwitch'
 import './styles.scss'
 
 export const MainLayout = (props: MainLayoutProps): JSX.Element => (
