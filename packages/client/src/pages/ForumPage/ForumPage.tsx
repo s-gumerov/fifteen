@@ -14,6 +14,10 @@ export const ForumPage = ({forumPage, setForumPage}: ForumPageProps): JSX.Elemen
   const [showAddTopicForm, setShowAddTopicForm] = useState(false)
   const [topicLength, setTopicLength] = useState(1)
   const [rowsPerPage] = useState(3)
+  const {theme} = useAppSelector(state => state.theme)
+  const themeColor = theme === 'darkTheme' ? '#4044ed' : '#ED40DC'
+
+  console.log(themeColor)
 
   const handleChangePage = (event: ChangeEvent<unknown>, newPage: number) => {
     setForumPage(newPage)
@@ -36,7 +40,7 @@ export const ForumPage = ({forumPage, setForumPage}: ForumPageProps): JSX.Elemen
         <Button
           variant="outlined"
           size="large"
-          sx={{mt: 4, mb: 2, width: '290px', color: '#ffffff'}}
+          sx={{ mt: 4, mb: 2, width: '290px', color: '#ffffff', borderColor:themeColor }}
           onClick={() => setShowAddTopicForm(true)}>
           СОЗДАТЬ ТЕМУ
         </Button>

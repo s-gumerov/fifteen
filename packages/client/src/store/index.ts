@@ -4,9 +4,11 @@ import { getLeaderboardReducer, initialStateOfLeaderboard} from './leaderboard/l
 import { TInitialState } from "./types";
 import { isClient } from "../utils";
 import forumSlice from "./forum/forumSlice";
+import {getThemeReducer, initialStateOfTheme} from './theme/themeSlice';
 
 const initialState = {
   user: initialStateOfUser,
+  theme: initialStateOfTheme,
   leaderboard: initialStateOfLeaderboard,
 }
 
@@ -16,12 +18,13 @@ declare global {
   }
 }
 
-const serverStore = isClient() ? window.__PRELOADED_STATE__ as TInitialState : initialState
+const serverStore = isClient() && window.__PRELOADED_STATE__ ? window.__PRELOADED_STATE__ : initialState
 isClient() && delete window.__PRELOADED_STATE__
 
 const store = configureStore({
   reducer: {
     user: getUserReducer(serverStore),
+    theme: getThemeReducer(serverStore),
     leaderboard: getLeaderboardReducer(serverStore),
     forum: forumSlice
   },

@@ -11,6 +11,7 @@ import { CLIENT_DIR, PRAKTIKUM_API_URL } from './const'
 import type { RequestCustom } from './middlewares'
 import { authMiddleware } from './middlewares'
 import { getLeaderboardByThunk, getStoreFromServer, TState } from "./store";
+import {TTheme} from 'client/src/store/theme/types';
 import { CLIENT_ROUTES } from "./routes/client";
 import { router } from './routes/api'
 
@@ -46,9 +47,14 @@ async function createServer() {
     const status = (req as RequestCustom).calculatedStatus
     const user = (req as RequestCustom).userData
 
-    const leaderboard = originalUrl === CLIENT_ROUTES.LEADERS ? await getLeaderboardByThunk(req.headers.cookie) : undefined
+    const leaderboard =
+      originalUrl === CLIENT_ROUTES.LEADERS
+        ? await getLeaderboardByThunk(req.headers.cookie)
+        : undefined
 
-    const store: TState = getStoreFromServer(user, leaderboard)
+    const theme: TTheme = 'darkTheme'
+
+    const store: TState = getStoreFromServer(user, theme, leaderboard)
 
     const reactHtml = await render(originalUrl)
     template = await vite.transformIndexHtml(originalUrl, template)

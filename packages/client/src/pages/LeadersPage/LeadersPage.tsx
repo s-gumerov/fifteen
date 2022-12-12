@@ -65,7 +65,7 @@ export const LeadersPage = (): JSX.Element => {
                   .map((usr: { data: TPlayer }, index: number) => {
                     return (
                       <TableRow
-                        className={usr.data.id === user!.id ? 'userCell' : ''}
+                        className={usr.data.id === user!.id ? 'leaderboardEntryTheme' : 'backgroundTheme'}
                         key={index}>
                         <TableCell
                           sx={{ width: 70 }}

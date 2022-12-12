@@ -12,11 +12,16 @@ import {getStartIndex} from "../../../../utils";
 export const AddTopicForm = ({ closeForm, setTopicLength,setForumPage }: AddTopicFormProps): JSX.Element => {
   const dispatch = useAppDispatch()
   const {user} = useAppSelector(state => state.user)
+  const {theme} = useAppSelector(state => state.theme)
+  const themeColor = theme === 'darkTheme' ? '#4044ed' : '#ED40DC'
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     e.stopPropagation()
     const { topic_name, topic_description } = e.target as HTMLFormElement
-    if (topic_name.value === '' || topic_description.value === '') return
+    if (topic_name.value === '' || topic_description.value === '')
+    {
+      return
+    }
     const data = {
       topic_name: topic_name.value,
       topic_description: topic_description.value,
@@ -78,7 +83,7 @@ export const AddTopicForm = ({ closeForm, setTopicLength,setForumPage }: AddTopi
           type="submit"
           variant="outlined"
           size="large"
-          sx={{ mt: 5, mb: 2, width: '80%' }}>
+          sx={{ mt: 5, mb: 2, width: '80%', borderColor: themeColor, color:themeColor}}>
           Сохранить
         </Button>
       </form>

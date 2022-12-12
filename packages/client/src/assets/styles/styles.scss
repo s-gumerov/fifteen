@@ -1,4 +1,11 @@
 @use 'colors' as *;
+@use "mixin" as *;
+
+:root {
+  --theme: #4044ed;
+  --logoBtn:#93dfff;
+  --leaderboard_entry:#008000
+}
 
 .date {
   height: 27px;
@@ -18,4 +25,45 @@
   font-size: 18px;
   line-height: 27px;
   color: $topic_username;
+}
+
+.logoBtnTheme {
+  background: var(--logoBtn);
+  width: 76px;
+  height: 76px;
+  top: 61px;
+  border-radius: 50%;
+  position: absolute;
+  right: 414px;
+  transition: all 0.3s;
+  transform: rotate(-90deg);
+  @include flex-center($direction: 'row')
+}
+
+.background-theme {
+  background-color: var(--theme);
+}
+
+.triangles-theme {
+  border: 5em solid transparent;
+  transform: rotate(-45deg);
+  opacity: 0.5;
+  border-bottom: 10em solid var(--theme);
+}
+
+.leaderboardEntryTheme {
+  background-color: var(--leaderboard_entry);
+}
+
+/* use theme */
+.darkTheme {
+  --theme: #4044ed;
+  --logoBtn:#93dfff;
+  --leaderboard_entry:#008000
+}
+
+.pinkTheme {
+  --theme: #ED40DC;
+  --logoBtn:#E08AFE;
+  --leaderboard_entry:#D9FD44
 }

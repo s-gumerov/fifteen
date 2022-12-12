@@ -21,3 +21,10 @@
   user-select: none;
   /* Non-prefixed version, currently not supported by any browser */
 }
+
+@mixin flex-center($direction){
+  display: flex;
+  flex-flow: $direction nowrap;
+  justify-content: center;
+  align-items: center;
+}

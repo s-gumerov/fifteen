@@ -1,6 +1,6 @@
 import React from 'react'
 import { TextFieldProfile } from '../../components/ui'
-import { Avatar, Button } from '@mui/material'
+import {Avatar, Button, SxProps} from '@mui/material'
 import { Form, Formik } from 'formik'
 import {
   EDIT_PROFILE_VALIDATION_SCHEMA,
@@ -20,6 +20,18 @@ export const EditProfilePage = (): JSX.Element => {
   const dispatch = useAppDispatch()
   const navigation = useNavigate()
   const { user } = useAppSelector(state => state.user)
+  const {theme} = useAppSelector(state => state.theme)
+  const themeStyles: SxProps = theme === 'dark' ?
+      {
+        backgroundColor: '#4044ed'
+      }
+      :
+      {
+        backgroundColor: '#ED40DC',
+        '&:hover': {
+          backgroundColor: '#ED40DC',
+        },
+      }
   const handleSubmit = async (values: TUserInfo) => {
     await dispatch(changeProfileByThunk(values))
     navigation(ROUTES.PROFILE)
@@ -97,7 +109,7 @@ export const EditProfilePage = (): JSX.Element => {
               variant="contained"
               size="large"
               type="submit"
-              sx={{ mt: 4 }}>
+              sx={{ mt: 4, ...themeStyles}}>
               Сохранить
             </Button>
           </div>

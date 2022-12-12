@@ -1,3 +1,5 @@
+@use "../../assets/styles/styles" as *;
+
 .leaders {
   display: flex;
   flex-direction: column;
@@ -26,9 +28,6 @@
         }
       }
 
-      .userCell {
-        background: #008000;
-      }
     }
 
     .MuiTableHead-root {
