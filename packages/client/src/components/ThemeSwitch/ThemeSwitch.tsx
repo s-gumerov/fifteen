@@ -3,12 +3,13 @@ import {styled} from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import {useAppSelector} from '../../hooks/useAppDispatch';
 import '../../assets/styles/styles.scss'
+import {isClient} from '../../utils';
 
 export const ThemeSwitch = ():JSX.Element => {
 
     const {theme} = useAppSelector(state => state.theme)
     const [checked, setChecked] = useState<boolean>(theme === 'darkTheme' ? true : false);
-    const rootElement = document.getElementById('root')
+    const rootElement =isClient() && document.getElementById('root')
 
     useEffect(() => {
         theme === 'darkTheme' ? setChecked(true) : setChecked(false)
