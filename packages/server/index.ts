@@ -6,7 +6,7 @@ import { createServer as createViteServer } from 'vite'
 import fs from 'fs'
 import bodyParser from 'body-parser'
 // @ts-ignore
-import { render } from '../client/dist/ssr/entry-server.cjs'
+import { render } from '../../client/dist/ssr/entry-server.cjs'
 import { CLIENT_DIR, PRAKTIKUM_API_URL } from './const'
 import type { RequestCustom } from './middlewares'
 import { authMiddleware } from './middlewares'
