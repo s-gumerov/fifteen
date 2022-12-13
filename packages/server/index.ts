@@ -65,7 +65,7 @@ async function createServer() {
       pathRewrite: { '^/praktikum-api': '/' },
       target: PRAKTIKUM_API_URL,
       changeOrigin: true,
-      cookieDomainRewrite: 'localhost',
+      cookieDomainRewrite: 'fifteen-puzzle-18.ya-praktikum.tech',
       secure: false,
       debug: true,
     })
@@ -74,7 +74,9 @@ async function createServer() {
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(router)
-
+  app.get('/.well-known/acme-challenge/sJqRjCWCy5P06NtopqNAZvoOc1ey3hjjqJYL-nQP-64', (_, res: Response) => {
+    res.send('sJqRjCWCy5P06NtopqNAZvoOc1ey3hjjqJYL-nQP-64.JysEsjbmp34TfdgzyrcmYj6Ud9gKbvgufo4gJFav94k');
+  })
   app.use('*', authMiddleware)
 
   app.use(
