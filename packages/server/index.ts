@@ -5,9 +5,9 @@ import path from 'path'
 import { createServer as createViteServer } from 'vite'
 import fs from 'fs'
 import bodyParser from 'body-parser'
+import { CLIENT_DIR, IS_PROD_ENV, PRAKTIKUM_API_URL } from './const'
 // @ts-ignore
-import { render } from '../../client/dist/ssr/entry-server.cjs'
-import { CLIENT_DIR, PRAKTIKUM_API_URL } from './const'
+import { render } from 'client/dist/ssr/entry-server.cjs'
 import type { RequestCustom } from './middlewares'
 import { authMiddleware } from './middlewares'
 import { getLeaderboardByThunk, getStoreFromServer, TState } from "./store";
@@ -16,7 +16,7 @@ import { router } from './routes/api'
 
 const { createProxyMiddleware } = require('http-proxy-middleware')
 dotenv.config()
-import { sequelize } from './db'
+import { sequelize } from './db';
 
 let template = fs.readFileSync(
   path.resolve(__dirname, CLIENT_DIR + 'index.html'),
@@ -65,7 +65,7 @@ async function createServer() {
       pathRewrite: { '^/praktikum-api': '/' },
       target: PRAKTIKUM_API_URL,
       changeOrigin: true,
-      cookieDomainRewrite: 'fifteen-puzzle-18.ya-praktikum.tech',
+      cookieDomainRewrite: IS_PROD_ENV ? 'fifteen-puzzle-18.ya-praktikum.tech' : 'localhost',
       secure: false,
       debug: true,
     })

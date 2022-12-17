@@ -1,7 +1,8 @@
 import { Sequelize, SequelizeOptions, DataType } from 'sequelize-typescript'
+import { IS_PROD_ENV } from "./const";
 
 const sequelizeOptions: SequelizeOptions = {
-  host: 'postgres',
+  host: IS_PROD_ENV ? 'postgres' : 'localhost',
   port: 5432,
   username: 'postgres',
   password: 'postgres',

@@ -22,7 +22,7 @@
     "importsNotUsedAsValues": "remove",
     "lib": ["es2019", "esnext.asynciterable", "DOM"],
     "types": ["node", "jest"],
-    "baseUrl": ".",
+    "baseUrl": "packages",
     "paths": {
       "*": ["types/*"]
     },
