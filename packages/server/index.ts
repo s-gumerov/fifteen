@@ -10,13 +10,13 @@ import { CLIENT_DIR, IS_PROD_ENV, PRAKTIKUM_API_URL } from './const'
 import { render } from 'client/dist/ssr/entry-server.cjs'
 import type { RequestCustom } from './middlewares'
 import { authMiddleware } from './middlewares'
-import { getLeaderboardByThunk, getStoreFromServer, TState } from "./store";
-import { CLIENT_ROUTES } from "./routes/client";
+import { getLeaderboardByThunk, getStoreFromServer, TState } from './store'
+import { CLIENT_ROUTES } from './routes/client'
 import { router } from './routes/api'
 
 const { createProxyMiddleware } = require('http-proxy-middleware')
 dotenv.config()
-import { sequelize } from './db';
+import { sequelize } from './db'
 
 let template = fs.readFileSync(
   path.resolve(__dirname, CLIENT_DIR + 'index.html'),
@@ -46,7 +46,10 @@ async function createServer() {
     const status = (req as RequestCustom).calculatedStatus
     const user = (req as RequestCustom).userData
 
-    const leaderboard = originalUrl === CLIENT_ROUTES.LEADERS ? await getLeaderboardByThunk(req.headers.cookie) : undefined
+    const leaderboard =
+      originalUrl === CLIENT_ROUTES.LEADERS
+        ? await getLeaderboardByThunk(req.headers.cookie)
+        : undefined
 
     const store: TState = getStoreFromServer(user, leaderboard)
 
@@ -65,7 +68,9 @@ async function createServer() {
       pathRewrite: { '^/praktikum-api': '/' },
       target: PRAKTIKUM_API_URL,
       changeOrigin: true,
-      cookieDomainRewrite: IS_PROD_ENV ? 'fifteen-puzzle-18.ya-praktikum.tech' : 'localhost',
+      cookieDomainRewrite: IS_PROD_ENV
+        ? 'fifteen-puzzle-18.ya-praktikum.tech'
+        : 'localhost',
       secure: false,
       debug: true,
     })
@@ -74,9 +79,14 @@ async function createServer() {
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(router)
-  app.get('/.well-known/acme-challenge/sJqRjCWCy5P06NtopqNAZvoOc1ey3hjjqJYL-nQP-64', (_, res: Response) => {
-    res.send('sJqRjCWCy5P06NtopqNAZvoOc1ey3hjjqJYL-nQP-64.JysEsjbmp34TfdgzyrcmYj6Ud9gKbvgufo4gJFav94k');
-  })
+  app.get(
+    '/.well-known/acme-challenge/sJqRjCWCy5P06NtopqNAZvoOc1ey3hjjqJYL-nQP-64',
+    (_, res: Response) => {
+      res.send(
+        'sJqRjCWCy5P06NtopqNAZvoOc1ey3hjjqJYL-nQP-64.JysEsjbmp34TfdgzyrcmYj6Ud9gKbvgufo4gJFav94k'
+      )
+    }
+  )
   app.use('*', authMiddleware)
 
   app.use(

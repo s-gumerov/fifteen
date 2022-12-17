@@ -9,9 +9,9 @@ import { TAuthData } from '../../api'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { authorizeByThunk } from '../../store/user/userSlice'
 import { getServiceId } from '../../api/OAuth'
-import { getLeaderboardByThunk } from "../../store/leaderboard/leaderboardSlice";
-import { leaderboardDefaultQuery } from "../../const";
-import { getLocationOrigin, isClient } from "../../utils";
+import { getLeaderboardByThunk } from '../../store/leaderboard/leaderboardSlice'
+import { leaderboardDefaultQuery } from '../../const'
+import { getLocationOrigin, isClient } from '../../utils'
 import img from '../../assets/yaAuthBtn.svg'
 import './styles.scss'
 
@@ -19,7 +19,7 @@ export const AuthPage = (): JSX.Element => {
   const navigation = useNavigate()
   const dispatch = useAppDispatch()
   const yaAuth = isClient() && new Image()
-  if(yaAuth){
+  if (yaAuth) {
     yaAuth.src = img
   }
   const handleSubmit = async (values: TAuthData) => {

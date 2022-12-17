@@ -1,16 +1,19 @@
-import React, {ChangeEvent, useEffect, useState} from 'react'
-import {Button, Pagination} from '@mui/material'
+import React, { ChangeEvent, useEffect, useState } from 'react'
+import { Button, Pagination } from '@mui/material'
 import styles from './styles.module.scss'
-import {Topic} from './components/Topic/Topic'
-import {AddTopicForm} from './components/AddTopicForm/AddTopicForm'
-import { useAppSelector} from "../../hooks/useAppDispatch";
+import { Topic } from './components/Topic/Topic'
+import { AddTopicForm } from './components/AddTopicForm/AddTopicForm'
+import { useAppSelector } from '../../hooks/useAppDispatch'
 
-import {getTopics} from "../../store/forum/forumSlice";
+import { getTopics } from '../../store/forum/forumSlice'
 
-import {ForumPageProps} from "./types";
+import { ForumPageProps } from './types'
 
-export const ForumPage = ({forumPage, setForumPage}: ForumPageProps): JSX.Element => {
-  const {forum} = useAppSelector(state => state.forum)
+export const ForumPage = ({
+  forumPage,
+  setForumPage,
+}: ForumPageProps): JSX.Element => {
+  const { forum } = useAppSelector(state => state.forum)
   const [showAddTopicForm, setShowAddTopicForm] = useState(false)
   const [topicLength, setTopicLength] = useState(1)
   const [rowsPerPage] = useState(3)
@@ -36,7 +39,7 @@ export const ForumPage = ({forumPage, setForumPage}: ForumPageProps): JSX.Elemen
         <Button
           variant="outlined"
           size="large"
-          sx={{mt: 4, mb: 2, width: '290px', color: '#ffffff'}}
+          sx={{ mt: 4, mb: 2, width: '290px', color: '#ffffff' }}
           onClick={() => setShowAddTopicForm(true)}>
           СОЗДАТЬ ТЕМУ
         </Button>
@@ -61,15 +64,19 @@ export const ForumPage = ({forumPage, setForumPage}: ForumPageProps): JSX.Elemen
             variant="outlined"
             shape="rounded"
             color="primary"
-            count={
-              forum ? Math.ceil(topicLength / rowsPerPage) : undefined
-            }
+            count={forum ? Math.ceil(topicLength / rowsPerPage) : undefined}
             page={forumPage}
             onChange={handleChangePage}
           />
         </div>
       </div>
-      {showAddTopicForm && <AddTopicForm closeForm={closeForm} setTopicLength={setTopicLength} setForumPage={setForumPage}/>}
+      {showAddTopicForm && (
+        <AddTopicForm
+          closeForm={closeForm}
+          setTopicLength={setTopicLength}
+          setForumPage={setForumPage}
+        />
+      )}
     </div>
   )
 }

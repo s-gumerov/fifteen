@@ -13,7 +13,7 @@ import {
 } from '../../api/leaderbord'
 import { leaderboardDefaultQuery } from '../../const'
 import { isError } from '../../utils/isError'
-import { TInitialState } from "../types";
+import { TInitialState } from '../types'
 
 export const getLeaderboardByThunk = createAsyncThunk<
   TGetLeaderboardResponse | TBadRequest,

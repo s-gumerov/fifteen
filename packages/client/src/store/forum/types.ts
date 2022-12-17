@@ -38,8 +38,8 @@ export type TForumResponse = {
 export type TThread = {
   id: number
   authorId: number
-  login: string,
-  avatarUrl: string,
+  login: string
+  avatarUrl: string
   text: string
   createdAt: string
   answers?: TAnswer[]
@@ -54,8 +54,8 @@ export type TThreadRequest = {
 export type TThreadResponse = {
   threads: {
     authorId: number
-    login: string,
-    avatarUrl: string,
+    login: string
+    avatarUrl: string
     text: string
     createdAt: string
   }[]
@@ -100,8 +100,8 @@ export type TGetTopicByIdResponse = {
 
 export type TCreateThreadRequest = {
   authorId: number
-  login: string,
-  avatarUrl: string,
+  login: string
+  avatarUrl: string
   topicId: number
   text: string
 }

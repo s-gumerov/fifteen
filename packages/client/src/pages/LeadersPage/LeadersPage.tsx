@@ -12,8 +12,8 @@ import './styles.scss'
 import { TPlayer } from './types'
 import { useLeaders } from '../../context/Leaders'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppDispatch'
-import { getLeaderboardByThunk } from "../../store/leaderboard/leaderboardSlice";
-import { leaderboardDefaultQuery } from "../../const";
+import { getLeaderboardByThunk } from '../../store/leaderboard/leaderboardSlice'
+import { leaderboardDefaultQuery } from '../../const'
 
 export const LeadersPage = (): JSX.Element => {
   const [page, setPage] = useState(1)
@@ -28,7 +28,7 @@ export const LeadersPage = (): JSX.Element => {
   }
 
   useEffect(() => {
-    if(!leaderboard) {
+    if (!leaderboard) {
       dispatch(getLeaderboardByThunk(leaderboardDefaultQuery))
     }
   }, [])

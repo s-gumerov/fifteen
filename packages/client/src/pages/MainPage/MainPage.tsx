@@ -6,13 +6,13 @@ import { useAppDispatch } from '../../hooks/useAppDispatch'
 import './styles.scss'
 
 export const MainPage = (): JSX.Element => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    await dispatch(logoutByThunk());
-    navigate(0);
+    e.preventDefault()
+    await dispatch(logoutByThunk())
+    navigate(0)
   }
 
   return (

@@ -1,8 +1,8 @@
-import { getLocationOrigin, isClient } from "../utils";
+import { getLocationOrigin, isClient } from '../utils'
 
-const HOST = isClient() ? getLocationOrigin() : '';
-export const BASE_URL_API = `${HOST}/praktikum-api`;
-export const DB_URL_API = `${HOST}/api`;
+const HOST = isClient() ? getLocationOrigin() : ''
+export const BASE_URL_API = `${HOST}/praktikum-api`
+export const DB_URL_API = `${HOST}/api`
 
 export enum HTTP_STATUS_CODE {
   OK = 200,

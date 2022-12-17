@@ -34,8 +34,8 @@ export type TUserState = {
 }
 
 export type TState = {
-  user: TUserState;
-  leaderboard?: TLeaderboardState;
+  user: TUserState
+  leaderboard?: TLeaderboardState
 }
 
 export type TGetLeaderboard = {
