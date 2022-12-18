@@ -1,7 +1,7 @@
-import {Router} from 'express'
-import {changeUserTheme, getUserTheme} from '../models/theme'
-import {Theme} from '../../db'
-import {DEFAULT_THEME} from '../../const';
+import { Router } from 'express'
+import { changeUserTheme, getUserTheme } from '../models/theme'
+import { Theme } from '../../db'
+import { DEFAULT_THEME } from '../../const'
 
 const router = Router()
 
@@ -10,13 +10,11 @@ router.post(getUserTheme.route, async (req, res) => {
    * если не найдем пользователя в БД то добавим запись со значением по умолчанию ${DEFAULT_THEME}
    */
 
-  const userTheme = await Theme.findOne(
-    {
-      where: {
-        id: req.body.id
-      }
-    }
-  )
+  const userTheme = await Theme.findOne({
+    where: {
+      id: req.body.id,
+    },
+  })
 
   const newTheme = {
     id: req.body.id,
@@ -39,22 +37,20 @@ router.post(getUserTheme.route, async (req, res) => {
 })
 
 router.post(changeUserTheme.route, async (req, res) => {
-  const {id, theme_name} = req.body;
+  const { id, theme_name } = req.body
   await Theme.update(
     {
-      theme_name: theme_name
+      theme_name: theme_name,
     },
     {
-      where: {id: id}
+      where: { id: id },
     }
   )
 
-  return res.send(
-    {
-      id: id,
-      theme_name: theme_name,
-    }
-  )
+  return res.send({
+    id: id,
+    theme_name: theme_name,
+  })
 })
 
 export default router

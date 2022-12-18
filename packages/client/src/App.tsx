@@ -24,10 +24,10 @@ function startServiceWorker() {
 }
 
 const App = () => (
-    <LeadersProvider>
-      <Router />
-    </LeadersProvider>
-  )
+  <LeadersProvider>
+    <Router />
+  </LeadersProvider>
+)
 
 export default withErrorBoundary(App, {
   FallbackComponent: ErrorFallback,

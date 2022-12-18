@@ -1,7 +1,7 @@
 export enum ENDPOINT {
-  CREATE_THEME='/user/create-theme',
-  GET_THEME='/user/get-theme',
-  CHANGE_THEME='/user/change-theme',
+  CREATE_THEME = '/user/create-theme',
+  GET_THEME = '/user/get-theme',
+  CHANGE_THEME = '/user/change-theme',
 }
 
 export type TTheme = 'darkTheme' | 'pinkTheme'
@@ -26,27 +26,27 @@ export namespace getUserTheme {
 
   /** Параметры api ответа */
   export interface Response {
-    id: number,
+    id: number
     theme_name: TTheme
   }
 }
 
 /**
-* Изменить пользовательскую тему
-*/
+ * Изменить пользовательскую тему
+ */
 
 export namespace changeUserTheme {
   export const route = ENDPOINT.CHANGE_THEME
 
   /** Параметры api запроса */
   export interface Request {
-    id: number,
+    id: number
     theme_name: TTheme
   }
 
   /** Параметры api ответа */
   export interface Response {
-    id: number,
+    id: number
     theme_name: TTheme
   }
 }

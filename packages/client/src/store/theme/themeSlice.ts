@@ -1,14 +1,11 @@
-import {createSlice, PayloadAction, createAsyncThunk} from '@reduxjs/toolkit'
-import {ENDPOINT} from '../../api'
-import {axiosInstanceDB} from '../../api/axios'
-import {TThemeState} from './types'
-import {isError} from '../../utils/isError'
-import {TInitialState} from "../types";
-import {
-  getUserTheme,
-  changeUserTheme
-} from 'server/routes/models/theme';
-import {DEFAULT_THEME} from 'server/const';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
+import { ENDPOINT } from '../../api'
+import { axiosInstanceDB } from '../../api/axios'
+import { TThemeState } from './types'
+import { isError } from '../../utils/isError'
+import { TInitialState } from '../types'
+import { getUserTheme, changeUserTheme } from 'server/routes/models/theme'
+import { DEFAULT_THEME } from 'server/const'
 
 export const initialStateOfTheme = {
   theme: DEFAULT_THEME,
@@ -20,10 +17,9 @@ export const getUserThemeByThunk = createAsyncThunk<
   changeUserTheme.Request,
   getUserTheme.Request
 >(ENDPOINT.GET_THEME, async function (data) {
-
   const response = await axiosInstanceDB(ENDPOINT.GET_THEME, {
     method: 'post',
-    data
+    data,
   })
 
   return response.data
@@ -34,7 +30,6 @@ export const changeUserThemeByThunk = createAsyncThunk<
   changeUserTheme.Response,
   { rejectValue: string }
 >(ENDPOINT.CHANGE_THEME, async function (data) {
-
   const response = await axiosInstanceDB(ENDPOINT.CHANGE_THEME, {
     method: 'post',
     data,

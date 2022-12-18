@@ -8,9 +8,7 @@ const sequelizeOptions: SequelizeOptions = {
   database: 'postgres',
   dialect: 'postgres',
 }
-
 const sequelize = new Sequelize(sequelizeOptions)
-
 const Topic = sequelize.define('Topic', {
   id: {
     type: DataType.INTEGER,
@@ -31,7 +29,7 @@ const User = sequelize.define('User', {
   id: {
     type: DataType.INTEGER,
     primaryKey: true,
-    autoIncrement: true
+    autoIncrement: true,
   },
   yandex_id: DataType.INTEGER,
   login: DataType.STRING,

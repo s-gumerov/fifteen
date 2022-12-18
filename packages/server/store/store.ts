@@ -1,11 +1,6 @@
-import {axiosInstance} from './axios'
-import {
-  TGetLeaderboard,
-  TLeaderboard,
-  TState,
-  TUser,
-} from './types'
-import {TTheme, TThemeState} from '../routes/models/theme';
+import { axiosInstance } from './axios'
+import { TGetLeaderboard, TLeaderboard, TState, TUser } from './types'
+import { TTheme, TThemeState } from '../routes/models/theme'
 import { TLeaderboardState } from './types'
 
 export const initialState: TState = {

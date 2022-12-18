@@ -11,8 +11,8 @@ import {
 import { TUserInfo } from '../../api'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { signUpByThunk } from '../../store/user/userSlice'
-import { getLeaderboardByThunk } from "../../store/leaderboard/leaderboardSlice";
-import { leaderboardDefaultQuery } from "../../const";
+import { getLeaderboardByThunk } from '../../store/leaderboard/leaderboardSlice'
+import { leaderboardDefaultQuery } from '../../const'
 import './styles.scss'
 
 export const SignupPage = (): JSX.Element => {

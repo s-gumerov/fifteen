@@ -1,39 +1,43 @@
-import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {axiosInstanceDB} from '../../api/axios'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { axiosInstanceDB } from '../../api/axios'
 import {
   forumReducerTypes,
-  TAnswerRequest, TCreateThreadRequest,
+  TAnswerRequest,
+  TCreateThreadRequest,
   TCreateTopicRequest,
   TForum,
   TForumRequest,
-  TForumState, TGetTopicByIdRequest,
+  TForumState,
+  TGetTopicByIdRequest,
   TThreadByIdRequest,
-  TThreadRequest
+  TThreadRequest,
 } from './types'
-import {isError} from '../../utils/isError'
+import { isError } from '../../utils/isError'
 
-export const getTopicsWithThreads = createAsyncThunk<TForum, TForumRequest>
-(forumReducerTypes.getTopicsWithComments, async function (data) {
-  const responseTopics = await getTopics(data)
-  for (const topic of responseTopics) {
-    const {id} = topic
-    topic.comments = await getTopicThreads({topic: id})
+export const getTopicsWithThreads = createAsyncThunk<TForum, TForumRequest>(
+  forumReducerTypes.getTopicsWithComments,
+  async function (data) {
+    const responseTopics = await getTopics(data)
+    for (const topic of responseTopics) {
+      const { id } = topic
+      topic.comments = await getTopicThreads({ topic: id })
+    }
+    return responseTopics
   }
-  return responseTopics
-})
+)
 
 export const getTopics = async (data: TForumRequest = {}) => {
   const response = await axiosInstanceDB('/get-topics', {
     method: 'post',
-    data
+    data,
   })
   return response.data
 }
 
-export const getTopicById = async (data: TGetTopicByIdRequest ) => {
+export const getTopicById = async (data: TGetTopicByIdRequest) => {
   const response = await axiosInstanceDB('/get-topic', {
     method: 'post',
-    data
+    data,
   })
   return response.data
 }
@@ -49,7 +53,7 @@ export const createTopic = async (data: TCreateTopicRequest) => {
 export const getTopicThreads = async (data: TThreadRequest) => {
   const response = await axiosInstanceDB('/get-thread-by-topic', {
     method: 'post',
-    data
+    data,
   })
   return response.data
 }
@@ -57,7 +61,7 @@ export const getTopicThreads = async (data: TThreadRequest) => {
 export const getThreadById = async (data: TThreadByIdRequest) => {
   const response = await axiosInstanceDB('/get-thread', {
     method: 'post',
-    data
+    data,
   })
   return response.data
 }
@@ -65,11 +69,10 @@ export const getThreadById = async (data: TThreadByIdRequest) => {
 export const getThreadAnswers = async (data: TAnswerRequest) => {
   const response = await axiosInstanceDB('/get-answers-by-thread', {
     method: 'post',
-    data
+    data,
   })
   return response.data
 }
-
 
 export const createComment = async (data: TCreateThreadRequest) => {
   const response = await axiosInstanceDB('/create-thread', {

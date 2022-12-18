@@ -12,12 +12,12 @@ import './styles.scss'
 export const ProfilePage = (): JSX.Element => {
   const dispatch = useAppDispatch()
   const { user } = useAppSelector(state => state.user)
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    await dispatch(logoutByThunk());
-    navigate(0);
+    e.preventDefault()
+    await dispatch(logoutByThunk())
+    navigate(0)
   }
 
   return (

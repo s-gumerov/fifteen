@@ -1,22 +1,22 @@
-import React, {ChangeEvent, useEffect, useState} from 'react'
-import {KeyboardEvent} from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
+import { KeyboardEvent } from 'react'
 import Avatar from '@mui/material/Avatar'
 import styles from './styles.module.scss'
-import {Comment} from './components/Comment/Comment'
-import {useAppSelector} from "../../hooks/useAppDispatch";
-import {getPartComments, getTopicId} from "../../utils";
-import {TThread, TTopic} from '../../store/forum/types'
+import { Comment } from './components/Comment/Comment'
+import { useAppSelector } from '../../hooks/useAppDispatch'
+import { getPartComments, getTopicId } from '../../utils'
+import { TThread, TTopic } from '../../store/forum/types'
 import {
   createComment,
   getThreadById,
   getTopicById,
-  getTopicThreads
-} from "../../store/forum/forumSlice";
-import {Pagination} from "@mui/material";
-import moment from "moment";
+  getTopicThreads,
+} from '../../store/forum/forumSlice'
+import { Pagination } from '@mui/material'
+import moment from 'moment'
 
 export const ForumSubPage = (): JSX.Element => {
-  const {user} = useAppSelector(state => state.user)
+  const { user } = useAppSelector(state => state.user)
   const [topic, setTopic] = useState<TTopic | null>(null)
   const [comments, setComments] = useState<TThread[]>([])
   const [renderComments, setRenderComments] = useState<TThread[]>([])
@@ -24,10 +24,10 @@ export const ForumSubPage = (): JSX.Element => {
   const [rowsPerPage] = useState(3)
 
   useEffect(() => {
-    getTopicThreads({topic: getTopicId()}).then(res => {
+    getTopicThreads({ topic: getTopicId() }).then(res => {
       setComments(res)
     })
-    getTopicById({id: getTopicId()}).then((res) => setTopic(res))
+    getTopicById({ id: getTopicId() }).then(res => setTopic(res))
     const lastPage = Math.ceil(comments.length / rowsPerPage)
     setRenderComments(getPartComments(comments, lastPage))
   }, [comments.length])
@@ -46,10 +46,10 @@ export const ForumSubPage = (): JSX.Element => {
         login: user!.login,
         avatarUrl: user!.avatar!,
         topicId: getTopicId(),
-        text: message
+        text: message,
       })
         .then(res => {
-          return getThreadById({id: res.id, topicId: getTopicId()})
+          return getThreadById({ id: res.id, topicId: getTopicId() })
         })
         .then(res => {
           setComments(oldComments => [...oldComments, res])
@@ -73,25 +73,25 @@ export const ForumSubPage = (): JSX.Element => {
           </span>
         </h1>
 
-        <div className={styles.forumSubPage__topicDescription}>
-
-        </div>
+        <div className={styles.forumSubPage__topicDescription}></div>
 
         <div className={styles.info}>
           <Avatar
             alt={topic?.login}
             src={topic?.avatarUrl}
             variant="square"
-            sx={{width: 55, height: 55}}
+            sx={{ width: 55, height: 55 }}
           />
           <div className={styles.info__owner}>
             <span className={styles.username}>Created by {topic?.login}</span>
 
-            <span className={styles.date}>at {moment(topic?.createdAt).format('MMMM Do YYYY')}</span>
+            <span className={styles.date}>
+              at {moment(topic?.createdAt).format('MMMM Do YYYY')}
+            </span>
           </div>
         </div>
 
-        <div className={styles.forumSubPage__line}/>
+        <div className={styles.forumSubPage__line} />
 
         <div className={styles.comments}>
           <div className={styles.comments__header}>

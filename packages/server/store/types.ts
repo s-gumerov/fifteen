@@ -1,4 +1,4 @@
-import {TThemeState} from 'client/src/store/theme/types';
+import { TThemeState } from 'client/src/store/theme/types'
 
 export type TUser = {
   id: number

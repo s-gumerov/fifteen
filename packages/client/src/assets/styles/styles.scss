@@ -1,11 +1,16 @@
 @use 'colors' as *;
-@use "mixin" as *;
+@use 'mixin' as *;
 
 :root {
   --theme: #4044ed;
-  --logoBtn:#93dfff;
-  --leaderboard_entry_background:#008000;
-  --leaderboard_entry_color:#ffffff;
+  --logoBtn: #93dfff;
+  --leaderboard_entry_background: #008000;
+  --leaderboard_entry_color: #ffffff;
+  --rules_page_background: linear-gradient(
+    179.96deg,
+    #4044ed 0.03%,
+    rgba(39, 38, 44, 0) 90.63%
+  );
 }
 
 .date {
@@ -38,7 +43,7 @@
   right: 414px;
   transition: all 0.3s;
   transform: rotate(-90deg);
-  @include flex-center($direction: 'row')
+  @include flex-center($direction: 'row');
 }
 
 .background-theme {
@@ -57,17 +62,31 @@
   color: var(--leaderboard_entry_color);
 }
 
+.rulesPageBackground {
+  background: var(--rules_page_background);
+}
+
 /* use theme */
 .darkTheme {
   --theme: #4044ed;
-  --logoBtn:#93dfff;
-  --leaderboard_entry_background:#008000;
-  --leaderboard_entry_color:#ffffff;
+  --logoBtn: #93dfff;
+  --leaderboard_entry_background: #008000;
+  --leaderboard_entry_color: #ffffff;
+  --rules_page_background: linear-gradient(
+    179.96deg,
+    #4044ed 0.03%,
+    rgba(39, 38, 44, 0) 90.63%
+  );
 }
 
 .pinkTheme {
-  --theme: #ED40DC;
-  --logoBtn:#E08AFE;
-  --leaderboard_entry_background:#D9FD44;
-  --leaderboard_entry_color:#FA4374;
+  --theme: #ed40dc;
+  --logoBtn: #e08afe;
+  --leaderboard_entry_background: #d9fd44;
+  --leaderboard_entry_color: #fa4374;
+  --rules_page_background: linear-gradient(
+    179.96deg,
+    #e08afe 0.03%,
+    rgba(39, 38, 44, 0) 90.63%
+  );
 }
