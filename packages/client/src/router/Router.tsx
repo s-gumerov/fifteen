@@ -26,6 +26,7 @@ import { TUserInfo } from '../api'
 import { getTopicsWithThreads } from "../store/forum/forumSlice";
 import { topicQuantityToPage } from "../pages/ForumPage/const";
 import { getStartIndex } from "../utils";
+import {getUserThemeByThunk} from '../store/theme/themeSlice';
 
 export const Router = () => {
   const [forumPage, setForumPage] = useState(1)
@@ -47,6 +48,11 @@ export const Router = () => {
     if (user) {
       const {id, login, avatar} = user as TUserInfo
       addUserToDB({id: id!, login: login, avatarUrl: avatar!})
+        dispatch(getUserThemeByThunk(
+            {
+                user_id:id!
+            }
+        ))
     }
   }, [user])
   useEffect(() => {

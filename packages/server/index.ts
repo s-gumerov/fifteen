@@ -10,8 +10,8 @@ import { render } from '../client/dist/ssr/entry-server.cjs'
 import { CLIENT_DIR, PRAKTIKUM_API_URL } from './const'
 import type { RequestCustom } from './middlewares'
 import { authMiddleware } from './middlewares'
-import { getLeaderboardByThunk, getStoreFromServer, TState } from "./store";
-import {TTheme} from 'client/src/store/theme/types';
+import {getLeaderboardByThunk, getStoreFromServer, getUserThemeByThunk, TState} from "./store";
+import {TTheme} from './routes/models/theme';
 import { CLIENT_ROUTES } from "./routes/client";
 import { router } from './routes/api'
 
@@ -52,7 +52,7 @@ async function createServer() {
         ? await getLeaderboardByThunk(req.headers.cookie)
         : undefined
 
-    const theme: TTheme = 'darkTheme'
+    const theme: TTheme = await getUserThemeByThunk({user_id:user!.id}) ?? 'darkTheme'
 
     const store: TState = getStoreFromServer(user, theme, leaderboard)
 

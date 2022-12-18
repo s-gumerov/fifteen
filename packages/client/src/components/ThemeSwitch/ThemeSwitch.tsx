@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {styled} from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
-import {useAppSelector} from '../../hooks/useAppDispatch';
+import {useAppDispatch, useAppSelector} from '../../hooks/useAppDispatch';
 import '../../assets/styles/styles.scss'
 import {isClient} from '../../utils';
+import {changeUserThemeByThunk, getUserThemeByThunk} from '../../store/theme/themeSlice';
 
 export const ThemeSwitch = ():JSX.Element => {
 
     const {theme} = useAppSelector(state => state.theme)
+    const {user} = useAppSelector(state => state.user)
+    const dispatch = useAppDispatch()
     const [checked, setChecked] = useState<boolean>(theme === 'darkTheme' ? true : false);
     const rootElement =isClient() && document.getElementById('root')
 
@@ -68,13 +71,25 @@ export const ThemeSwitch = ():JSX.Element => {
 
         if (rootElement)
         {
-            if (event.target.checked === true) {
+            if (event.target.checked === true && user && user.id) {
                 /* отправляем на сервер darkTheme */
+                dispatch(changeUserThemeByThunk(
+                    {
+                        user_id:user.id,
+                        theme_name:'darkTheme'
+                    }
+                ))
                 setChecked(event.target.checked)
                 return rootElement.className = 'darkTheme'
             }
-            if (event.target.checked === false) {
+            if (event.target.checked === false && user && user.id) {
                 /* отправляем на сервер pinkTheme */
+                dispatch(changeUserThemeByThunk(
+                    {
+                        user_id:user.id,
+                        theme_name:'pinkTheme'
+                    }
+                ))
                 setChecked(event.target.checked)
                 return rootElement.className = 'pinkTheme'
             }
