@@ -4,7 +4,8 @@
 :root {
   --theme: #4044ed;
   --logoBtn:#93dfff;
-  --leaderboard_entry:#008000
+  --leaderboard_entry_background:#008000;
+  --leaderboard_entry_color:#ffffff;
 }
 
 .date {
@@ -52,18 +53,21 @@
 }
 
 .leaderboardEntryTheme {
-  background-color: var(--leaderboard_entry);
+  background-color: var(--leaderboard_entry_background);
+  color: var(--leaderboard_entry_color);
 }
 
 /* use theme */
 .darkTheme {
   --theme: #4044ed;
   --logoBtn:#93dfff;
-  --leaderboard_entry:#008000
+  --leaderboard_entry_background:#008000;
+  --leaderboard_entry_color:#ffffff;
 }
 
 .pinkTheme {
   --theme: #ED40DC;
   --logoBtn:#E08AFE;
-  --leaderboard_entry:#D9FD44
+  --leaderboard_entry_background:#D9FD44;
+  --leaderboard_entry_color:#FA4374;
 }

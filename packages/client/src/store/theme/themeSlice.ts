@@ -1,47 +1,32 @@
 import {createSlice, PayloadAction, createAsyncThunk} from '@reduxjs/toolkit'
-import {TBadRequest} from '../../api/types'
 import {ENDPOINT} from '../../api'
 import {axiosInstanceDB} from '../../api/axios'
-import {TThemeState, TTheme} from './types'
+import {TThemeState} from './types'
 import {isError} from '../../utils/isError'
 import {TInitialState} from "../types";
 import {
-  createUserTheme,
   getUserTheme,
   changeUserTheme
 } from 'server/routes/models/theme';
+import {DEFAULT_THEME} from 'server/const';
 
-export const initialStateOfTheme: TThemeState = {
-  theme: 'darkTheme',
+export const initialStateOfTheme = {
+  theme: DEFAULT_THEME,
   error: null,
   status: null,
 }
 
-
-
-export const createUserThemeByThunk = createAsyncThunk<
-  createUserTheme.Request,
-  createUserTheme.Response,
-  { rejectValue: string }
->(ENDPOINT.CREATE_THEME, async function (data) {
-  const response:createUserTheme.Response = await axiosInstanceDB(ENDPOINT.CREATE_THEME, {
-    method: 'post',
-    data,
-  })
-  console.log(response)
-  return response
-})
-
 export const getUserThemeByThunk = createAsyncThunk<
-  TTheme,
+  changeUserTheme.Request,
   getUserTheme.Request
 >(ENDPOINT.GET_THEME, async function (data) {
 
-  const response:getUserTheme.Response = await axiosInstanceDB(ENDPOINT.GET_THEME, {
-    method: 'get',
-    data:data
+  const response = await axiosInstanceDB(ENDPOINT.GET_THEME, {
+    method: 'post',
+    data
   })
-  return response.theme_name
+
+  return response.data
 })
 
 export const changeUserThemeByThunk = createAsyncThunk<
@@ -49,12 +34,13 @@ export const changeUserThemeByThunk = createAsyncThunk<
   changeUserTheme.Response,
   { rejectValue: string }
 >(ENDPOINT.CHANGE_THEME, async function (data) {
-  const response:changeUserTheme.Response = await axiosInstanceDB(ENDPOINT.CHANGE_THEME, {
+
+  const response = await axiosInstanceDB(ENDPOINT.CHANGE_THEME, {
     method: 'post',
     data,
   })
 
-  return response
+  return response.data
 })
 
 export const getThemeReducer = (state: TInitialState) => {
@@ -64,23 +50,18 @@ export const getThemeReducer = (state: TInitialState) => {
     reducers: {},
     extraReducers: builder => {
       builder
-        .addCase(createUserThemeByThunk.fulfilled, (state, action) => {
-          state.theme =  action.payload.theme_name as TTheme
+        .addCase(getUserThemeByThunk.fulfilled, (state, action) => {
+          state.theme = action.payload.theme_name
           state.error = null
           state.status = 'FETCH_FULFILLED'
         })
-        // .addCase(getUserThemeByThunk.fulfilled, (state, action) => {
-        //   state.theme =  action.payload.theme_name as TTheme
-        //   state.error = null
-        //   state.status = 'FETCH_FULFILLED'
-        // })
         .addCase(changeUserThemeByThunk.fulfilled, (state, action) => {
-          state.theme =  action.payload.theme_name as TTheme
+          state.theme = action.payload.theme_name
           state.error = null
           state.status = 'FETCH_FULFILLED'
         })
         .addMatcher(isError, (state, action: PayloadAction<string>) => {
-          state.theme = 'darkTheme'
+          state.theme = DEFAULT_THEME
           state.error = action.payload ?? 'Error!'
           state.status = 'FETCH_FAILED'
         })

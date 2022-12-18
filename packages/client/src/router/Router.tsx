@@ -48,11 +48,6 @@ export const Router = () => {
     if (user) {
       const {id, login, avatar} = user as TUserInfo
       addUserToDB({id: id!, login: login, avatarUrl: avatar!})
-        dispatch(getUserThemeByThunk(
-            {
-                user_id:id!
-            }
-        ))
     }
   }, [user])
   useEffect(() => {

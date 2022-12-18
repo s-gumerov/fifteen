@@ -21,7 +21,7 @@ export const EditProfilePage = (): JSX.Element => {
   const navigation = useNavigate()
   const { user } = useAppSelector(state => state.user)
   const {theme} = useAppSelector(state => state.theme)
-  const themeStyles: SxProps = theme === 'dark' ?
+  const themeStyles: SxProps = theme === 'darkTheme' ?
       {
         backgroundColor: '#4044ed'
       }

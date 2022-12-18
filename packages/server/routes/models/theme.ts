@@ -21,32 +21,12 @@ export namespace getUserTheme {
 
   /** Параметры api запроса */
   export interface Request {
-    user_id: number
+    id: number
   }
 
   /** Параметры api ответа */
   export interface Response {
-    user_id: number,
-    theme_name: TTheme
-  }
-}
-
-/**
-* Создать пользовательскую тему
-*/
-
-export namespace createUserTheme {
-  export const route = ENDPOINT.CREATE_THEME
-
-  /** Параметры api запроса */
-  export interface Request {
-    user_id: number,
-    theme_name: TTheme
-  }
-
-  /** Параметры api ответа */
-  export interface Response {
-    user_id: number,
+    id: number,
     theme_name: TTheme
   }
 }
@@ -60,13 +40,13 @@ export namespace changeUserTheme {
 
   /** Параметры api запроса */
   export interface Request {
-    user_id: number,
+    id: number,
     theme_name: TTheme
   }
 
   /** Параметры api ответа */
   export interface Response {
-    user_id: number,
+    id: number,
     theme_name: TTheme
   }
 }

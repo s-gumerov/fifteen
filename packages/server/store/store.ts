@@ -1,4 +1,4 @@
-import {axiosInstance, axiosInstanceDB} from './axios'
+import {axiosInstance} from './axios'
 import {
   TGetLeaderboard,
   TLeaderboard,
@@ -7,8 +7,6 @@ import {
 } from './types'
 import {TTheme, TThemeState} from '../routes/models/theme';
 import { TLeaderboardState } from './types'
-import {ENDPOINT} from '../routes/models/theme';
-import {getUserTheme} from '../routes/models/theme';
 
 export const initialState: TState = {
   user: {
@@ -110,23 +108,6 @@ export const getLeaderboardByThunk = async (
     })
     return result.data
   } catch (error) {
-    return null
-  }
-}
-
-export const getUserThemeByThunk = async (
-  data:getUserTheme.Request
-): Promise<getUserTheme.Response['theme_name'] | null> => {
-  try {
-    console.log('test')
-    const response:getUserTheme.Response = await axiosInstanceDB(ENDPOINT.GET_THEME, {
-      method: 'get',
-      data:data
-    })
-    console.log(ENDPOINT.GET_THEME)
-    return response.theme_name
-  } catch (error) {
-    console.log(error)
     return null
   }
 }

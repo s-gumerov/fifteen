@@ -1,68 +1,60 @@
 import {Router} from 'express'
-import {changeUserTheme, createUserTheme, getUserTheme} from '../models/theme'
+import {changeUserTheme, getUserTheme} from '../models/theme'
 import {Theme} from '../../db'
+import {DEFAULT_THEME} from '../../const';
 
 const router = Router()
 
-router.post(createUserTheme.route, async (req, res) => {
-  const {user_id, theme_name} = req.body;
-  console.log(user_id)
-  const newTheme = await Theme.create({
-    id: user_id,
-    theme_name: theme_name,
-  })
+router.post(getUserTheme.route, async (req, res) => {
+  /**
+   * если не найдем пользователя в БД то добавим запись со значением по умолчанию ${DEFAULT_THEME}
+   */
 
-  await newTheme.save()
-
-  return res.send(
+  const userTheme = await Theme.findOne(
     {
-      data:
-        {
-          user_id: user_id,
-          theme_name: theme_name,
-        }
+      where: {
+        id: req.body.id
+      }
+    }
+  )
+
+  const newTheme = {
+    id: req.body.id,
+    theme_name: DEFAULT_THEME,
+  }
+
+  if (!userTheme) {
+    try {
+      await Theme.create(newTheme)
+      return res.send(newTheme)
+    } catch (error) {
+      return
+    }
+  } else {
+    return res.send({
+      id: userTheme.dataValues.id,
+      theme_name: userTheme.dataValues.theme_name,
     })
+  }
 })
 
 router.post(changeUserTheme.route, async (req, res) => {
-  const {user_id, theme_name} = req.body;
+  const {id, theme_name} = req.body;
   await Theme.update(
     {
       theme_name: theme_name
     },
     {
-      where: {id: user_id}
+      where: {id: id}
     }
   )
 
   return res.send(
     {
-      data:
-        {
-          user_id: user_id,
-          theme_name: theme_name,
-        }
+      id: id,
+      theme_name: theme_name,
     }
   )
-})
-
-router.get(getUserTheme.route, async (req, res) => {
-  const theme = await Theme.findOne({
-    where: {
-      id: req.body.user_id,
-    },
-  })
-  let result = {}
-  if (theme) {
-    result = {
-      data:
-        {
-          user_id: theme.dataValues.user_id,
-          theme_name: theme.dataValues.theme_name,
-        }
-    }
-  }
-  res.send(result)
 })
 
 export default router

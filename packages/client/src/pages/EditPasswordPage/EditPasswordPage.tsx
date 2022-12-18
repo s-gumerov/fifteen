@@ -13,7 +13,7 @@ import { TUserPassword } from '../../api'
 export const EditPasswordPage = (): JSX.Element => {
   const { user } = useAppSelector(state => state.user)
   const {theme} = useAppSelector(state => state.theme)
-  const themeStyles: SxProps = theme === 'dark' ?
+  const themeStyles: SxProps = theme === 'darkTheme' ?
       {
       backgroundColor: '#4044ed'
 }

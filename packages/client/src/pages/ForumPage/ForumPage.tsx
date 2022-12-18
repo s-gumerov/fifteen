@@ -17,8 +17,6 @@ export const ForumPage = ({forumPage, setForumPage}: ForumPageProps): JSX.Elemen
   const {theme} = useAppSelector(state => state.theme)
   const themeColor = theme === 'darkTheme' ? '#4044ed' : '#ED40DC'
 
-  console.log(themeColor)
-
   const handleChangePage = (event: ChangeEvent<unknown>, newPage: number) => {
     setForumPage(newPage)
   }

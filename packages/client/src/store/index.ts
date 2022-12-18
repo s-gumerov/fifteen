@@ -6,7 +6,7 @@ import { isClient } from "../utils";
 import forumSlice from "./forum/forumSlice";
 import {getThemeReducer, initialStateOfTheme} from './theme/themeSlice';
 
-const initialState = {
+const initialState:TInitialState = {
   user: initialStateOfUser,
   theme: initialStateOfTheme,
   leaderboard: initialStateOfLeaderboard,
