@@ -53,7 +53,8 @@ async function createServer() {
         ? await getLeaderboardByThunk(req.headers.cookie)
         : undefined
 
-    const theme: TTheme = await GET_USER_THEME(user!.id)
+    /* в этом условии проверяется пользователь, если данных нет - то берем в серверный стор тему по умолчанию ${DEFAULT_THEME}*/
+    const theme: TTheme = user && user.id ? await GET_USER_THEME(user.id) : DEFAULT_THEME
 
     const store: TState = getStoreFromServer(user, theme, leaderboard)
 
