@@ -68,7 +68,7 @@ export const LeadersPage = (): JSX.Element => {
                         className={
                           usr.data.id === user!.id
                             ? 'leaderboardEntryTheme'
-                            : 'backgroundTheme'
+                            : 'background-theme'
                         }
                         key={index}>
                         <TableCell
