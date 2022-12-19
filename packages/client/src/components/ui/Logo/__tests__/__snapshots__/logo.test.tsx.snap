@@ -2,7 +2,7 @@
 
 exports[`Logo component Should render Logo component 1`] = `
 <div
-  className="logo"
+  className="logo background-theme"
 >
   <span
     className="logo__title"

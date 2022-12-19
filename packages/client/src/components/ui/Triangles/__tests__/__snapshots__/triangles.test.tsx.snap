@@ -5,13 +5,13 @@ exports[`Triangles component Should render Triangles component 1`] = `
   className="triangles"
 >
   <div
-    className="triangles__item triangles__item_one"
+    className="triangles__item triangles-theme triangles__item_one"
   />
   <div
-    className="triangles__item triangles__item_two"
+    className="triangles__item triangles-theme triangles__item_two"
   />
   <div
-    className="triangles__item triangles__item_three"
+    className="triangles__item triangles-theme triangles__item_three"
   />
 </div>
 `;
