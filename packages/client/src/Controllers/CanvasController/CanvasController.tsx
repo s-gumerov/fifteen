@@ -24,6 +24,7 @@ import { getRatingResult } from '../../utils'
 import { TLeaderboard } from '../../api/leaderbord'
 
 export class CanvasController {
+
   getEmptyCell(
     board: TBoard
   ): { xEmptyCell: number; yEmptyCell: number } | undefined {
@@ -250,7 +251,8 @@ export class CanvasController {
       tileSize * gameFieldSize,
       tileSize * gameFieldSize
     )
-    this.drawField(fieldRef, this.mixBoard(), backgroundPuzzle)
+    // this.drawField(fieldRef, this.mixBoard(), backgroundPuzzle)
+    this.drawField(fieldRef, board, backgroundPuzzle)
   }
 
   canvasIsWinDraw = (
@@ -258,6 +260,7 @@ export class CanvasController {
     userId: number | undefined,
     leaderboard: TLeaderboard
   ) => {
+    console.log(leaderboard)
     const canvas = fieldRef.current
     const ctx = canvas?.getContext('2d') as CanvasRenderingContext2D
     ctx.clearRect(
@@ -275,7 +278,7 @@ export class CanvasController {
       canvasInBorderSize / 4
     )
     ctx!.font = middleFontStyle
-
+    console.log(getRatingResult(userId!, leaderboard))
     userId
       ? ctx!.fillText(
           `Ваша позиция в рейтинге -  ${getRatingResult(userId, leaderboard)}`,

@@ -1,36 +1,37 @@
-import { useEffect, useRef, useState } from 'react'
-import { isEqual } from 'lodash'
-import { useNavigate } from 'react-router-dom'
-import { transformSecondsCountToWordExpression } from '../../utils'
-import { useTimer } from '../../hooks/useTimer'
-import { CanvasController } from '../../Controllers'
-import { TBoard } from '../../Controllers/CanvasController/types'
+import {useEffect, useRef, useState} from 'react'
+import {isEqual} from 'lodash'
+import {useNavigate} from 'react-router-dom'
+import {sortLeaderboard, transformSecondsCountToWordExpression} from '../../utils'
+import {useTimer} from '../../hooks/useTimer'
+import {CanvasController} from '../../Controllers'
+import {TBoard} from '../../Controllers/CanvasController/types'
 import {
   buttonLeaders,
   buttonRepeatGame,
 } from '../../Controllers/CanvasController/const'
-import { addPlayerToLeaderboardByThunk } from '../../store/leaderboard/leaderboardSlice'
-import { TAddPlayerToLeaderboard } from '../../api/leaderbord'
+import {addPlayerToLeaderboardByThunk, getLeaderboardByThunk} from '../../store/leaderboard/leaderboardSlice'
+import {TAddPlayerToLeaderboard} from '../../api/leaderbord'
 import './style.scss'
-import { TPlayer } from '../LeadersPage/types'
-import { useAppDispatch, useAppSelector } from '../../hooks/useAppDispatch'
-import { ratingFieldName, teamName } from '../../const'
-import { useLeaders } from '../../context/Leaders'
-import { ROUTES } from '../../router/types'
-import { ToggleFullScreenBtn } from '../../components/ToggleFullScreenBtn/ToggleFullScreenBtn'
+import {TPlayer} from '../LeadersPage/types'
+import {useAppDispatch, useAppSelector} from '../../hooks/useAppDispatch'
+import {leaderboardDefaultQuery, ratingFieldName, teamName} from '../../const'
+import {useLeaders} from '../../context/Leaders'
+import {ROUTES} from '../../router/types'
+import {ToggleFullScreenBtn} from '../../components/ToggleFullScreenBtn/ToggleFullScreenBtn'
 
 const Canvas = new CanvasController()
 
 export const GameFieldPage = (): JSX.Element => {
-  const { user } = useAppSelector(state => state.user)
+  const {user} = useAppSelector(state => state.user)
+  const {leaderboard} = useAppSelector(state => state.leaderboard)
   const [board, setBoard] = useState(Canvas.mixBoard())
   const [stepsCount, setStepsCount] = useState(0)
   const [checkWin, setCheckWin] = useState(false)
   const fieldRef = useRef<HTMLCanvasElement>(null)
-  const leaders = useLeaders()
+  const leaders = useRef(useLeaders())
 
   const navigate = useNavigate()
-  const { secondsCount, setSecondsCounter, setToggleSecondsCounter } =
+  const {secondsCount, setSecondsCounter, setToggleSecondsCounter} =
     useTimer()
   const dispatch = useAppDispatch()
 
@@ -38,12 +39,12 @@ export const GameFieldPage = (): JSX.Element => {
   const canvasEngGameHandleClick = (event: React.MouseEvent) => {
     event.preventDefault()
     const mousePos = Canvas.getMousePos(fieldRef.current!, event)
+    console.log(leaderboard)
     if (Canvas.isInsideButton(mousePos, buttonRepeatGame)) {
       setCheckWin(false)
       setStepsCount(0)
       setSecondsCounter(0)
       setToggleSecondsCounter(true)
-
       Canvas.buttonRepeatClick(fieldRef, board, backgroundPuzzle)
     }
     if (Canvas.isInsideButton(mousePos, buttonLeaders)) {
@@ -64,15 +65,14 @@ export const GameFieldPage = (): JSX.Element => {
       setStepsCount(stepsCount + 1)
       setBoard(currentBoard)
       Canvas.drawField(fieldRef, currentBoard, backgroundPuzzle)
-
+      // console.log(leaders!.current?.leaders!)
       if (Canvas.isWin(currentBoard)) {
+        setBoard(Canvas.mixBoard())
         setCheckWin(true)
         setToggleSecondsCounter(false)
 
-        setBoard(Canvas.mixBoard())
 
         if (user) {
-          const leaderboard = leaders!.leaders!
           const gameResult: TPlayer = {
             id: user.id,
             nickname: user.display_name ?? user.login,
@@ -87,13 +87,21 @@ export const GameFieldPage = (): JSX.Element => {
           }
 
           await dispatch(addPlayerToLeaderboardByThunk(requestData))
-          Canvas.canvasIsWinDraw(fieldRef, user.id, leaderboard)
+          const updStore = await dispatch(getLeaderboardByThunk(leaderboardDefaultQuery))
+          console.log(updStore)
+          // const leaderboard = leaders!.current?.leaders!
+          // console.log(leaders!.current?.leaders!)
+          console.log(leaderboard)
         }
+        Canvas.canvasIsWinDraw(fieldRef, user?.id, sortLeaderboard(leaderboard!))
       }
     }
   }
 
   useEffect(() => {
+    if (!leaderboard) {
+      dispatch(getLeaderboardByThunk(leaderboardDefaultQuery))
+    }
     Canvas.init(fieldRef, board as TBoard, backgroundPuzzle)
   }, [])
 
@@ -113,7 +121,7 @@ export const GameFieldPage = (): JSX.Element => {
           </div>
         </div>
       </div>
-      <ToggleFullScreenBtn />
+      <ToggleFullScreenBtn/>
     </>
   )
 }

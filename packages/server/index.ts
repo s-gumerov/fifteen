@@ -13,10 +13,10 @@ import {authMiddleware} from './middlewares'
 import {getLeaderboardByThunk, getStoreFromServer, getTopicsWithThreads, TState} from "./store";
 import {CLIENT_ROUTES} from "./routes/client";
 import {router} from './routes/api'
+import {sequelize} from './db'
 
 const {createProxyMiddleware} = require('http-proxy-middleware')
 dotenv.config()
-import {sequelize} from './db'
 
 let template = fs.readFileSync(
   path.resolve(__dirname, CLIENT_DIR + 'index.html'),
@@ -47,7 +47,7 @@ async function createServer() {
     const user = (req as RequestCustom).userData
 
     const leaderboard = originalUrl === CLIENT_ROUTES.LEADERS ? await getLeaderboardByThunk(req.headers.cookie) : undefined
-    const forum = originalUrl === CLIENT_ROUTES.FORUM ? await getTopicsWithThreads() : undefined
+    const forum = originalUrl === CLIENT_ROUTES.FORUM ? await getTopicsWithThreads(req.headers.cookie) : undefined
     const store: TState = getStoreFromServer(user, leaderboard, forum)
 
     const reactHtml = await render(originalUrl)

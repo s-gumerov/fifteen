@@ -110,29 +110,35 @@ export const getLeaderboardByThunk = async (
   }
 }
 
-export const getTopicsWithThreads = async (): Promise<TForum | null> => {
+export const getTopicsWithThreads = async (cookie?: string): Promise<TForum | null> => {
   const responseTopics = await getTopics({
     quantity: 3,
     start: 0
   })
   for (const topic of responseTopics) {
     const {id} = topic
-    topic.comments = await getTopicThreads({topic: id})
+    topic.comments = await getTopicThreads({topic: id}, cookie)
   }
   return responseTopics
 }
 
-export const getTopics = async (data: TForumRequest = {}) => {
+export const getTopics = async (data: TForumRequest = {}, cookie?: string) => {
   const response = await axiosInstanceDB('/get-topics', {
     method: 'post',
-    data
+    data,
+    headers: {
+      Cookie: cookie,
+    }
   })
   return response.data
 }
-export const getTopicThreads = async (data: TThreadRequest) => {
+export const getTopicThreads = async (data: TThreadRequest, cookie?: string) => {
   const response = await axiosInstanceDB('/get-thread-by-topic', {
     method: 'post',
-    data
+    data,
+    headers: {
+      Cookie: cookie,
+    }
   })
   return response.data
 }

@@ -69,7 +69,7 @@ export const getLeaderboardReducer = (state: TInitialState) => {
           state.status = 'FETCH_FULFILLED'
         })
         .addCase(addPlayerToLeaderboardByThunk.fulfilled, state => {
-          state.leaderboard = null
+          //state.leaderboard = state.leaderboard
           state.error = null
           state.status = null
         })
