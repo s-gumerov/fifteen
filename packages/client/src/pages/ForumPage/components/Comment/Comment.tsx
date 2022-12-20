@@ -1,15 +1,15 @@
 import React from 'react'
 import styles from './styles.module.scss'
 import Avatar from '@mui/material/Avatar'
-import {TThread} from "../../../../store/forum/types";
-import moment from "moment";
+import { TThread } from '../../../../store/forum/types'
+import moment from 'moment'
 
 export const Comment = ({
-                          id,
-                          login,
-                          avatarUrl,
-                          text,
-                          createdAt
+  id,
+  login,
+  avatarUrl,
+  text,
+  createdAt,
 }: TThread): JSX.Element => {
   return (
     <>
@@ -26,7 +26,9 @@ export const Comment = ({
           <div className={styles.box__title}>
             <span className={styles.username}>{login}</span>
 
-            <span className={styles.date}>{moment(createdAt).format('MMMM Do YYYY')}</span>
+            <span className={styles.date}>
+              {moment(createdAt).format('MMMM Do YYYY')}
+            </span>
           </div>
           <div className={styles.box__message}>{text}</div>
         </div>

@@ -8,44 +8,7 @@ const sequelizeOptions: SequelizeOptions = {
   database: 'postgres',
   dialect: 'postgres',
 }
-
 const sequelize = new Sequelize(sequelizeOptions)
-
-const createThemes = async (table: any, themes: { 
-  mainColor: string, 
-  secondColor: string,
-  themeName: string
-}[]): Promise<void> => {
-  for (const theme of themes) {
-    const themeInstance = await table.create({
-      theme_name: theme.themeName,
-      main_color: theme.mainColor,
-      second_color: theme.secondColor
-    });
-    await themeInstance.save();
-  }
-  await table.sync();
-}
-
-const initTables = async () => {
-  await sequelize.sync({force: true})
-
-  //Создаем темы
-  
-  await createThemes(Theme, [
-    {
-      mainColor: '#27262c',
-      secondColor: '#d9d9d9',
-      themeName: 'dark'
-    },
-    {
-      mainColor: '#d9d9d9',
-      secondColor: '#27262c',
-      themeName: 'light'
-    }
-  ])
-}
-
 const Topic = sequelize.define('Topic', {
   id: {
     type: DataType.INTEGER,
@@ -66,7 +29,7 @@ const User = sequelize.define('User', {
   id: {
     type: DataType.INTEGER,
     primaryKey: true,
-    autoIncrement: true
+    autoIncrement: true,
   },
   yandex_id: DataType.INTEGER,
   login: DataType.STRING,
@@ -99,17 +62,13 @@ const ThreadAnswer = sequelize.define('Thread_answer', {
   text: DataType.STRING,
 })
 
-const Theme = sequelize.define('Theme',{
+const Theme = sequelize.define('Theme', {
   id: {
     type: DataType.INTEGER,
     primaryKey: true,
-    autoIncrement: true,
+    autoIncrement: false,
   },
   theme_name: DataType.STRING,
-  main_color: DataType.STRING,
-  second_color: DataType.STRING
 })
-
-initTables()
 
 export { sequelize, Topic, User, Thread, ThreadAnswer, Theme }

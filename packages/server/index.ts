@@ -7,16 +7,18 @@ import fs from 'fs'
 import bodyParser from 'body-parser'
 // @ts-ignore
 import { render } from '../client/dist/ssr/entry-server.cjs'
-import { CLIENT_DIR, PRAKTIKUM_API_URL } from './const'
+import { CLIENT_DIR, DEFAULT_THEME, PRAKTIKUM_API_URL } from './const'
 import type { RequestCustom } from './middlewares'
 import { authMiddleware } from './middlewares'
-import { getLeaderboardByThunk, getStoreFromServer, TState } from "./store";
-import { CLIENT_ROUTES } from "./routes/client";
+import { getLeaderboardByThunk, getStoreFromServer, TState } from './store'
+import { TTheme } from './routes/models/theme'
+import { CLIENT_ROUTES } from './routes/client'
 import { router } from './routes/api'
 
 const { createProxyMiddleware } = require('http-proxy-middleware')
 dotenv.config()
 import { sequelize } from './db'
+import { GET_USER_THEME } from './utils'
 
 let template = fs.readFileSync(
   path.resolve(__dirname, CLIENT_DIR + 'index.html'),
@@ -46,9 +48,15 @@ async function createServer() {
     const status = (req as RequestCustom).calculatedStatus
     const user = (req as RequestCustom).userData
 
-    const leaderboard = originalUrl === CLIENT_ROUTES.LEADERS ? await getLeaderboardByThunk(req.headers.cookie) : undefined
+    const leaderboard =
+      originalUrl === CLIENT_ROUTES.LEADERS
+        ? await getLeaderboardByThunk(req.headers.cookie)
+        : undefined
 
-    const store: TState = getStoreFromServer(user, leaderboard)
+    /* в этом условии проверяется пользователь, если данных нет - то берем в серверный стор тему по умолчанию ${DEFAULT_THEME}*/
+    const theme: TTheme = user && user.id ? await GET_USER_THEME(user.id) : DEFAULT_THEME
+
+    const store: TState = getStoreFromServer(user, theme, leaderboard)
 
     const reactHtml = await render(originalUrl)
     template = await vite.transformIndexHtml(originalUrl, template)

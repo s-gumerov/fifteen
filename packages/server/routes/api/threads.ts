@@ -12,10 +12,10 @@ router.post(createThread.route, async (req, res) => {
     topic_id: req.body.topicId,
     text: req.body.text,
   })
-  await newThread.save();
-  await newThread.reload();
+  await newThread.save()
+  await newThread.reload()
   const result: createThread.Response = {
-    id: (newThread as Record<any, any>).id
+    id: (newThread as Record<any, any>).id,
   }
   res.send(result)
 })

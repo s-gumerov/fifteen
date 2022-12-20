@@ -1,9 +1,7 @@
+@use '../../../assets/styles/styles' as *;
+
 .triangles {
   &__item {
-    border: 5em solid transparent;
-    border-bottom: 10em solid rgba(64, 68, 237, 0.5);
-    transform: rotate(-45deg);
-    opacity: 0.5;
     position: fixed;
 
     &_one {

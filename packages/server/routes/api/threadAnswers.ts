@@ -19,7 +19,7 @@ router.post(createThreadAnswer.route, async (req, res) => {
   await newThreadAnswer.save()
   await newThreadAnswer.reload()
   const result: createThreadAnswer.Response = {
-    id: (newThreadAnswer as Record<any, any>).id
+    id: (newThreadAnswer as Record<any, any>).id,
   }
   res.send(result)
 })

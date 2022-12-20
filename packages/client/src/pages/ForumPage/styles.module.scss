@@ -13,131 +13,130 @@ $minWidth: 550px;
   margin: 30px;
 }
 
-  .forum {
-    margin: 0 auto;
-    display: flex;
-    flex-flow: column nowrap;
-    min-width: $minWidth;
-    max-width: $maxWidth;
+.forum {
+  margin: 0 auto;
+  display: flex;
+  flex-flow: column nowrap;
+  min-width: $minWidth;
+  max-width: $maxWidth;
 
-    &__title {
-      color: $forum_title;
-      font-weight: 400;
-      font-size: 3em;
-      text-align: center;
-      margin-top: 40px;
-      text-transform: uppercase;
-    }
-
-    &__content {
-      display: flex;
-      flex-flow: column nowrap;
-      align-items: center;
-      gap: 4px;
-      z-index: 1;
-    }
-
-    &__topics {
-      display: flex;
-      flex-flow: column nowrap;
-      width: 75%;
-    }
-
-    &__header {
-      display: flex;
-      flex-flow: row nowrap;
-      justify-content: space-between;
-    }
-
-    &__text {
-      height: 36px;
-      font-family: 'IRANSansXFaNum';
-      font-style: normal;
-      font-weight: 400;
-      font-size: 20px;
-      line-height: 36px;
-      color: $header_text;
-    }
-
-    &__pagination {
-      display: flex;
-      justify-content: center;
-      margin: 50px;
-
-      .MuiPagination__root {
-        button {
-          background: #ffffff;
-        }
-      }
-    }
+  &__title {
+    color: $forum_title;
+    font-weight: 400;
+    font-size: 3em;
+    text-align: center;
+    margin-top: 40px;
+    text-transform: uppercase;
   }
 
-  .topicText {
-    text-align: center;
+  &__content {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    gap: 4px;
+    z-index: 1;
+  }
+
+  &__topics {
+    display: flex;
+    flex-flow: column nowrap;
     width: 75%;
   }
 
-  .lastMsgText {
-    text-align: center;
-    width: 25%;
+  &__header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
   }
 
-  .forumSubPage {
-    position: relative;
-    margin: 0 auto;
+  &__text {
+    height: 36px;
+    font-family: 'IRANSansXFaNum';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 36px;
+    color: $header_text;
+  }
+
+  &__pagination {
     display: flex;
-    flex-flow: column nowrap;
-    min-width: $minWidth;
-    max-width: $maxWidth;
-    align-items: flex-start;
-    z-index: 1;
+    justify-content: center;
+    margin: 50px;
 
-    &__title_underline {
-      text-decoration: underline;
-    }
-
-    &__topicDescription {
-      //margin-top: 50px;
-      max-width: 679px;
-      max-height: 200px;
-      font-family: 'IRANSansX';
-      font-style: normal;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 24px;
-      color: $forum_text;
-    }
-
-    &__line {
-      height: 2px;
-      width: 100%;
-      background-color: $forumSubPage_line;
-    }
-
-    &__inputMsg {
-      //position: fixed;
-      box-sizing: border-box;
-      align-self: center;
-      bottom: 50px;
-      height: 56px;
-      min-width: $minWidth;
-      width: $maxWidth;
-      background: $forumSubPage_inputMsg;
-      border: 2px solid $inputMsg_border;
-      text-align: center;
-      color: $forum_text;
-      font-style: normal;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 24px;
-
-      &:focus {
-        outline: none;
-        @include hover-shadow($color: $inputMsg_border);
+    .MuiPagination__root {
+      button {
+        background: #ffffff;
       }
     }
   }
+}
 
+.topicText {
+  text-align: center;
+  width: 75%;
+}
+
+.lastMsgText {
+  text-align: center;
+  width: 25%;
+}
+
+.forumSubPage {
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  flex-flow: column nowrap;
+  min-width: $minWidth;
+  max-width: $maxWidth;
+  align-items: flex-start;
+  z-index: 1;
+
+  &__title_underline {
+    text-decoration: underline;
+  }
+
+  &__topicDescription {
+    //margin-top: 50px;
+    max-width: 679px;
+    max-height: 200px;
+    font-family: 'IRANSansX';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: $forum_text;
+  }
+
+  &__line {
+    height: 2px;
+    width: 100%;
+    background-color: $forumSubPage_line;
+  }
+
+  &__inputMsg {
+    //position: fixed;
+    box-sizing: border-box;
+    align-self: center;
+    bottom: 50px;
+    height: 56px;
+    min-width: $minWidth;
+    width: $maxWidth;
+    background: $forumSubPage_inputMsg;
+    border: 2px solid $inputMsg_border;
+    text-align: center;
+    color: $forum_text;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+
+    &:focus {
+      outline: none;
+      @include hover-shadow($color: $inputMsg_border);
+    }
+  }
+}
 
 .info {
   margin: 20px 0;

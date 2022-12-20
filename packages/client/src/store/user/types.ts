@@ -16,7 +16,7 @@ export type TUserState = {
 }
 
 export type TUserToDB = {
-  id: number,
-  login: string,
+  id: number
+  login: string
   avatarUrl: string
 }

@@ -1,3 +1,5 @@
+import { TThemeState } from 'client/src/store/theme/types'
+
 export type TUser = {
   id: number
   first_name: string
@@ -34,8 +36,9 @@ export type TUserState = {
 }
 
 export type TState = {
-  user: TUserState;
-  leaderboard?: TLeaderboardState;
+  user: TUserState
+  leaderboard?: TLeaderboardState
+  theme: TThemeState
 }
 
 export type TGetLeaderboard = {

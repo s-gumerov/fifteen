@@ -1,6 +1,6 @@
 import React from 'react'
 import { TextFieldProfile } from '../../components/ui'
-import { Avatar, Button } from '@mui/material'
+import { Avatar, Button, SxProps } from '@mui/material'
 import { Form, Formik } from 'formik'
 import {
   EDIT_PASSWORD_VALIDATION_SCHEMA,
@@ -12,6 +12,18 @@ import { TUserPassword } from '../../api'
 
 export const EditPasswordPage = (): JSX.Element => {
   const { user } = useAppSelector(state => state.user)
+  const { theme } = useAppSelector(state => state.theme)
+  const themeStyles: SxProps =
+    theme === 'darkTheme'
+      ? {
+          backgroundColor: '#4044ed',
+        }
+      : {
+          backgroundColor: '#ED40DC',
+          '&:hover': {
+            backgroundColor: '#ED40DC',
+          },
+        }
   const handleSubmit = (values: TUserPassword) => {
     changePassword(values)
   }
@@ -52,7 +64,7 @@ export const EditPasswordPage = (): JSX.Element => {
               variant="contained"
               size="large"
               type="submit"
-              sx={{ mt: 4 }}>
+              sx={{ mt: 4, ...themeStyles }}>
               Сохранить
             </Button>
           </div>

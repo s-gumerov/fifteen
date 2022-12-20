@@ -1,3 +1,5 @@
+@use '../../assets/styles/styles' as *;
+
 .leaders {
   display: flex;
   flex-direction: column;
@@ -24,10 +26,6 @@
         &:last-child {
           border-right: none;
         }
-      }
-
-      .userCell {
-        background: #008000;
       }
     }
 

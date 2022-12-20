@@ -4,19 +4,35 @@ import styles from './styles.module.scss'
 import { Button } from '@mui/material'
 import { TextFieldMultiline } from '../../../../components/ui/TextFieldMultiline'
 import { AddTopicFormProps } from './types'
-import {useAppDispatch, useAppSelector} from "../../../../hooks/useAppDispatch";
-import {createComment, createTopic, getTopics, getTopicsWithThreads} from "../../../../store/forum/forumSlice";
-import {topicQuantityToPage} from "../../const";
-import {getStartIndex} from "../../../../utils";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../../../hooks/useAppDispatch'
+import {
+  createComment,
+  createTopic,
+  getTopics,
+  getTopicsWithThreads,
+} from '../../../../store/forum/forumSlice'
+import { topicQuantityToPage } from '../../const'
+import { getStartIndex } from '../../../../utils'
 
-export const AddTopicForm = ({ closeForm, setTopicLength,setForumPage }: AddTopicFormProps): JSX.Element => {
+export const AddTopicForm = ({
+  closeForm,
+  setTopicLength,
+  setForumPage,
+}: AddTopicFormProps): JSX.Element => {
   const dispatch = useAppDispatch()
-  const {user} = useAppSelector(state => state.user)
+  const { user } = useAppSelector(state => state.user)
+  const { theme } = useAppSelector(state => state.theme)
+  const themeColor = theme === 'darkTheme' ? '#4044ed' : '#ED40DC'
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     e.stopPropagation()
     const { topic_name, topic_description } = e.target as HTMLFormElement
-    if (topic_name.value === '' || topic_description.value === '') return
+    if (topic_name.value === '' || topic_description.value === '') {
+      return
+    }
     const data = {
       topic_name: topic_name.value,
       topic_description: topic_description.value,
@@ -25,15 +41,15 @@ export const AddTopicForm = ({ closeForm, setTopicLength,setForumPage }: AddTopi
       authorId: user!.id!,
       login: user!.login,
       avatarUrl: user!.avatar!,
-      text: data.topic_name
+      text: data.topic_name,
     })
-      .then((res) => {
+      .then(res => {
         createComment({
           authorId: user!.id!,
           login: user!.login,
           avatarUrl: user!.avatar!,
           topicId: res.id,
-          text: data.topic_description
+          text: data.topic_description,
         })
         getTopics().then(res => {
           setTopicLength(res.length)
@@ -41,11 +57,15 @@ export const AddTopicForm = ({ closeForm, setTopicLength,setForumPage }: AddTopi
       })
       .then(() => {
         const firstPage = 1
-        dispatch(getTopicsWithThreads({quantity: topicQuantityToPage * firstPage, start: getStartIndex(firstPage)}))
-        setForumPage( firstPage)
+        dispatch(
+          getTopicsWithThreads({
+            quantity: topicQuantityToPage * firstPage,
+            start: getStartIndex(firstPage),
+          })
+        )
+        setForumPage(firstPage)
       })
     closeForm()
-
   }
 
   return (
@@ -78,7 +98,13 @@ export const AddTopicForm = ({ closeForm, setTopicLength,setForumPage }: AddTopi
           type="submit"
           variant="outlined"
           size="large"
-          sx={{ mt: 5, mb: 2, width: '80%' }}>
+          sx={{
+            mt: 5,
+            mb: 2,
+            width: '80%',
+            borderColor: themeColor,
+            color: themeColor,
+          }}>
           Сохранить
         </Button>
       </form>

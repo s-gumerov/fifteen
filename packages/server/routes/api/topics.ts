@@ -13,15 +13,15 @@ router.post(createTopic.route, async (req, res) => {
     text: req.body?.text,
   })
   await newTopic.save()
-  await newTopic.reload();
+  await newTopic.reload()
   const result: createTopic.Response = {
-    id: (newTopic as Record<any, any>).id
+    id: (newTopic as Record<any, any>).id,
   }
   res.send(result)
 })
 
 router.post(getTopic.route, async (req, res) => {
-  const id = req.body?.id ?? 0;
+  const id = req.body?.id ?? 0
   const topic = await Topic.findOne({
     where: {
       id: id,
@@ -42,8 +42,8 @@ router.post(getTopic.route, async (req, res) => {
 })
 
 router.post(getTopics.route, async (req: Request, res: Response) => {
-  const quantity = req.body?.quantity ?? 0;
-  const start = req.body?.start ?? 0;
+  const quantity = req.body?.quantity ?? 0
+  const start = req.body?.start ?? 0
   const topics = await Topic.findAll({
     order: [['createdAt', 'DESC']],
   })

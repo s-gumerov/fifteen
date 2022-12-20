@@ -1,4 +1,17 @@
 @use 'colors' as *;
+@use 'mixin' as *;
+
+:root {
+  --theme: #4044ed;
+  --logoBtn: #93dfff;
+  --leaderboard_entry_background: #008000;
+  --leaderboard_entry_color: #ffffff;
+  --rules_page_background: linear-gradient(
+    179.96deg,
+    #4044ed 0.03%,
+    rgba(39, 38, 44, 0) 90.63%
+  );
+}
 
 .date {
   height: 27px;
@@ -18,4 +31,62 @@
   font-size: 18px;
   line-height: 27px;
   color: $topic_username;
+}
+
+.logoBtnTheme {
+  background: var(--logoBtn);
+  width: 76px;
+  height: 76px;
+  top: 61px;
+  border-radius: 50%;
+  position: absolute;
+  right: 414px;
+  transition: all 0.3s;
+  transform: rotate(-90deg);
+  @include flex-center($direction: 'row');
+}
+
+.background-theme {
+  background-color: var(--theme);
+}
+
+.triangles-theme {
+  border: 5em solid transparent;
+  transform: rotate(-45deg);
+  opacity: 0.5;
+  border-bottom: 10em solid var(--theme);
+}
+
+.leaderboardEntryTheme {
+  background-color: var(--leaderboard_entry_background);
+  color: var(--leaderboard_entry_color);
+}
+
+.rulesPageBackground {
+  background: var(--rules_page_background);
+}
+
+/* use theme */
+.darkTheme {
+  --theme: #4044ed;
+  --logoBtn: #93dfff;
+  --leaderboard_entry_background: #008000;
+  --leaderboard_entry_color: #ffffff;
+  --rules_page_background: linear-gradient(
+    179.96deg,
+    #4044ed 0.03%,
+    rgba(39, 38, 44, 0) 90.63%
+  );
+}
+
+.pinkTheme {
+  --theme: #ed40dc;
+  --logoBtn: #e08afe;
+  --leaderboard_entry_background: #d9fd44;
+  --leaderboard_entry_color: #fa4374;
+  --rules_page_background: linear-gradient(
+    179.96deg,
+    #e08afe 0.03%,
+    rgba(39, 38, 44, 0) 90.63%
+  );
 }
